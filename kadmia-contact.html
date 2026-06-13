@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="view-transition" content="same-origin" />
+  <script>(function(){var m=document.querySelector('meta[name="viewport"]');if(!m)return;var o=m.getAttribute('content');m.setAttribute('content','width=device-width, initial-scale=1.0, maximum-scale=1.0');requestAnimationFrame(function(){m.setAttribute('content',o);});})();</script>
+  <title>Contact | Kadmia Constructions</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@300;400;500;600&family=Barlow+Condensed:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    body { overflow-x: hidden; }
+
+    /* ── CONTACT SECTION ── */
+    .contact-section { background: var(--navy-mid); display: grid; grid-template-columns: 1fr 1fr; gap: 100px; align-items: start; padding: 100px 60px; }
+    .contact-info { display: flex; flex-direction: column; gap: 32px; }
+    .contact-info-desc { font-size: 17px; color: var(--gray-light); line-height: 1.7; margin-bottom: 8px; }
+    .contact-details { display: flex; flex-direction: column; gap: 0; }
+    .contact-item { display: flex; align-items: flex-start; gap: 20px; padding: 24px 0; border-bottom: 1px solid rgba(200,169,110,0.12); }
+    .contact-item:last-child { border-bottom: none; }
+    .contact-icon { width: 48px; height: 48px; border: 1px solid rgba(200,169,110,0.3); display: flex; align-items: center; justify-content: center; color: var(--gold); font-size: 18px; flex-shrink: 0; }
+    .contact-text-label { font-family: 'Barlow Condensed', sans-serif; font-size: 11px; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gray); margin-bottom: 6px; }
+    .contact-text-val { font-size: 16px; color: var(--white); line-height: 1.5; }
+    .contact-text-val a { color: var(--white); text-decoration: none; transition: color 0.2s; }
+    .contact-text-val a:hover { color: var(--gold-light); }
+
+    /* ── FORM ── */
+    .contact-form { display: flex; flex-direction: column; gap: 0; }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; margin-bottom: 2px; }
+    .form-group { position: relative; }
+    .form-group label { position: absolute; top: 18px; left: 20px; font-family: 'Barlow Condensed', sans-serif; font-size: 12px; font-weight: 600; letter-spacing: 0.15em; text-transform: uppercase; color: var(--gray); pointer-events: none; transition: top 0.2s, font-size 0.2s, color 0.2s; z-index: 1; }
+    .form-group input, .form-group textarea, .form-group select { width: 100%; background: var(--navy); border: none; border-bottom: 1px solid rgba(200,169,110,0.2); padding: 32px 20px 14px; color: var(--white); font-family: 'Barlow', sans-serif; font-size: 15px; font-weight: 300; outline: none; transition: border-color 0.2s; appearance: none; border-radius: 0; }
+    .form-group input:focus, .form-group textarea:focus, .form-group select:focus { border-color: var(--gold); }
+    .form-group input:focus + label, .form-group input:not(:placeholder-shown) + label, .form-group textarea:focus + label, .form-group textarea:not(:placeholder-shown) + label, .form-group.has-value label { top: 10px; font-size: 10px; color: var(--gold); }
+    .form-group textarea { resize: vertical; min-height: 130px; }
+    .form-upload { position: relative; display: flex; align-items: center; gap: 12px; padding: 12px 18px; background: var(--navy); border: 1px solid rgba(200,169,110,0.2); cursor: pointer; transition: border-color 0.2s; margin-bottom: 2px; }
+    .form-upload:hover { border-color: var(--gold); }
+    .form-upload input[type="file"] { position: absolute; inset: 0; opacity: 0; cursor: pointer; width: 100%; }
+    .form-upload-icon { color: var(--gold); font-size: 15px; flex-shrink: 0; }
+    .form-upload-text { font-family: 'Barlow Condensed', sans-serif; font-size: 12px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--gray); flex: 1; }
+    .file-list { margin-bottom: 2px; }
+    .file-item { display: flex; align-items: center; gap: 10px; padding: 9px 16px; background: var(--navy); border: 1px solid rgba(200,169,110,0.15); margin-bottom: 1px; }
+    .file-item-name { font-family: 'Barlow', sans-serif; font-size: 13px; color: var(--white); flex: 1; word-break: break-all; }
+    .file-item-size { font-family: 'Barlow Condensed', sans-serif; font-size: 11px; color: var(--gray); letter-spacing: 0.08em; flex-shrink: 0; }
+    .file-item-clear { width: 26px; height: 26px; border: 1px solid rgba(200,169,110,0.25); background: none; color: var(--gold); font-size: 12px; cursor: pointer; display: flex; align-items: center; justify-content: center; flex-shrink: 0; transition: background 0.2s, border-color 0.2s; }
+    .file-item-clear:hover { background: rgba(200,169,110,0.15); border-color: var(--gold); }
+    .form-submit { margin-top: 2px; padding: 20px 40px; background: var(--gold); border: none; color: var(--navy); font-family: 'Barlow Condensed', sans-serif; font-size: 13px; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase; cursor: pointer; transition: background 0.2s; width: 100%; }
+    .form-submit:hover, .form-submit:focus-visible { background: var(--gold-light); }
+    .form-status { margin-top: 16px; font-size: 14px; color: var(--gray-light); min-height: 20px; }
+
+    @media (max-width: 1100px) {
+      .contact-section { grid-template-columns: 1fr; gap: 60px; padding: 80px 32px; }
+    }
+    @media (max-width: 720px) {
+      .contact-section { padding: 64px 20px; gap: 48px; }
+      .form-row { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav id="nav" aria-label="Primary">
+    <a href="kadmia.html" class="nav-logo">KADMIA<span>.</span></a>
+    <ul class="nav-links">
+      <li><a href="kadmia.html">Home</a></li>
+      <li><a href="kadmia-services.html">Services</a></li>
+      <li><a href="kadmia-projects.html">Projects</a></li>
+      <li><a href="kadmia-process.html">Process</a></li>
+      <li><a href="estimator.html">Calculator</a></li>
+      <li><a href="kadmia-contact.html" class="active">Contact</a></li>
+    </ul>
+    <div class="nav-actions">
+      <a href="#contactForm" class="nav-cta">Get a Quote</a>
+      <button class="nav-toggle" id="navToggle" type="button" aria-expanded="false" aria-controls="mobileMenu" aria-label="Open menu"><span></span></button>
+    </div>
+  </nav>
+
+  <div class="mobile-menu" id="mobileMenu">
+    <ul>
+      <li><a href="kadmia.html">Home</a></li>
+      <li><a href="kadmia-services.html">Services</a></li>
+      <li><a href="kadmia-projects.html">Projects</a></li>
+      <li><a href="kadmia-process.html">Process</a></li>
+      <li><a href="estimator.html">Calculator</a></li>
+      <li><a href="kadmia-contact.html">Contact</a></li>
+    </ul>
+  </div>
+
+  <header class="page-header">
+    <div class="page-header-inner">
+      <div class="page-header-eyebrow">Get in touch</div>
+      <h1>Start Your <span>Project</span></h1>
+      <p class="page-header-sub">Your project deserves the right builder. Whether you have plans ready or you're just exploring ideas, we're here to help.</p>
+    </div>
+  </header>
+
+  <section class="contact-section">
+    <div class="contact-info">
+      <div>
+        <div class="section-eyebrow">Contact details</div>
+        <h2 class="section-title" style="font-size:clamp(40px,5vw,64px);">We're Here <span>to Help</span></h2>
+        <p class="contact-info-desc">Reach out by phone, email, or fill in the form — we'll get back to you within one business day.</p>
+      </div>
+      <div class="contact-details">
+        <div class="contact-item">
+          <div class="contact-icon">&#9993;</div>
+          <div><div class="contact-text-label">Email</div><div class="contact-text-val"><a href="mailto:info@kadmia.com.au">info@kadmia.com.au</a></div></div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-icon">&#9743;</div>
+          <div><div class="contact-text-label">Phone</div><div class="contact-text-val">0400 000 000</div></div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-icon">&#9678;</div>
+          <div><div class="contact-text-label">Service Area</div><div class="contact-text-val">Greater Sydney Region — Inner West, Eastern Suburbs, North Shore, Sutherland Shire, Western Sydney, Hills District, South Western Sydney &amp; Central Coast</div></div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-icon">&#9209;</div>
+          <div><div class="contact-text-label">Business Hours</div><div class="contact-text-val">Monday – Friday 7:00am – 5:00pm<br>Saturday by appointment</div></div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-icon">#</div>
+          <div><div class="contact-text-label">Registrations</div><div class="contact-text-val">ABN 31 686 498 519<br>Licence No. 000000</div></div>
+        </div>
+      </div>
+    </div>
+
+    <form class="contact-form" id="contactForm" action="#" method="post" enctype="multipart/form-data" novalidate>
+      <div class="form-row">
+        <div class="form-group"><input type="text" id="fname" name="firstName" placeholder=" " autocomplete="given-name" required><label for="fname">First name</label></div>
+        <div class="form-group"><input type="text" id="lname" name="lastName" placeholder=" " autocomplete="family-name" required><label for="lname">Last name</label></div>
+      </div>
+      <div class="form-row">
+        <div class="form-group"><input type="email" id="email" name="email" placeholder=" " autocomplete="email" inputmode="email" required><label for="email">Email address</label></div>
+        <div class="form-group"><input type="tel" id="phone" name="phone" placeholder=" " autocomplete="tel" inputmode="tel" required><label for="phone">Phone number</label></div>
+      </div>
+      <div class="form-group" style="margin-bottom:2px;">
+        <select id="service" name="service" required><option value="" selected disabled></option><option>Knock Down Re-Build</option><option>Custom Home or Granny Flat</option><option>Duplex or Multi-Occupancy</option><option>Consultancy &amp; Project Management</option><option>Not sure yet</option></select>
+        <label for="service">Service type</label>
+      </div>
+      <div class="form-group" style="margin-bottom:2px;">
+        <textarea id="message" name="message" placeholder=" " required></textarea>
+        <label for="message">Tell us about your project</label>
+      </div>
+      <label class="form-upload" for="upload">
+        <span class="form-upload-icon">&#8599;</span>
+        <span class="form-upload-text" id="fileText">Attach Plans or Briefs (PDF, DOC, Images)</span>
+        <input type="file" id="upload" name="upload" multiple accept=".pdf,.doc,.docx,.jpg,.jpeg,.png,.dwg">
+      </label>
+      <div class="file-list" id="fileList"></div>
+      <button class="form-submit" type="submit">Send Enquiry &rarr;</button>
+      <p class="form-status" id="formStatus" aria-live="polite"></p>
+    </form>
+  </section>
+
+  <footer>
+    <div class="footer-top">
+      <div class="footer-brand">
+        <a href="kadmia.html" class="footer-logo">KADMIA<span>.</span></a>
+        <p class="footer-tagline">Bespoke custom homes and construction solutions across the Greater Sydney Region. Built to last. Built for you.</p>
+      </div>
+      <div class="footer-links-group">
+        <div class="footer-col">
+          <div class="footer-col-title">Services</div>
+          <a href="kadmia-services.html">Knock Down Re-Build</a>
+          <a href="kadmia-services.html">Custom Homes &amp; Granny Flats</a>
+          <a href="kadmia-services.html">Consultancy</a>
+          <a href="kadmia-services.html">Duplexes &amp; Multi-Occupancy</a>
+        </div>
+        <div class="footer-col">
+          <div class="footer-col-title">Company</div>
+          <a href="kadmia-projects.html">Projects</a>
+          <a href="kadmia-process.html">Our Process</a>
+          <a href="estimator.html">Cost Calculator</a>
+          <a href="kadmia-contact.html">Contact</a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div class="footer-legal">&copy; 2025 Kadmia Constructions Pty Ltd. All rights reserved.</div>
+      <div class="footer-reg">ABN 31 686 498 519 &middot; ASIC 686 498 519</div>
+    </div>
+  </footer>
+
+  <script src="site.js"></script>
+  <script>
+    /* ── FORM ── */
+    document.querySelectorAll('.form-group select').forEach(function(sel){
+      var g = sel.closest('.form-group');
+      var sync = function(){ g.classList.toggle('has-value', !!sel.value); };
+      sel.addEventListener('change', sync); sel.addEventListener('blur', sync); sync();
+    });
+
+    var fileInput = document.getElementById('upload');
+    var fileList = document.getElementById('fileList');
+    var selectedFiles = [];
+
+    function formatSize(bytes){
+      if (bytes < 1024) return bytes + ' B';
+      if (bytes < 1048576) return (bytes / 1024).toFixed(1) + ' KB';
+      return (bytes / 1048576).toFixed(1) + ' MB';
+    }
+
+    function renderFiles(){
+      fileList.innerHTML = '';
+      selectedFiles.forEach(function(file, i){
+        var item = document.createElement('div');
+        item.className = 'file-item';
+        item.innerHTML = '<span class="file-item-name">&#128206; ' + file.name + '</span><span class="file-item-size">' + formatSize(file.size) + '</span><button type="button" class="file-item-clear" data-index="' + i + '" aria-label="Remove">&times;</button>';
+        fileList.appendChild(item);
+      });
+      fileList.querySelectorAll('.file-item-clear').forEach(function(btn){
+        btn.addEventListener('click', function(e){
+          e.stopPropagation(); e.preventDefault();
+          selectedFiles.splice(parseInt(btn.dataset.index, 10), 1);
+          renderFiles();
+          if (selectedFiles.length === 0) fileInput.value = '';
+        });
+      });
+    }
+
+    fileInput.addEventListener('change', function(){
+      Array.from(fileInput.files).forEach(function(f){ selectedFiles.push(f); });
+      renderFiles(); fileInput.value = '';
+    });
+
+    var contactForm = document.getElementById('contactForm');
+    var formStatus = document.getElementById('formStatus');
+    contactForm.addEventListener('submit', function(e){
+      e.preventDefault();
+      if (!contactForm.checkValidity()) { formStatus.textContent = 'Please complete all required fields.'; contactForm.reportValidity(); return; }
+      formStatus.textContent = 'Thanks — your enquiry is ready. Connect this form to a backend to receive submissions.';
+      contactForm.reset();
+      document.querySelectorAll('.form-group').forEach(function(g){ g.classList.remove('has-value'); });
+      selectedFiles = []; renderFiles(); fileInput.value = '';
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,14 @@
+# Photos — too large for GitHub, upload separately
+*.jpg
+*.jpeg
+*.png
+
+# Data files
+*.csv
+
+# Backup files
+*.bak
+
+# OS files
+.DS_Store
+Thumbs.db

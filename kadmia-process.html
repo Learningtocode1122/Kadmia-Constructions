@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="view-transition" content="same-origin" />
+  <script>(function(){var m=document.querySelector('meta[name="viewport"]');if(!m)return;var o=m.getAttribute('content');m.setAttribute('content','width=device-width, initial-scale=1.0, maximum-scale=1.0');requestAnimationFrame(function(){m.setAttribute('content',o);});})();</script>
+  <title>Our Process | Kadmia Constructions</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@300;400;500;600&family=Barlow+Condensed:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    body { overflow-x: hidden; }
+    section { padding: 120px 60px; }
+
+    /* ── PROCESS TIMELINE ── */
+    .process-list { max-width: 900px; margin: 0 auto; position: relative; }
+    .process-list::before { content: ''; position: absolute; top: 0; bottom: 0; left: 39px; width: 1px; background: linear-gradient(to bottom, var(--gold) 0%, var(--gold) 85%, transparent); opacity: 0.35; }
+    .process-step-block { display: flex; gap: 40px; margin-bottom: 100px; position: relative; }
+    .process-step-block:last-child { margin-bottom: 0; }
+    .process-step-num { width: 80px; height: 80px; border: 1px solid var(--gold); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-family: 'Bebas Neue', sans-serif; font-size: 28px; color: var(--gold); background: var(--navy); flex-shrink: 0; position: relative; z-index: 1; transition: background 0.3s, color 0.3s; }
+    .process-step-block:hover .process-step-num { background: var(--gold); color: var(--navy); }
+    .process-step-body { padding-top: 14px; }
+    .process-step-label { font-family: 'Barlow Condensed', sans-serif; font-size: 14px; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); margin-bottom: 12px; }
+    .process-step-title { font-family: 'Bebas Neue', sans-serif; font-size: 42px; letter-spacing: 0.04em; color: var(--white); line-height: 1; margin-bottom: 20px; }
+    .process-step-desc { font-size: 17px; line-height: 1.8; color: var(--gray-light); margin-bottom: 28px; max-width: 620px; }
+    .process-step-details { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+    .process-detail-card { background: var(--navy-mid); border: 1px solid rgba(200,169,110,0.12); padding: 20px 24px; transition: border-color 0.25s; }
+    .process-detail-card:hover { border-color: rgba(200,169,110,0.35); }
+    .process-detail-card-title { font-family: 'Barlow Condensed', sans-serif; font-size: 12px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--gold); margin-bottom: 8px; }
+    .process-detail-card-text { font-size: 14px; line-height: 1.65; color: var(--gray-light); }
+
+    /* ── CTA BANNER ── */
+    .cta-banner { background: var(--navy-mid); text-align: center; padding: 100px 60px; border-top: 1px solid rgba(200,169,110,0.12); }
+    .cta-banner .section-eyebrow { justify-content: center; }
+    .cta-banner .section-title { margin-bottom: 24px; }
+    .cta-banner p { font-size: 17px; color: var(--gray-light); max-width: 560px; margin: 0 auto 36px; line-height: 1.7; }
+
+    @media (max-width: 1100px) {
+      section { padding: 80px 32px; }
+      .process-step-block { gap: 24px; }
+      .process-step-num { width: 60px; height: 60px; font-size: 22px; }
+      .process-list::before { left: 29px; }
+      .process-step-title { font-size: 34px; }
+      .cta-banner { padding: 80px 32px; }
+    }
+    @media (max-width: 720px) {
+      section { padding: 72px 20px; }
+      .process-list::before { left: 22px; }
+      .process-step-block { gap: 18px; margin-bottom: 72px; }
+      .process-step-num { width: 48px; height: 48px; font-size: 18px; }
+      .process-step-title { font-size: 28px; }
+      .process-step-details { grid-template-columns: 1fr; }
+      .process-step-desc { font-size: 15px; }
+      .cta-banner { padding: 64px 20px; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav id="nav" aria-label="Primary">
+    <a href="kadmia.html" class="nav-logo">KADMIA<span>.</span></a>
+    <ul class="nav-links">
+      <li><a href="kadmia.html">Home</a></li>
+      <li><a href="kadmia-services.html">Services</a></li>
+      <li><a href="kadmia-projects.html">Projects</a></li>
+      <li><a href="kadmia-process.html" class="active">Process</a></li>
+      <li><a href="estimator.html">Calculator</a></li>
+      <li><a href="kadmia-contact.html">Contact</a></li>
+    </ul>
+    <div class="nav-actions">
+      <a href="kadmia-contact.html" class="nav-cta">Get a Quote</a>
+      <button class="nav-toggle" id="navToggle" type="button" aria-expanded="false" aria-controls="mobileMenu" aria-label="Open menu"><span></span></button>
+    </div>
+  </nav>
+
+  <div class="mobile-menu" id="mobileMenu">
+    <ul>
+      <li><a href="kadmia.html">Home</a></li>
+      <li><a href="kadmia-services.html">Services</a></li>
+      <li><a href="kadmia-projects.html">Projects</a></li>
+      <li><a href="kadmia-process.html">Process</a></li>
+      <li><a href="estimator.html">Calculator</a></li>
+      <li><a href="kadmia-contact.html">Contact</a></li>
+    </ul>
+  </div>
+
+  <header class="page-header">
+    <div class="page-header-inner">
+      <div class="page-header-eyebrow">How we work</div>
+      <h1>Our <span>Process</span></h1>
+      <p class="page-header-sub">Every project follows a proven five-stage methodology — from your first enquiry through to the moment we hand you the keys. No shortcuts, no surprises.</p>
+    </div>
+  </header>
+
+  <section style="background:var(--navy);">
+    <div class="process-list">
+
+      <div class="process-step-block">
+        <div class="process-step-num">01</div>
+        <div class="process-step-body">
+          <div class="process-step-label">Stage One</div>
+          <div class="process-step-title">Consultation</div>
+          <p class="process-step-desc">Every great home starts with a conversation. We sit down with you — on site or at your preferred location — to understand your vision, lifestyle, budget, and timeline before a single drawing is commissioned.</p>
+          <div class="process-step-details">
+            <div class="process-detail-card"><div class="process-detail-card-title">Initial meeting</div><div class="process-detail-card-text">Free, no-obligation consultation at your property or via video call. We discuss your goals, must-haves, and deal-breakers.</div></div>
+            <div class="process-detail-card"><div class="process-detail-card-title">Site assessment</div><div class="process-detail-card-text">We inspect your site for access, orientation, slope, trees, easements, and any visible constraints that could affect design or cost.</div></div>
+            <div class="process-detail-card"><div class="process-detail-card-title">Budget alignment</div><div class="process-detail-card-text">Honest, transparent discussion about what's achievable within your budget. We'll tell you if something won't work — and what will.</div></div>
+            <div class="process-detail-card"><div class="process-detail-card-title">Brief preparation</div><div class="process-detail-card-text">We compile a detailed project brief capturing every requirement — number of rooms, style preferences, must-have features, and your long-term plans.</div></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="process-step-block">
+        <div class="process-step-num">02</div>
+        <div class="process-step-body">
+          <div class="process-step-label">Stage Two</div>
+          <div class="process-step-title">Design &amp; Planning</div>
+          <p class="process-step-desc">With your brief locked in, our architects and designers translate your vision into concrete plans that look good on paper and work perfectly on site.</p>
+          <div class="process-step-details">
+            <div class="process-detail-card"><div class="process-detail-card-title">Concept designs</div><div class="process-detail-card-text">Initial floor plans and elevations exploring layout options, room relationships, and site placement. You review and refine until it feels right.</div></div>
+            <div class="process-detail-card"><div class="process-detail-card-title">Material selections</div><div class="process-detail-card-text">Guided selection of bricks, cladding, roofing, windows, joinery finishes, tapware, tiles, and flooring — all documented for consistency.</div></div>
+            <div class="process-detail-card"><div class="process-detail-card-title">Engineering</div><div class="process-detail-card-text">Structural, hydraulic, and civil engineering to ensure your home is safe, compliant, and designed to withstand Australian conditions.</div></div>
+            <div class="process-detail-card"><div class="process-detail-card-title">Cost planning</div><div class="process-detail-card-text">Detailed cost estimates prepared as the design evolves — so there are no surprises when it comes time to build.</div></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="process-step-block">
+        <div class="process-step-num">03</div>
+        <div class="process-step-body">
+          <div class="process-step-label">Stage Three</div>
+          <div class="process-step-title">Approvals</div>
+          <p class="process-step-desc">Navigating approvals is one of the most stressful parts of any build — but not when you work with us. We manage the entire process, determining whether your project qualifies for a faster Complying Development Certificate (CDC) or requires a full Development Application (DA).</p>
+          <div class="process-step-details">
+            <div class="process-detail-card"><div class="process-detail-card-title">DA or CDC approval</div><div class="process-detail-card-text">We assess your project against local planning controls to determine the best pathway — a faster CDC through a private certifier, or a full DA through council with all required documentation.</div></div>
+            <div class="process-detail-card"><div class="process-detail-card-title">Construction certificate</div><div class="process-detail-card-text">Once DA is approved, we obtain the CC — detailed construction plans, engineering certification, and compliance with the Building Code of Australia.</div></div>
+            <div class="process-detail-card"><div class="process-detail-card-title">Private certifier liaison</div><div class="process-detail-card-text">We engage accredited private certifiers for faster turnaround — handling inspections, critical stage checks, and the final occupation certificate.</div></div>
+            <div class="process-detail-card"><div class="process-detail-card-title">Utility connections</div><div class="process-detail-card-text">Arranging new connections or disconnections for water, electricity, gas, and telecommunications — coordinated so there are no delays on site.</div></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="process-step-block">
+        <div class="process-step-num">04</div>
+        <div class="process-step-body">
+          <div class="process-step-label">Stage Four</div>
+          <div class="process-step-title">Construction</div>
+          <p class="process-step-desc">This is where it all comes together. Our experienced site team manages every trade, every delivery, and every inspection. You'll receive regular updates — photos, progress reports, and site walks.</p>
+          <div class="process-step-details">
+            <div class="process-detail-card"><div class="process-detail-card-title">Site establishment</div><div class="process-detail-card-text">Fencing, amenities, site cut, and set-out — the first physical steps on your land, executed with precision from day one.</div></div>
+            <div class="process-detail-card"><div class="process-detail-card-title">Slab &amp; structure</div><div class="process-detail-card-text">Engineered concrete slab, timber or steel frame, roof trusses, and brickwork — the skeleton of your home, built to last decades.</div></div>
+            <div class="process-detail-card"><div class="process-detail-card-title">Lock-up &amp; rough-in</div><div class="process-detail-card-text">Windows, doors, roofing, electrical rough-in, plumbing rough-in, insulation, and plasterboard — your home takes shape, room by room.</div></div>
+            <div class="process-detail-card"><div class="process-detail-card-title">Fit-out &amp; finishes</div><div class="process-detail-card-text">Joinery, tiling, painting, flooring, tapware, appliances, lighting — the finishing touches that transform a house into your home.</div></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="process-step-block">
+        <div class="process-step-num">05</div>
+        <div class="process-step-body">
+          <div class="process-step-label">Stage Five</div>
+          <div class="process-step-title">Handover</div>
+          <p class="process-step-desc">The moment you've been waiting for. We walk you through your completed home, room by room, explaining every system, switch, and appliance. Nothing is signed off until you're completely satisfied.</p>
+          <div class="process-step-details">
+            <div class="process-detail-card"><div class="process-detail-card-title">Quality inspection</div><div class="process-detail-card-text">Thorough internal defect inspection completed before you see the home — we identify and rectify issues before handover, not after.</div></div>
+            <div class="process-detail-card"><div class="process-detail-card-title">Client walk-through</div><div class="process-detail-card-text">Guided tour of your entire home — we explain every system, demonstrate all appliances, and note any final adjustments you'd like made.</div></div>
+            <div class="process-detail-card"><div class="process-detail-card-title">Documentation pack</div><div class="process-detail-card-text">You receive a complete handover pack — warranties, appliance manuals, maintenance schedules, paint codes, and tile batch numbers for future reference.</div></div>
+            <div class="process-detail-card"><div class="process-detail-card-title">90-day follow-up</div><div class="process-detail-card-text">We check in three months after handover to ensure everything is performing as it should. Any minor settling adjustments are handled promptly.</div></div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <div class="cta-banner">
+    <div class="section-eyebrow">Ready to begin?</div>
+    <h2 class="section-title">Let's <span>Get Started</span></h2>
+    <p>Your project starts with a conversation. Whether you have plans ready or you're still exploring ideas, we're here to guide you through every step.</p>
+    <a href="kadmia-contact.html" class="btn-primary">Start Your Project</a>
+  </div>
+
+  <footer>
+    <div class="footer-top">
+      <div class="footer-brand">
+        <a href="kadmia.html" class="footer-logo">KADMIA<span>.</span></a>
+        <p class="footer-tagline">Bespoke custom homes and construction solutions across the Greater Sydney Region. Built to last. Built for you.</p>
+      </div>
+      <div class="footer-links-group">
+        <div class="footer-col">
+          <div class="footer-col-title">Services</div>
+          <a href="kadmia-services.html#knockdown">Knock Down Re-Build</a>
+          <a href="kadmia-services.html#custom">Custom Homes &amp; Granny Flats</a>
+          <a href="kadmia-services.html#consultancy">Consultancy</a>
+          <a href="kadmia-services.html#duplex">Duplexes &amp; Multi-Occupancy</a>
+        </div>
+        <div class="footer-col">
+          <div class="footer-col-title">Company</div>
+          <a href="kadmia-projects.html">Projects</a>
+          <a href="kadmia-process.html">Our Process</a>
+          <a href="estimator.html">Cost Calculator</a>
+          <a href="kadmia-contact.html">Contact</a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div class="footer-legal">&copy; 2025 Kadmia Constructions Pty Ltd. All rights reserved.</div>
+      <div class="footer-reg">ABN 31 686 498 519 &middot; ASIC 686 498 519</div>
+    </div>
+  </footer>
+
+  <script src="site.js"></script>
+</body>
+</html>
