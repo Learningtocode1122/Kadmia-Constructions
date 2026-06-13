@@ -236,20 +236,32 @@
       <p class="pr-desc">A spectacular custom home featuring a dramatic floating marble staircase with LED under-lighting, grand chandelier living room with circular ceiling feature, and a bespoke fluted-panel kitchen with brass tapware and marble benchtops. The seamless indoor-outdoor flow leads to a covered alfresco with outdoor kitchen, lush lawn, and a sparkling pool — an entertainer's dream delivered to the highest standard.</p>
     </div>
 
-    <!-- PROJECT 3 — CURRENT PROJECT 01 -->
-    <div class="project-row" id="current1">
+    <!-- PROJECT 3 — MARLBOROUGH STREET -->
+    <div class="project-row" id="marlborough">
       <div class="pr-header">
-        <div><div class="pr-num">Project 03</div><div class="pr-title">Current Project</div></div>
+        <div><div class="pr-num">Project 03</div><div class="pr-title">Marlborough Street</div></div>
         <div class="pr-meta">
           <div class="pr-meta-item">Location <span>Sydney, NSW</span></div>
           <div class="pr-meta-item">Type <span>Custom Home</span></div>
           <div class="pr-meta-item">Status <span style="color:var(--gold);">In Progress</span></div>
         </div>
       </div>
-      <div style="background:var(--navy-mid);border:1px solid rgba(200,169,110,0.15);padding:80px 40px;text-align:center;">
-        <div style="font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:0.15em;color:var(--gold);border:1px solid rgba(200,169,110,0.35);display:inline-block;padding:16px 36px;">In Progress</div>
-        <p style="margin-top:24px;font-size:15px;color:var(--gray);max-width:480px;margin-left:auto;margin-right:auto;line-height:1.7;">This project is currently under construction. Photos and details will be added as the build progresses. Enquire now to arrange a site visit.</p>
+      <div class="pr-carousel" data-project="marlborough">
+        <div class="pr-track-wrap">
+          <div class="pr-track">
+            <div class="pr-photo" style="background-image:url('Marlborough Render.jpg')" data-idx="0" role="button" tabindex="0" aria-label="View photo 1"></div>
+          </div>
+        </div>
+        <div class="pr-controls">
+          <div class="pr-dots"></div>
+          <div class="pr-counter"><b>1</b> / 1</div>
+          <div class="pr-arrows">
+            <button class="pr-arrow pr-prev" aria-label="Previous photos" disabled>&#8592;</button>
+            <button class="pr-arrow pr-next" aria-label="Next photos" disabled>&#8594;</button>
+          </div>
+        </div>
       </div>
+      <p class="pr-desc">A custom home currently under construction in Sydney. Featuring striking modern architecture with a refined facade and thoughtfully planned interiors. Photos and full project details will be added as the build progresses — enquire now to arrange a site visit.</p>
     </div>
 
     <!-- PROJECT 4 — CURRENT PROJECT 02 -->
@@ -307,6 +319,9 @@
         { src: 'Print-Me-11.jpg', caption: 'Bedroom 2' }, { src: 'Print-Me-12.jpg', caption: 'Bedroom 3' },
         { src: 'Print-Me-13.jpg', caption: 'Main Bathroom' }, { src: 'Print-Me-14.jpg', caption: 'Bedroom 4' },
         { src: 'Print-Me-15.jpg', caption: 'Bathroom 2' }, { src: 'Print-Me-16.jpg', caption: 'Laundry' }
+      ]},
+      marlborough: { name: 'Marlborough Street', eyebrow: 'Sydney, NSW · Custom Home', images: [
+        { src: 'Marlborough Render.jpg', caption: 'Exterior Render' }
       ]},
       smart: { name: 'Smart Street', eyebrow: 'Sydney, NSW · Custom Home', images: [
         { src: 'Web-01.jpg', caption: 'Rear Exterior & Pool' }, { src: 'Web-02.jpg', caption: 'Front Exterior' },
@@ -462,7 +477,7 @@
     /* ── SCROLL TO PROJECT FROM HASH ── */
     (function(){
       var hash = window.location.hash;
-      if (hash === '#linda' || hash === '#smart' || hash === '#current1' || hash === '#current2'){
+      if (hash === '#linda' || hash === '#smart' || hash === '#marlborough' || hash === '#current2'){
         var el = document.querySelector(hash);
         if (el) setTimeout(function(){ el.scrollIntoView({ behavior: 'smooth', block: 'start' }); }, 300);
       }
