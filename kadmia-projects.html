@@ -16,6 +16,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@300;400;500;600&family=Barlow+Condensed:wght@400;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
   <style>
     body { overflow-x: hidden; }
 
@@ -117,7 +118,7 @@
 <body>
 
   <nav id="nav" aria-label="Primary">
-    <a href="kadmia.html" class="nav-logo">KADMIA<span>.</span></a>
+    <a href="kadmia.html" class="nav-logo"><img src="kadmia-logo.svg" alt="Kadmia Constructions" height="44" style="display:block"></a>
     <ul class="nav-links">
       <li><a href="kadmia.html">Home</a></li>
       <li><a href="kadmia-services.html">Services</a></li>
@@ -268,22 +269,6 @@
         </div>
       </div>
       <p class="pr-desc">A custom home currently under construction in Sydney. Featuring striking modern architecture with a refined facade and thoughtfully planned interiors. Photos and full project details will be added as the build progresses — enquire now to arrange a site visit.</p>
-    </div>
-
-    <!-- PROJECT 4 — CURRENT PROJECT 02 -->
-    <div class="project-row" id="current2">
-      <div class="pr-header">
-        <div><div class="pr-num">Project 04</div><div class="pr-title">Current Project</div></div>
-        <div class="pr-meta">
-          <div class="pr-meta-item">Location <span>Sydney, NSW</span></div>
-          <div class="pr-meta-item">Type <span>Custom Home</span></div>
-          <div class="pr-meta-item">Status <span style="color:var(--gold);">In Progress</span></div>
-        </div>
-      </div>
-      <div style="background:var(--navy-mid);border:1px solid rgba(200,169,110,0.15);padding:80px 40px;text-align:center;">
-        <div style="font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:0.15em;color:var(--gold);border:1px solid rgba(200,169,110,0.35);display:inline-block;padding:16px 36px;">In Progress</div>
-        <p style="margin-top:24px;font-size:15px;color:var(--gray);max-width:480px;margin-left:auto;margin-right:auto;line-height:1.7;">This project is currently under construction. Photos and details will be added as the build progresses. Enquire now to arrange a site visit.</p>
-      </div>
     </div>
 
   </div>
@@ -483,7 +468,7 @@
     /* ── SCROLL TO PROJECT FROM HASH ── */
     (function(){
       var hash = window.location.hash;
-      if (hash === '#linda' || hash === '#smart' || hash === '#marlborough' || hash === '#current2'){
+      if (hash === '#linda' || hash === '#smart' || hash === '#marlborough'){
         var el = document.querySelector(hash);
         if (el) setTimeout(function(){ el.scrollIntoView({ behavior: 'smooth', block: 'start' }); }, 300);
       }
