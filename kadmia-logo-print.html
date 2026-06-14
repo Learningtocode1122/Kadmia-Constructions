@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Kadmia — Logo</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow+Condensed:wght@600&display=swap');
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { background: white; display: flex; flex-direction: column; align-items: center; padding: 60px; gap: 80px; }
+    .page { width: 1080px; padding: 80px 60px; display: flex; flex-direction: column; align-items: center; }
+
+    /* ── Page 1: Full logo on white ── */
+    .logo-light { background: white; }
+    .logo-light svg text { fill: #0a1628; }
+
+    /* ── Page 2: Full logo on navy ── */
+    .logo-dark { background: #0a1628; border-radius: 4px; }
+    .logo-dark svg text { fill: #f5f2ed; }
+
+  </style>
+</head>
+<body>
+
+  <!-- Page 1: Light background, for letterheads / invoices -->
+  <div class="page logo-light">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 160" width="600" height="160">
+      <text x="300" y="72" text-anchor="middle" font-family="'Bebas Neue','Arial Black',sans-serif" font-size="72" font-weight="bold" letter-spacing="8" fill="#0a1628">KADMIA.</text>
+      <text x="300" y="112" text-anchor="middle" font-family="'Barlow Condensed','Arial',sans-serif" font-size="18" font-weight="600" letter-spacing="14" fill="#b8983a">CONSTRUCTIONS</text>
+    </svg>
+  </div>
+
+  <!-- Page 2: Dark background, for website / presentations -->
+  <div class="page logo-dark">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 160" width="600" height="160">
+      <text x="300" y="72" text-anchor="middle" font-family="'Bebas Neue','Arial Black',sans-serif" font-size="72" font-weight="bold" letter-spacing="8" fill="#f5f2ed">KADMIA.</text>
+      <text x="300" y="112" text-anchor="middle" font-family="'Barlow Condensed','Arial',sans-serif" font-size="18" font-weight="600" letter-spacing="14" fill="#c8a96e">CONSTRUCTIONS</text>
+    </svg>
+  </div>
+
+</body>
+</html>
