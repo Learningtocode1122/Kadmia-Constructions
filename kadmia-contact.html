@@ -209,7 +209,7 @@
 
     var fileInput = document.getElementById('upload');
     var fileList = document.getElementById('fileList');
-    var selectedFiles = [];
+    var fileText = document.getElementById('fileText');
 
     function formatSize(bytes){
       if (bytes < 1024) return bytes + ' B';
@@ -219,25 +219,18 @@
 
     function renderFiles(){
       fileList.innerHTML = '';
-      selectedFiles.forEach(function(file, i){
+      if (fileInput.files.length === 0) { fileText.textContent = 'Attach Plans or Briefs (PDF, DOC, Images)'; return; }
+      fileText.textContent = fileInput.files.length + ' file(s) attached';
+      Array.from(fileInput.files).forEach(function(file, i){
         var item = document.createElement('div');
         item.className = 'file-item';
-        item.innerHTML = '<span class="file-item-name">&#128206; ' + file.name + '</span><span class="file-item-size">' + formatSize(file.size) + '</span><button type="button" class="file-item-clear" data-index="' + i + '" aria-label="Remove">&times;</button>';
+        item.innerHTML = '<span class="file-item-name">&#128206; ' + file.name + '</span><span class="file-item-size">' + formatSize(file.size) + '</span>';
         fileList.appendChild(item);
-      });
-      fileList.querySelectorAll('.file-item-clear').forEach(function(btn){
-        btn.addEventListener('click', function(e){
-          e.stopPropagation(); e.preventDefault();
-          selectedFiles.splice(parseInt(btn.dataset.index, 10), 1);
-          renderFiles();
-          if (selectedFiles.length === 0) fileInput.value = '';
-        });
       });
     }
 
     fileInput.addEventListener('change', function(){
-      Array.from(fileInput.files).forEach(function(f){ selectedFiles.push(f); });
-      renderFiles(); fileInput.value = '';
+      renderFiles();
     });
 
     var contactForm = document.getElementById('contactForm');
@@ -247,6 +240,7 @@
     if (window.location.search.indexOf('sent=1') > -1) {
       formStatus.innerHTML = '<span style="display:flex;align-items:center;gap:12px;background:rgba(200,169,110,0.1);border:1px solid rgba(200,169,110,0.3);padding:20px 24px;">&#10003; Thanks — your enquiry has been sent. We\'ll get back to you within one business day.</span>';
       formStatus.style.color = '#c8a96e';
+      fileInput.value = ''; renderFiles();
       window.history.replaceState({}, document.title, window.location.pathname);
     }
 
