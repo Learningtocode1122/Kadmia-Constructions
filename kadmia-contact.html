@@ -9,6 +9,9 @@
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://kadmia-constructions-ffiw.vercel.app/kadmia-contact.html" />
   <meta name="twitter:card" content="summary_large_image" />
+  <meta property="og:image" content="https://www.kadmia.com.au/Print-Me-1.jpg" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
   <meta name="view-transition" content="same-origin" />
   <script>(function(){var m=document.querySelector('meta[name="viewport"]');if(!m)return;var o=m.getAttribute('content');m.setAttribute('content','width=device-width, initial-scale=1.0, maximum-scale=1.0');requestAnimationFrame(function(){m.setAttribute('content',o);});})();</script>
   <title>Contact | Kadmia Constructions</title>
@@ -117,7 +120,7 @@
         </div>
         <div class="contact-item">
           <div class="contact-icon">&#9743;</div>
-          <div><div class="contact-text-label">Phone</div><div class="contact-text-val">0478 575 251</div></div>
+          <div><div class="contact-text-label">Phone</div><div class="contact-text-val"><a href="tel:0478575251">0478 575 251</a></div></div>
         </div>
         <div class="contact-item">
           <div class="contact-icon">&#9678;</div>
@@ -190,7 +193,7 @@
       </div>
     </div>
     <div class="footer-bottom">
-      <div class="footer-legal">&copy; 2025 Kadmia Constructions Pty Ltd. All rights reserved.</div>
+      <div class="footer-legal">&copy; 2026 Kadmia Constructions Pty Ltd. All rights reserved.</div>
       <div class="footer-reg">ABN 31 686 498 519 &middot; ASIC 686 498 519</div>
     </div>
   </footer>
@@ -242,7 +245,7 @@
 
     // Show success message if redirected back after submission
     if (window.location.search.indexOf('sent=1') > -1) {
-      formStatus.textContent = 'Thanks — your enquiry has been sent. We\'ll get back to you within one business day.';
+      formStatus.innerHTML = '<span style="display:flex;align-items:center;gap:12px;background:rgba(200,169,110,0.1);border:1px solid rgba(200,169,110,0.3);padding:20px 24px;">&#10003; Thanks — your enquiry has been sent. We\'ll get back to you within one business day.</span>';
       formStatus.style.color = '#c8a96e';
       window.history.replaceState({}, document.title, window.location.pathname);
     }
