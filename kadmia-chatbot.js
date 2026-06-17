@@ -42,11 +42,11 @@
     },
     licence: {
       keywords: ['licence', 'license', 'insured', 'insurance', 'qualified', 'registered', 'certified', 'legit', 'legitimate', 'abn'],
-      response: "Kadmia Constructions is fully licensed and insured:\n\n• Licensed Builder — NSW Fair Trading\n• Public Liability Insurance\n• Home Warranty Insurance\n• ABN: 31 686 498 519\n\nAll work complies with the National Construction Code and Australian Standards."
+      response: "We're fully licensed and insured:\n\n• Licensed Builder — NSW Fair Trading\n• Public Liability Insurance\n• Home Warranty Insurance\n• ABN: 31 686 498 519\n\nAll work complies with the National Construction Code and Australian Standards."
     },
     quote: {
       keywords: ['quote', 'quotation', 'get started', 'start', 'build', 'building', 'interested', 'want to', 'looking to', 'how do i', 'next step', 'free consultation', 'consultation', 'site visit', 'meeting', 'discuss'],
-      response: "I'd love to arrange a free consultation for you. Let me grab a few details and Kadmia will get back to you within one business day."
+      response: "I'd love to arrange a free consultation for you. Let me grab a few details and we'll get back to you within one business day."
     }
   };
 
@@ -68,7 +68,7 @@
       </div>\
       <div class="kcb-body" id="kcb-body">\
         <div class="kcb-msg kcb-msg-bot">\
-          Hi! I\'m here to help with any questions about Kadmia Constructions. Ask me about pricing, services, timelines — or request a free quote!\
+          Hi! I\'m here to help with any questions about our custom homes, duplexes, and construction services across Sydney. Ask me about pricing, timelines, approvals — or request a free quote!\
         </div>\
         <div class="kcb-quick-btns" id="kcb-quick-btns">\
           <button class="kcb-quick-btn" data-q="pricing">Pricing &amp; costs</button>\
@@ -232,7 +232,7 @@
         state.step = 'lead_done';
         // Submit the lead
         submitLead();
-        var doneMsg = 'Thanks ' + state.lead.name.split(' ')[0] + '! Kadmia will get back to you within one business day.\n\nIn the meantime, feel free to check out our projects at www.kadmia.com.au/kadmia-projects.html';
+        var doneMsg = 'Thanks ' + state.lead.name.split(' ')[0] + '! I\'ll get back to you within one business day.\n\nIn the meantime, feel free to check out our projects at www.kadmia.com.au/kadmia-projects.html';
         addMsg(doneMsg, 'bot');
         inputEl.placeholder = 'Ask another question...';
         hideQuickBtns();
@@ -290,7 +290,7 @@
         // If cost/quote/service related prompt for lead capture
         if (match.key === 'cost' || match.key === 'quote'){
           setTimeout(function(){
-            addMsg("Would you like a free, no-obligation quote? I can take your details and Kadmia will reach out.", 'bot');
+            addMsg("Would you like a free, no-obligation quote? I can take your details and we'll reach out.", 'bot');
             showQuickBtns([
               { label: 'Yes — get a quote', value: 'quote' },
               { label: 'Not right now', value: 'no thanks' }
