@@ -64,7 +64,7 @@
           <div class="kcb-header-logo">KADMIA<span>.</span></div>\
           <div class="kcb-header-sub">CONSTRUCTIONS</div>\
         </div>\
-        <div class="kcb-header-status"><span class="kcb-online-dot"></span> Online</div>\
+        \
       </div>\
       <div class="kcb-body" id="kcb-body">\
         <div class="kcb-msg kcb-msg-bot">\
@@ -98,8 +98,6 @@
     .kcb-header-logo { font-family: "Bebas Neue", sans-serif; font-size: 20px; letter-spacing: 0.1em; color: #f5f2ed; line-height: 1; }\
     .kcb-header-logo span { color: #c8a96e; }\
     .kcb-header-sub { font-family: "Barlow Condensed", sans-serif; font-size: 8px; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase; color: rgba(200,169,110,0.6); }\
-    .kcb-header-status { font-size: 11px; color: #8a9ab0; display: flex; align-items: center; gap: 6px; }\
-    .kcb-online-dot { width: 7px; height: 7px; border-radius: 50%; background: #4caf50; display: inline-block; }\
     .kcb-body { flex: 1; overflow-y: auto; padding: 16px; display: flex; flex-direction: column; gap: 12px; max-height: 380px; scroll-behavior: smooth; }\
     .kcb-body::-webkit-scrollbar { width: 4px; }\
     .kcb-body::-webkit-scrollbar-thumb { background: rgba(200,169,110,0.25); border-radius: 2px; }\
