@@ -190,14 +190,22 @@
     return null;
   }
 
-  /* ── QUOTE REDIRECT ── */
-  function showQuotePageButton(){
+  /* ── QUOTE / CALCULATOR BUTTONS ── */
+  function showQuoteButtons(){
     hideQuickBtns();
-    var linkBtn = document.createElement('a');
-    linkBtn.href = 'kadmia-contact.html';
-    linkBtn.style.cssText = 'display:inline-block;text-align:center;padding:12px 24px;background:#c8a96e;color:#0a1628;text-decoration:none;border-radius:6px;font-family:"Barlow Condensed",sans-serif;font-size:13px;font-weight:600;letter-spacing:0.15em;text-transform:uppercase;align-self:flex-start;margin-top:4px;';
-    linkBtn.textContent = 'Go to Quote Page →';
-    bodyEl.appendChild(linkBtn);
+    var wrapper = document.createElement('div');
+    wrapper.style.cssText = 'display:flex;gap:8px;margin-top:4px;flex-wrap:wrap;';
+    var quoteBtn = document.createElement('a');
+    quoteBtn.href = 'kadmia-contact.html';
+    quoteBtn.style.cssText = 'flex:1;text-align:center;padding:12px 16px;background:#c8a96e;color:#0a1628;text-decoration:none;border-radius:6px;font-family:"Barlow Condensed",sans-serif;font-size:12px;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;white-space:nowrap;';
+    quoteBtn.textContent = 'Get a Quote →';
+    var calcBtn = document.createElement('a');
+    calcBtn.href = 'estimator.html';
+    calcBtn.style.cssText = 'flex:1;text-align:center;padding:12px 16px;background:transparent;color:#c8a96e;text-decoration:none;border-radius:6px;border:1px solid #c8a96e;font-family:"Barlow Condensed",sans-serif;font-size:12px;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;white-space:nowrap;';
+    calcBtn.textContent = 'Cost Calculator →';
+    wrapper.appendChild(quoteBtn);
+    wrapper.appendChild(calcBtn);
+    bodyEl.appendChild(wrapper);
     scrollDown();
   }
 
@@ -222,7 +230,7 @@
         if (match.key === 'cost' || match.key === 'quote'){
           setTimeout(function(){
             addMsg("Fill in our quick form and we'll get back to you with a detailed quote within one business day.", 'bot');
-            showQuotePageButton();
+            showQuoteButtons();
           }, 600);
         } else {
           showQuickBtns([
@@ -285,7 +293,7 @@
     if (!btn) return;
     var val = btn.dataset.q;
     if (val === 'quote'){
-      showQuotePageButton();
+      showQuoteButtons();
       return;
     }
     // Treat as user input
