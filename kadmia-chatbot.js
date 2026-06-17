@@ -46,7 +46,7 @@
     },
     quote: {
       keywords: ['quote', 'quotation', 'get started', 'start', 'build', 'building', 'interested', 'want to', 'looking to', 'how do i', 'next step', 'free consultation', 'consultation', 'site visit', 'meeting', 'discuss'],
-      response: "I'd love to arrange a free consultation for you. Let me grab a few details and we'll get back to you within one business day."
+      response: "I'd love to help you get started! Head to our contact page to fill in a quick form and we'll get back to you within one business day with a free, no-obligation quote."
     }
   };
 
@@ -190,90 +190,21 @@
     return null;
   }
 
-  /* ── LEAD CAPTURE FLOW ── */
-  function startLeadCapture(){
-    state.step = 'lead_name';
+  /* ── QUOTE REDIRECT ── */
+  function showQuotePageButton(){
     hideQuickBtns();
-    inputEl.placeholder = 'Your full name...';
-    addMsg("What's your name?", 'bot');
-  }
-
-  function processLeadInput(text){
-    switch(state.step){
-      case 'lead_name':
-        state.lead.name = text.trim();
-        state.step = 'lead_phone';
-        inputEl.placeholder = 'Your phone number...';
-        addMsg('Thanks ' + state.lead.name.split(' ')[0] + '! What\'s the best phone number to reach you on?', 'bot');
-        break;
-      case 'lead_phone':
-        state.lead.phone = text.trim();
-        state.step = 'lead_email';
-        inputEl.placeholder = 'Your email address...';
-        addMsg('Got it. And your email address?', 'bot');
-        break;
-      case 'lead_email':
-        state.lead.email = text.trim();
-        state.step = 'lead_service';
-        var serviceBtns = [
-          { label: 'Knock Down Re-Build', value: 'Knock Down Re-Build' },
-          { label: 'Custom Home', value: 'Custom Home' },
-          { label: 'Granny Flat', value: 'Granny Flat' },
-          { label: 'Duplex / Multi-Occ', value: 'Duplex' },
-          { label: 'Not sure yet', value: 'Not sure' },
-          { label: 'Consultancy Only', value: 'Consultancy' }
-        ];
-        addMsg('What type of project are you looking at?', 'bot');
-        showQuickBtns(serviceBtns);
-        inputEl.placeholder = 'Or type your project type...';
-        break;
-      case 'lead_service':
-        state.lead.service = text.trim();
-        state.step = 'lead_done';
-        // Submit the lead
-        submitLead();
-        var doneMsg = 'Thanks ' + state.lead.name.split(' ')[0] + '! I\'ll get back to you within one business day.\n\nIn the meantime, feel free to check out our projects at www.kadmia.com.au/kadmia-projects.html';
-        addMsg(doneMsg, 'bot');
-        inputEl.placeholder = 'Ask another question...';
-        hideQuickBtns();
-        // Reset to FAQ mode
-        setTimeout(function(){
-          state.step = 'faq';
-          showQuickBtns([
-            { label: 'Pricing & costs', value: 'pricing' },
-            { label: 'What we build', value: 'services' },
-            { label: 'Build timeline', value: 'how long' },
-            { label: 'Get a free quote', value: 'quote' }
-          ]);
-        }, 2000);
-        break;
-    }
-  }
-
-  /* ── SUBMIT LEAD ── */
-  function submitLead(){
-    var data = new FormData();
-    data.append('_subject', 'New Chatbot Lead — ' + state.lead.name + ' | Kadmia Constructions');
-    data.append('_captcha', 'false');
-    data.append('_template', 'table');
-    data.append('firstName', state.lead.name);
-    data.append('phone', state.lead.phone);
-    data.append('email', state.lead.email);
-    data.append('service', state.lead.service);
-    data.append('message', 'Lead captured via Kadmia website chatbot. Project type: ' + state.lead.service);
-    fetch('https://formsubmit.co/info@kadmia.com.au', { method: 'POST', body: data }).catch(function(){});
+    var linkBtn = document.createElement('a');
+    linkBtn.href = 'kadmia-contact.html';
+    linkBtn.style.cssText = 'display:inline-block;text-align:center;padding:12px 24px;background:#c8a96e;color:#0a1628;text-decoration:none;border-radius:6px;font-family:"Barlow Condensed",sans-serif;font-size:13px;font-weight:600;letter-spacing:0.15em;text-transform:uppercase;align-self:flex-start;margin-top:4px;';
+    linkBtn.textContent = 'Go to Quote Page →';
+    bodyEl.appendChild(linkBtn);
+    scrollDown();
   }
 
   /* ── HANDLE USER INPUT ── */
   function handleUserInput(text){
     state.lastUserMessage = text;
     hideQuickBtns();
-
-    if (state.step !== 'faq' && state.step !== 'lead_done'){
-      addMsg(text, 'user');
-      processLeadInput(text);
-      return;
-    }
 
     addMsg(text, 'user');
 
@@ -290,11 +221,8 @@
         // If cost/quote/service related prompt for lead capture
         if (match.key === 'cost' || match.key === 'quote'){
           setTimeout(function(){
-            addMsg("Would you like a free, no-obligation quote? I can take your details and we'll reach out.", 'bot');
-            showQuickBtns([
-              { label: 'Yes — get a quote', value: 'quote' },
-              { label: 'Not right now', value: 'no thanks' }
-            ]);
+            addMsg("Fill in our quick form and we'll get back to you with a detailed quote within one business day.", 'bot');
+            showQuotePageButton();
           }, 600);
         } else {
           showQuickBtns([
@@ -306,12 +234,7 @@
         }
       } else {
         // Check if they're saying yes to quote
-        if (/^(yes|yeah|sure|ok|okay|yep|please|definitely|absolutely)/i.test(text)){
-          showQuickBtns([
-            { label: 'Get your free quote →', value: 'quote' }
-          ]);
-          addMsg("Great! Click below and I'll grab your details.", 'bot');
-        } else if (/no|not right now|later|just looking|browsing/i.test(text)){
+        if (/no|not right now|later|just looking|browsing/i.test(text)){
           addMsg("No worries! I'm here whenever you're ready. Feel free to ask anything else.", 'bot');
           showQuickBtns([
             { label: 'Pricing & costs', value: 'pricing' },
@@ -362,7 +285,7 @@
     if (!btn) return;
     var val = btn.dataset.q;
     if (val === 'quote'){
-      startLeadCapture();
+      showQuotePageButton();
       return;
     }
     // Treat as user input
