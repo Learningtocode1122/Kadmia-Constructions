@@ -46,7 +46,7 @@
     },
     quote: {
       keywords: ['quote', 'quotation', 'get started', 'start', 'build', 'building', 'interested', 'want to', 'looking to', 'how do i', 'next step', 'free consultation', 'consultation', 'site visit', 'meeting', 'discuss'],
-      response: "I'd love to arrange a free consultation for you. Let me grab a few details and Mohammed will get back to you within one business day."
+      response: "I'd love to arrange a free consultation for you. Let me grab a few details and Kadmia will get back to you within one business day."
     }
   };
 
@@ -234,7 +234,7 @@
         state.step = 'lead_done';
         // Submit the lead
         submitLead();
-        var doneMsg = 'Thanks ' + state.lead.name.split(' ')[0] + '! Mohammed will get back to you within one business day.\n\nIn the meantime, feel free to check out our projects at www.kadmia.com.au/kadmia-projects.html';
+        var doneMsg = 'Thanks ' + state.lead.name.split(' ')[0] + '! Kadmia will get back to you within one business day.\n\nIn the meantime, feel free to check out our projects at www.kadmia.com.au/kadmia-projects.html';
         addMsg(doneMsg, 'bot');
         inputEl.placeholder = 'Ask another question...';
         hideQuickBtns();
@@ -292,7 +292,7 @@
         // If cost/quote/service related prompt for lead capture
         if (match.key === 'cost' || match.key === 'quote'){
           setTimeout(function(){
-            addMsg("Would you like a free, no-obligation quote? I can take your details and Mohammed will reach out.", 'bot');
+            addMsg("Would you like a free, no-obligation quote? I can take your details and Kadmia will reach out.", 'bot');
             showQuickBtns([
               { label: 'Yes — get a quote', value: 'quote' },
               { label: 'Not right now', value: 'no thanks' }
