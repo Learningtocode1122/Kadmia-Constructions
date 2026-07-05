@@ -1,4 +1,11 @@
 {
+  "redirects": [
+    {
+      "source": "/kadmia.html",
+      "destination": "/",
+      "permanent": true
+    }
+  ],
   "headers": [
     {
       "source": "/assets/(.*)",
