@@ -7,7 +7,7 @@
   <meta property="og:title" content="Cost Calculator | Kadmia Constructions Sydney" />
   <meta property="og:description" content="Get a free, instant estimate for your residential construction project in Sydney. Custom homes, duplexes, renovations — calculate your build cost now." />
   <meta property="og:type" content="website" />
-  <meta property="og:url" content="https://kadmia-constructions-ffiw.vercel.app/estimator.html" />
+  <meta property="og:url" content="https://www.kadmia.com.au/estimator.html" />
   <meta name="twitter:card" content="summary_large_image" />
   <meta property="og:image" content="https://www.kadmia.com.au/Print-Me-1.jpg" />
   <meta property="og:image:width" content="1200" />
@@ -179,7 +179,7 @@
         </div>
       </div>
 
-      <p class="calc-disclaimer"><strong>Important Disclaimer</strong>All figures produced by this calculator are indicative estimates only and do not constitute a quotation, tender, or offer. Actual construction costs will vary based on site-specific conditions including but not limited to soil classification, slope, access, excavation requirements, design complexity, material selections, engineering, and council conditions. All costs must be formally quoted by Kadmia Constructions following a detailed consultation, site inspection, and preparation of a full scope of works. No reliance should be placed on these estimates for budgeting or financial purposes without independent verification.</p>
+      <p class="calc-disclaimer"><strong>Important Disclaimer</strong>All figures produced by this calculator are indicative estimates only and do not constitute a quotation, tender, or offer. Rates are sourced from the NSW Residential Construction Cost Guide (2025–2026), rationalised across Blacktown Council, Planland, Crystele Homes, Rider Levett Bucknall, ASEstimation, and realestate.com.au industry data. Actual construction costs will vary based on site-specific conditions including but not limited to soil classification, slope, access, excavation requirements, design complexity, material selections, engineering, and council conditions. All costs must be formally quoted by Kadmia Constructions following a detailed consultation, site inspection, and preparation of a full scope of works. No reliance should be placed on these estimates for budgeting or financial purposes without independent verification.</p>
     </div>
   </section>
 
@@ -234,62 +234,140 @@
       sel.addEventListener('change', sync); sel.addEventListener('blur', sync); sync();
     });
 
+    /* ── BASE RATES ($/m² turnkey) — sourced from NSW Residential Construction Cost Guide 2025–2026 ──
+       Guide midpoints: Custom mid-range $5,200 | Custom high-end $7,200 | Custom prestige $10,000
+                        Granny flat $2,500–$3,500 | Duplex standard $3,000–$3,800 | Duplex custom $3,800–$5,500
+                        Addition w/ wet areas $3,000–$3,800 | First-floor addition $3,500–$4,500 */
     var baseRates = {
-      standard: { 'knockdown-rebuild': 2280, 'custom-home': 2190, 'granny-flat': 2750, 'duplex': 2100, 'renovation': 1920 },
-      premium:  { 'knockdown-rebuild': 2850, 'custom-home': 2760, 'granny-flat': 2880, 'duplex': 2670, 'renovation': 2400 },
-      luxury:   { 'knockdown-rebuild': 3780, 'custom-home': 3600, 'granny-flat': 4050, 'duplex': 3420, 'renovation': 3150 }
+      standard: { 'knockdown-rebuild': 5200, 'custom-home': 5200, 'granny-flat': 3000, 'duplex': 3400, 'renovation': 3400 },
+      premium:  { 'knockdown-rebuild': 7200, 'custom-home': 7200, 'granny-flat': 3500, 'duplex': 4650, 'renovation': 4000 },
+      luxury:   { 'knockdown-rebuild': 10000, 'custom-home': 10000, 'granny-flat': 4000, 'duplex': 5500, 'renovation': 5000 }
     };
-    var storeyMul = { '1': 1.00, '2': 0.90, '3': 0.84 };
-    var locationMul = { 'inner-west': 1.12, 'eastern-suburbs': 1.22, 'north-shore': 1.18, 'sutherland-shire': 1.04, 'western-sydney': 0.93, 'hills-district': 1.06, 'south-west': 0.90, 'central-coast': 0.88 };
-    var featurePrices = { calcGarage: 32000, calcPool: 55000, calcAlfresco: 28000, calcAircon: 14000, calcFlooring: 18000, calcStone: 12000, calcSmart: 8000, calcSolar: 7000, calcLandscape: 15000 };
-    var featureLabels = { calcGarage: 'Double Garage with Internal Access', calcPool: 'In-ground Concrete Pool', calcAlfresco: 'Covered Alfresco with Outdoor Kitchen', calcAircon: 'Ducted Air Conditioning Throughout', calcFlooring: 'Hybrid Timber / Herringbone Flooring', calcStone: 'Stone Benchtops Throughout', calcSmart: 'Smart Home Wiring & Security', calcSolar: 'Solar Panel System (6.6kW)', calcLandscape: 'Landscaping Package' };
-    var typeLabels = { 'knockdown-rebuild': 'Knock Down Re-Build', 'custom-home': 'Custom Home', 'granny-flat': 'Granny Flat', 'duplex': 'Duplex / Multi-Occupancy', 'renovation': 'Major Renovation / Extension' };
-    var storeyLabels = { '1': 'Single Storey', '2': 'Double Storey', '3': 'Triple Storey' };
-    var qualityLabels = { standard: 'Standard Inclusions', premium: 'Premium Inclusions', luxury: 'Luxury / High-End' };
-    var locLabels = { 'inner-west': 'Inner West Sydney', 'eastern-suburbs': 'Eastern Suburbs Sydney', 'north-shore': 'North Shore Sydney', 'sutherland-shire': 'Sutherland Shire', 'western-sydney': 'Western Sydney', 'hills-district': 'Hills District', 'south-west': 'South Western Sydney', 'central-coast': 'Central Coast' };
+
+    /* Storey economies of scale — foundation + roof spread over larger GFA (NSW Cost Guide structure) */
+    var storeyMul = { '1': 1.00, '2': 0.92, '3': 0.86 };
+
+    /* Size adjustment — smaller homes cost more per m², larger homes less (NSW Cost Guide §7.5) */
+    function getSizeFactor(area) {
+      if (area < 80)  return 1.20;
+      if (area < 120) return 1.12;
+      if (area <= 350) return 1.00;
+      if (area <= 500) return 0.95;
+      return 0.90;
+    }
+
+    /* Location multipliers — Sydney metro baseline 1.0 (NSW Cost Guide §2) */
+    var locationMul = {
+      'inner-west': 1.10, 'eastern-suburbs': 1.20, 'north-shore': 1.16,
+      'sutherland-shire': 1.04, 'western-sydney': 0.94, 'hills-district': 1.05,
+      'south-west': 0.91, 'central-coast': 0.92
+    };
+
+    /* Add-on percentages by finish level (NSW Cost Guide §3) */
+    var designFeeRate  = { standard: 0.05, premium: 0.07, luxury: 0.10 };
+    var contingencyRate = { standard: 0.10, premium: 0.12, luxury: 0.15 };
+
+    /* Fixed add-ons (NSW Cost Guide §3) */
+    var demolitionCost      = 35000;   // Typical Sydney KDR demolition
+    var councilBase         = 25000;   // DA/CDC, certifier, s7.11 contributions, s73 water/sewer
+    var housingContribution = 10812;   // NSW Housing & Productivity Contribution — Greater Sydney, Jan 2026
+
+    /* Feature prices — aligned to NSW Cost Guide §3 ranges */
+    var featurePrices = {
+      calcGarage: 32000, calcPool: 60000, calcAlfresco: 35000, calcAircon: 15000,
+      calcFlooring: 22000, calcStone: 18000, calcSmart: 9000, calcSolar: 7500, calcLandscape: 25000
+    };
+    var featureLabels = {
+      calcGarage: 'Double Garage with Internal Access', calcPool: 'In-ground Concrete Pool',
+      calcAlfresco: 'Covered Alfresco with Outdoor Kitchen', calcAircon: 'Ducted Air Conditioning Throughout',
+      calcFlooring: 'Hybrid Timber / Herringbone Flooring', calcStone: 'Stone Benchtops Throughout',
+      calcSmart: 'Smart Home Wiring & Security', calcSolar: 'Solar Panel System (6.6kW)',
+      calcLandscape: 'Landscaping Package'
+    };
+    var typeLabels = {
+      'knockdown-rebuild': 'Knock Down Re-Build', 'custom-home': 'Custom Home',
+      'granny-flat': 'Granny Flat', 'duplex': 'Duplex / Multi-Occupancy',
+      'renovation': 'Major Renovation / Extension'
+    };
+    var storeyLabels   = { '1': 'Single Storey', '2': 'Double Storey', '3': 'Triple Storey' };
+    var qualityLabels  = { standard: 'Standard Inclusions', premium: 'Premium Inclusions', luxury: 'Luxury / High-End' };
+    var locLabels = {
+      'inner-west': 'Inner West Sydney', 'eastern-suburbs': 'Eastern Suburbs Sydney',
+      'north-shore': 'North Shore Sydney', 'sutherland-shire': 'Sutherland Shire',
+      'western-sydney': 'Western Sydney', 'hills-district': 'Hills District',
+      'south-west': 'South Western Sydney', 'central-coast': 'Central Coast'
+    };
 
     document.getElementById('calcForm').addEventListener('submit', function(e){
       e.preventDefault();
-      var type = document.getElementById('calcProjectType').value;
+      var type    = document.getElementById('calcProjectType').value;
       var storeys = document.getElementById('calcStoreys').value;
-      var area = parseFloat(document.getElementById('calcFloorArea').value) || 0;
-      var beds = parseInt(document.getElementById('calcBedrooms').value) || 0;
-      var baths = parseInt(document.getElementById('calcBathrooms').value) || 0;
+      var area    = parseFloat(document.getElementById('calcFloorArea').value) || 0;
+      var beds    = parseInt(document.getElementById('calcBedrooms').value) || 0;
+      var baths   = parseInt(document.getElementById('calcBathrooms').value) || 0;
       var quality = document.getElementById('calcQuality').value;
-      var loc = document.getElementById('calcLocation').value;
+      var loc     = document.getElementById('calcLocation').value;
 
       if (!type || !storeys || !area || !quality || !loc) { alert('Please fill in all required fields'); return; }
 
-      var ratePerSqm = (baseRates[quality] && baseRates[quality][type]) || 2000;
-      var buildCost = ratePerSqm * area * (storeyMul[storeys] || 1);
-      buildCost *= (locationMul[loc] || 1);
+      /* ── 1. BASE BUILD COST ── */
+      var ratePerSqm = (baseRates[quality] && baseRates[quality][type]) || 5200;
+      var sizeFactor = getSizeFactor(area);
+      var buildCost  = ratePerSqm * area * (storeyMul[storeys] || 1) * sizeFactor * (locationMul[loc] || 1);
 
-      var siteCosts = buildCost * 0.05;
-      var approvals = buildCost * 0.035;
+      /* ── 2. DEMOLITION (KDR only) ── */
+      var demoCost = (type === 'knockdown-rebuild') ? demolitionCost : 0;
+
+      /* ── 3. DESIGN & ENGINEERING ── */
+      var designCost = buildCost * (designFeeRate[quality] || 0.05);
+
+      /* ── 4. COUNCIL FEES & CONTRIBUTIONS ── */
+      var councilCost = councilBase + housingContribution;
+
+      /* ── 5. INCLUSIONS & UPGRADES ── */
       var featCost = 0, selected = [];
       Object.keys(featurePrices).forEach(function(k){
         if (document.getElementById(k).checked) { featCost += featurePrices[k]; selected.push(featureLabels[k]); }
       });
 
-      var total = buildCost + siteCosts + approvals + featCost;
+      /* ── 6. SUBTOTAL (before contingency) ── */
+      var preContingency = buildCost + demoCost + designCost + councilCost + featCost;
+
+      /* ── 7. CONTINGENCY ── */
+      var contingency = preContingency * (contingencyRate[quality] || 0.10);
+
+      /* ── 8. SUBTOTAL ex GST ── */
+      var subtotalExGst = preContingency + contingency;
+
+      /* ── 9. GST ── */
+      var gst = subtotalExGst * 0.10;
+
+      /* ── 10. TOTAL ── */
+      var total  = subtotalExGst + gst;
       var perSqm = total / area;
+
       var fmt = function(n){ return '$' + n.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 0 }); };
 
       var html =
         '<div class="calc-result-row"><span class="calc-result-label">Project Type</span><span class="calc-result-value">' + (typeLabels[type] || type) + '</span></div>' +
         '<div class="calc-result-row"><span class="calc-result-label">Storeys</span><span class="calc-result-value">' + (storeyLabels[storeys] || storeys) + '</span></div>' +
-        '<div class="calc-result-row"><span class="calc-result-label">Floor Area</span><span class="calc-result-value">' + area.toLocaleString() + ' m&sup2;</span></div>' +
+        '<div class="calc-result-row"><span class="calc-result-label">Floor Area</span><span class="calc-result-value">' + area.toLocaleString() + ' m&sup2; ' + (sizeFactor !== 1 ? '<span style="font-size:11px;color:var(--gray);">(' + (sizeFactor < 1 ? 'scale economy' : 'small-footprint adj') + ' ' + ((sizeFactor - 1) * 100).toFixed(0) + '%)</span>' : '') + '</span></div>' +
         '<div class="calc-result-row"><span class="calc-result-label">Bedrooms / Bathrooms</span><span class="calc-result-value">' + beds + ' Bed &middot; ' + baths + ' Bath</span></div>' +
         '<div class="calc-result-row"><span class="calc-result-label">Finish Level</span><span class="calc-result-value">' + (qualityLabels[quality] || quality) + '</span></div>' +
         '<div class="calc-result-row"><span class="calc-result-label">Location</span><span class="calc-result-value">' + (locLabels[loc] || loc) + '</span></div>' +
         '<div style="margin:18px 0 6px; font-family:\'Barlow Condensed\',sans-serif; font-size:11px; font-weight:600; letter-spacing:0.2em; text-transform:uppercase; color:var(--gold);">Cost Breakdown</div>' +
         '<div class="calc-result-row"><span class="calc-result-label">Base Construction</span><span class="calc-result-value">' + fmt(buildCost) + '</span></div>' +
-        '<div class="calc-result-row"><span class="calc-result-label">Site Costs (est. ~5%)</span><span class="calc-result-value">' + fmt(siteCosts) + '</span></div>' +
-        '<div class="calc-result-row"><span class="calc-result-label">Council Approvals (est. ~3.5%)</span><span class="calc-result-value">' + fmt(approvals) + '</span></div>' +
+        (demoCost ? '<div class="calc-result-row"><span class="calc-result-label">Demolition (KDR)</span><span class="calc-result-value">' + fmt(demoCost) + '</span></div>' : '') +
+        '<div class="calc-result-row"><span class="calc-result-label">Design &amp; Engineering (' + ((designFeeRate[quality] || 0.05) * 100).toFixed(0) + '%)</span><span class="calc-result-value">' + fmt(designCost) + '</span></div>' +
+        '<div class="calc-result-row"><span class="calc-result-label">Council Fees &amp; Contributions</span><span class="calc-result-value">' + fmt(councilCost) + '</span></div>' +
         '<div class="calc-result-row"><span class="calc-result-label">Inclusions &amp; Upgrades</span><span class="calc-result-value">' + fmt(featCost) + '</span></div>' +
         (selected.length ? '<div class="calc-result-row"><span class="calc-result-label">Selected Upgrades</span><span class="calc-result-value">' + selected.join(', ') + '</span></div>' : '') +
-        '<div class="calc-result-total"><span class="calc-result-label">Estimated Project Cost</span><span class="calc-result-value">' + fmt(total) + '</span></div>' +
-        '<div class="calc-result-row"><span class="calc-result-label">Approx. Cost per m&sup2;</span><span class="calc-result-value">' + fmt(perSqm) + '</span></div>';
+        '<div class="calc-result-row"><span class="calc-result-label">Contingency (' + ((contingencyRate[quality] || 0.10) * 100).toFixed(0) + '%)</span><span class="calc-result-value">' + fmt(contingency) + '</span></div>' +
+        '<div style="margin:14px 0 4px; border-top:1px solid rgba(200,169,110,0.15);"></div>' +
+        '<div class="calc-result-row"><span class="calc-result-label">Subtotal (ex GST)</span><span class="calc-result-value">' + fmt(subtotalExGst) + '</span></div>' +
+        '<div class="calc-result-row"><span class="calc-result-label">GST (10%)</span><span class="calc-result-value">' + fmt(gst) + '</span></div>' +
+        '<div class="calc-result-total"><span class="calc-result-label">Estimated Project Cost (inc. GST)</span><span class="calc-result-value">' + fmt(total) + '</span></div>' +
+        '<div class="calc-result-row"><span class="calc-result-label">Approx. Cost per m&sup2; (all-in)</span><span class="calc-result-value">' + fmt(perSqm) + '</span></div>';
 
       document.getElementById('calcDetails').innerHTML = html;
       var results = document.getElementById('calcResults');
