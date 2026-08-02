@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Kadmia Constructions blog — expert advice on custom homes, knock down rebuilds, duplexes, and building in Sydney. Real insights from builders with 10+ years experience." />
+  <meta property="og:title" content="Blog | Kadmia Constructions Sydney" />
+  <meta property="og:description" content="Expert advice on custom homes, knock down rebuilds, duplexes, and building across Greater Sydney. Written by builders, not marketers." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://www.kadmia.com.au/blog.html" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta property="og:image" content="https://www.kadmia.com.au/Print-Me-1.jpg" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta name="view-transition" content="same-origin" />
+  <script>(function(){var m=document.querySelector('meta[name="viewport"]');if(!m)return;var o=m.getAttribute('content');m.setAttribute('content','width=device-width, initial-scale=1.0, maximum-scale=1.0');requestAnimationFrame(function(){m.setAttribute('content',o);});})();</script>
+  <link rel="canonical" href="https://www.kadmia.com.au/blog.html">
+  <title>Blog — Custom Home Building Insights | Kadmia Constructions</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@300;400;500;600&family=Barlow+Condensed:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+  <style>
+    body { overflow-x: hidden; }
+    section { padding: 120px 60px; }
+
+    /* ── BLOG GRID ── */
+    .blog-grid { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 48px 40px; }
+
+    .blog-card { background: var(--navy-mid); border: 1px solid rgba(200,169,110,0.1); overflow: hidden; transition: border-color 0.3s, transform 0.3s; display: flex; flex-direction: column; }
+    .blog-card:hover { border-color: rgba(200,169,110,0.3); transform: translateY(-4px); }
+    .blog-card-image { width: 100%; height: 220px; background: var(--navy-light); display: flex; align-items: center; justify-content: center; position: relative; overflow: hidden; }
+    .blog-card-image-placeholder { font-family: 'Bebas Neue', sans-serif; font-size: 48px; color: var(--gold); opacity: 0.3; letter-spacing: 0.1em; }
+    .blog-card-body { padding: 32px; flex: 1; display: flex; flex-direction: column; }
+    .blog-card-date { font-family: 'Barlow Condensed', sans-serif; font-size: 11px; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); margin-bottom: 12px; }
+    .blog-card-title { font-family: 'Bebas Neue', sans-serif; font-size: 32px; letter-spacing: 0.03em; line-height: 1.05; color: var(--white); margin-bottom: 14px; }
+    .blog-card-title a { color: inherit; text-decoration: none; transition: color 0.2s; }
+    .blog-card-title a:hover { color: var(--gold); }
+    .blog-card-excerpt { font-size: 15px; line-height: 1.7; color: var(--gray-light); margin-bottom: 24px; flex: 1; }
+    .blog-card-tags { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 20px; }
+    .blog-card-tag { font-family: 'Barlow Condensed', sans-serif; font-size: 10px; font-weight: 600; letter-spacing: 0.15em; text-transform: uppercase; color: var(--gold); background: rgba(200,169,110,0.08); padding: 6px 14px; }
+    .blog-card-link { font-family: 'Barlow Condensed', sans-serif; font-size: 13px; font-weight: 600; letter-spacing: 0.15em; text-transform: uppercase; color: var(--gold); text-decoration: none; display: inline-flex; align-items: center; gap: 8px; transition: gap 0.2s; }
+    .blog-card-link:hover { gap: 14px; }
+    .blog-card-link::after { content: '→'; }
+
+    /* ── FEATURED POST ── */
+    .blog-featured { max-width: 1200px; margin: 0 auto 64px; }
+    .blog-featured-card { display: grid; grid-template-columns: 1fr 1fr; background: var(--navy-mid); border: 1px solid rgba(200,169,110,0.15); overflow: hidden; }
+    .blog-featured-image { background: var(--navy-light); display: flex; align-items: center; justify-content: center; min-height: 360px; }
+    .blog-featured-image .blog-card-image-placeholder { font-size: 72px; }
+    .blog-featured-body { padding: 48px; display: flex; flex-direction: column; justify-content: center; }
+    .blog-featured-label { font-family: 'Barlow Condensed', sans-serif; font-size: 11px; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); margin-bottom: 8px; display: flex; align-items: center; gap: 12px; }
+    .blog-featured-label::before { content: ''; width: 24px; height: 1px; background: var(--gold); }
+    .blog-featured-date { font-family: 'Barlow Condensed', sans-serif; font-size: 11px; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); margin-bottom: 16px; }
+    .blog-featured-title { font-family: 'Bebas Neue', sans-serif; font-size: clamp(36px, 5vw, 56px); letter-spacing: 0.03em; line-height: 1; color: var(--white); margin-bottom: 18px; }
+    .blog-featured-title a { color: inherit; text-decoration: none; transition: color 0.2s; }
+    .blog-featured-title a:hover { color: var(--gold); }
+    .blog-featured-excerpt { font-size: 17px; line-height: 1.7; color: var(--gray-light); margin-bottom: 28px; }
+    .blog-featured-tags { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 24px; }
+    .blog-featured-tags .blog-card-tag { padding: 8px 18px; font-size: 11px; }
+
+    /* ── CTA BANNER ── */
+    .cta-banner { background: var(--navy-mid); text-align: center; padding: 100px 60px; border-top: 1px solid rgba(200,169,110,0.12); }
+    .cta-banner .section-eyebrow { justify-content: center; }
+    .cta-banner .section-title { margin-bottom: 24px; }
+    .cta-banner p { font-size: 17px; color: var(--gray-light); max-width: 560px; margin: 0 auto 36px; line-height: 1.7; }
+
+    @media (max-width: 1100px) {
+      section { padding: 80px 32px; }
+      .blog-grid { grid-template-columns: 1fr; gap: 32px; }
+      .blog-featured-card { grid-template-columns: 1fr; }
+      .blog-featured-image { min-height: 240px; }
+      .blog-featured-body { padding: 32px; }
+    }
+    @media (max-width: 720px) {
+      section { padding: 72px 20px; }
+      .blog-featured-body { padding: 24px; }
+      .blog-card-body { padding: 24px; }
+      .blog-card-title { font-size: 26px; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav id="nav" aria-label="Primary">
+    <a href="index.html" class="nav-logo">KADMIA<span>.</span></a>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="kadmia-services.html">Services</a></li>
+      <li><a href="kadmia-projects.html">Projects</a></li>
+      <li><a href="kadmia-process.html">Process</a></li>
+      <li><a href="estimator.html">Calculator</a></li>
+      <li><a href="blog.html" class="active">Blog</a></li>
+      <li><a href="kadmia-contact.html">Contact</a></li>
+    </ul>
+    <div class="nav-actions">
+      <a href="kadmia-contact.html" class="nav-cta">Get a Quote</a>
+      <button class="nav-toggle" id="navToggle" type="button" aria-expanded="false" aria-controls="mobileMenu" aria-label="Open menu"><span></span></button>
+    </div>
+  </nav>
+
+  <div class="mobile-menu" id="mobileMenu">
+    <ul>
+      <li><a href="index.html">Home</a></li>
+      <li><a href="kadmia-services.html">Services</a></li>
+      <li><a href="kadmia-projects.html">Projects</a></li>
+      <li><a href="kadmia-process.html">Process</a></li>
+      <li><a href="estimator.html">Calculator</a></li>
+      <li><a href="blog.html">Blog</a></li>
+      <li><a href="kadmia-contact.html">Contact</a></li>
+    </ul>
+  </div>
+
+  <header class="page-header">
+    <div class="page-header-inner">
+      <div class="page-header-eyebrow">Insights &amp; Advice</div>
+      <h1>Our <span>Blog</span></h1>
+      <p class="page-header-sub">Real advice from real builders. We share everything we know about custom homes, knock down rebuilds, duplexes, and the Sydney building market — no fluff, no sales pitch.</p>
+    </div>
+  </header>
+
+  <section style="background:var(--navy);">
+
+    <!-- Featured Post -->
+    <div class="blog-featured">
+      <div class="blog-featured-card">
+        <div class="blog-featured-image">
+          <div class="blog-card-image-placeholder">KDR</div>
+        </div>
+        <div class="blog-featured-body">
+          <div class="blog-featured-label">Latest Article</div>
+          <div class="blog-featured-date">1 August 2026</div>
+          <h2 class="blog-featured-title"><a href="blog-knock-down-rebuild-cost-sydney.html">How Much Does a Knock Down Rebuild Cost in Sydney? 2026 Guide</a></h2>
+          <p class="blog-featured-excerpt">Everything you need to know about knock down rebuild costs in Sydney — from base build prices and site works to hidden fees, council requirements, and how to budget accurately. Written by builders with 10+ years on the tools.</p>
+          <div class="blog-featured-tags">
+            <span class="blog-card-tag">Knock Down Rebuild</span>
+            <span class="blog-card-tag">Costs &amp; Budgeting</span>
+            <span class="blog-card-tag">Sydney</span>
+          </div>
+          <a href="blog-knock-down-rebuild-cost-sydney.html" class="btn-primary">Read the Guide</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- All Posts Grid -->
+    <div class="blog-grid">
+
+      <div class="blog-card">
+        <div class="blog-card-image">
+          <div class="blog-card-image-placeholder">DUPLEX</div>
+        </div>
+        <div class="blog-card-body">
+          <div class="blog-card-date">Coming Soon</div>
+          <h3 class="blog-card-title">Duplex vs Granny Flat: Which Is Right for Your Sydney Property?</h3>
+          <p class="blog-card-excerpt">A practical comparison of costs, rental returns, council rules, and ROI for duplexes and granny flats across Sydney suburbs.</p>
+          <div class="blog-card-tags">
+            <span class="blog-card-tag">Duplexes</span>
+            <span class="blog-card-tag">Granny Flats</span>
+            <span class="blog-card-tag">Investment</span>
+          </div>
+          <span class="blog-card-link">Coming Soon</span>
+        </div>
+      </div>
+
+      <div class="blog-card">
+        <div class="blog-card-image">
+          <div class="blog-card-image-placeholder">CDC</div>
+        </div>
+        <div class="blog-card-body">
+          <div class="blog-card-date">Coming Soon</div>
+          <h3 class="blog-card-title">CDC vs DA: Which Approval Path Is Faster for Your Sydney Build?</h3>
+          <p class="blog-card-excerpt">Complying Development Certificate or full Development Application? We break down the timelines, costs, and which projects qualify for each.</p>
+          <div class="blog-card-tags">
+            <span class="blog-card-tag">Approvals</span>
+            <span class="blog-card-tag">Council</span>
+            <span class="blog-card-tag">Process</span>
+          </div>
+          <span class="blog-card-link">Coming Soon</span>
+        </div>
+      </div>
+
+      <div class="blog-card">
+        <div class="blog-card-image">
+          <div class="blog-card-image-placeholder">CUSTOM</div>
+        </div>
+        <div class="blog-card-body">
+          <div class="blog-card-date">Coming Soon</div>
+          <h3 class="blog-card-title">Custom Home Builder Checklist: 15 Questions to Ask Before You Sign</h3>
+          <p class="blog-card-excerpt">How to vet a custom home builder properly — licensing, insurance, past projects, contract terms, and the red flags most people miss.</p>
+          <div class="blog-card-tags">
+            <span class="blog-card-tag">Custom Homes</span>
+            <span class="blog-card-tag">Checklist</span>
+            <span class="blog-card-tag">Hiring</span>
+          </div>
+          <span class="blog-card-link">Coming Soon</span>
+        </div>
+      </div>
+
+      <div class="blog-card">
+        <div class="blog-card-image">
+          <div class="blog-card-image-placeholder">$$</div>
+        </div>
+        <div class="blog-card-body">
+          <div class="blog-card-date">Coming Soon</div>
+          <h3 class="blog-card-title">Sydney Custom Home Costs: Price per Square Metre by Suburb (2026)</h3>
+          <p class="blog-card-excerpt">What you'll actually pay per square metre for a custom home in Western Sydney, Inner West, North Shore, and beyond. Real numbers, not ranges.</p>
+          <div class="blog-card-tags">
+            <span class="blog-card-tag">Costs &amp; Budgeting</span>
+            <span class="blog-card-tag">Custom Homes</span>
+            <span class="blog-card-tag">Sydney</span>
+          </div>
+          <span class="blog-card-link">Coming Soon</span>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <div class="cta-banner">
+    <div class="section-eyebrow">Have a question?</div>
+    <h2 class="section-title">Let's <span>Talk</span></h2>
+    <p>Every project is different. If you're planning a build and want honest, no-obligation advice, we're here to help.</p>
+    <a href="kadmia-contact.html" class="btn-primary">Get in Touch</a>
+  </div>
+
+  <footer>
+    <div class="footer-top">
+      <div class="footer-brand">
+        <a href="index.html" class="footer-logo">KADMIA<span>.</span></a>
+        <p class="footer-tagline">Bespoke custom homes and construction solutions across the Greater Sydney Region. Built to last. Built for you.</p>
+      </div>
+      <div class="footer-links-group">
+        <div class="footer-col">
+          <div class="footer-col-title">Services</div>
+          <a href="kadmia-services.html#knockdown">Knock Down Re-Build</a>
+          <a href="kadmia-services.html#custom">Custom Homes &amp; Granny Flats</a>
+          <a href="kadmia-services.html#consultancy">Consultancy</a>
+          <a href="kadmia-services.html#duplex">Duplexes &amp; Multi-Occupancy</a>
+        </div>
+        <div class="footer-col">
+          <div class="footer-col-title">Company</div>
+          <a href="kadmia-projects.html">Projects</a>
+          <a href="kadmia-process.html">Our Process</a>
+          <a href="estimator.html">Cost Calculator</a>
+          <a href="blog.html">Blog</a>
+          <a href="kadmia-contact.html">Contact</a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div class="footer-legal">&copy; 2026 Kadmia Constructions Pty Ltd. All rights reserved.</div>
+      <div class="footer-reg">ABN 31 686 498 519 &middot; ASIC 686 498 519</div>
+    </div>
+  </footer>
+
+  <script src="site.js"></script>
+  <script src="kadmia-chatbot.js"></script>
+</body>
+</html>
