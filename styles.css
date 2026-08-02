@@ -43,7 +43,7 @@ nav { view-transition-name: kadmia-nav; }
 .page-header-actions { display: flex; align-items: center; gap: 32px; }
 
 /* ── BUTTONS ── */
-.btn-primary { font-family: 'Barlow Condensed', sans-serif; font-size: 13px; font-weight: 600; letter-spacing: 0.15em; text-transform: uppercase; color: var(--navy); background: var(--gold); padding: 16px 36px; text-decoration: none; transition: background 0.2s, transform 0.2s; display: inline-block; }
+.btn-primary { font-family: 'Barlow Condensed', sans-serif; font-size: 13px; font-weight: 600; letter-spacing: 0.15em; text-transform: uppercase; color: var(--navy); background: var(--gold); padding: 16px 36px; text-decoration: none; transition: background 0.2s, transform 0.2s; display: inline-block; white-space: nowrap; }
 .btn-primary:hover, .btn-primary:focus-visible { background: var(--gold-light); transform: translateY(-2px); }
 .btn-ghost { font-family: 'Barlow Condensed', sans-serif; font-size: 13px; font-weight: 600; letter-spacing: 0.15em; text-transform: uppercase; color: var(--white); text-decoration: none; display: inline-flex; align-items: center; gap: 8px; transition: color 0.2s; }
 .btn-ghost:hover, .btn-ghost:focus-visible { color: var(--gold); }
