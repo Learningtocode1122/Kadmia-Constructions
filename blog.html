@@ -9,7 +9,7 @@
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://www.kadmia.com.au/blog.html" />
   <meta name="twitter:card" content="summary_large_image" />
-  <meta property="og:image" content="https://www.kadmia.com.au/iStock-502011582.jpg" />
+  <meta property="og:image" content="https://www.kadmia.com.au/iStock-502011582-blog.jpg" />
   <meta property="og:image:width" content="1200" />
   <meta property="og:image:height" content="630" />
   <meta name="view-transition" content="same-origin" />
@@ -24,61 +24,38 @@
   <link rel="icon" type="image/png" href="favicon.png">
   <style>
     body { overflow-x: hidden; }
-    section { padding: 120px 60px; }
 
-    /* ── BLOG GRID ── */
-    .blog-grid { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 48px 40px; }
+    .blog-section { padding: 80px 60px 120px; max-width: 1200px; margin: 0 auto; }
 
-    .blog-card { background: var(--navy-mid); border: 1px solid rgba(200,169,110,0.1); overflow: hidden; transition: border-color 0.3s, transform 0.3s; display: flex; flex-direction: column; }
-    .blog-card:hover { border-color: rgba(200,169,110,0.3); transform: translateY(-4px); }
-    .blog-card-image { width: 100%; height: 220px; background: var(--navy-light); display: flex; align-items: center; justify-content: center; position: relative; overflow: hidden; }
-    .blog-card-image-placeholder { font-family: 'Bebas Neue', sans-serif; font-size: 48px; color: var(--gold); opacity: 0.3; letter-spacing: 0.1em; }
-    .blog-card-body { padding: 32px; flex: 1; display: flex; flex-direction: column; }
-    .blog-card-date { font-family: 'Barlow Condensed', sans-serif; font-size: 11px; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); margin-bottom: 12px; }
-    .blog-card-title { font-family: 'Bebas Neue', sans-serif; font-size: 32px; letter-spacing: 0.03em; line-height: 1.05; color: var(--white); margin-bottom: 14px; }
+    /* ── SECTION HEADER ── */
+    .blog-section-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 48px; padding-bottom: 24px; border-bottom: 1px solid rgba(200,169,110,0.15); }
+    .blog-section-title { font-family: 'Barlow Condensed', sans-serif; font-size: 12px; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); }
+    .blog-section-count { font-size: 12px; color: var(--gray); font-family: 'Barlow Condensed', sans-serif; letter-spacing: 0.1em; }
+
+    /* ── 3-COLUMN GRID ── */
+    .blog-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px 24px; }
+
+    /* ── CARD ── */
+    .blog-card { display: flex; flex-direction: column; }
+    .blog-card-image { width: 100%; aspect-ratio: 16/10; background-color: var(--navy-mid); overflow: hidden; margin-bottom: 16px; }
+    .blog-card-image img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.4s; }
+    .blog-card:hover .blog-card-image img { transform: scale(1.04); }
+    .blog-card-category { font-family: 'Barlow Condensed', sans-serif; font-size: 10px; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase; color: var(--gold); margin-bottom: 8px; }
+    .blog-card-date { font-family: 'Barlow Condensed', sans-serif; font-size: 10px; font-weight: 600; letter-spacing: 0.15em; text-transform: uppercase; color: var(--gray); margin-bottom: 10px; }
+    .blog-card-title { font-family: 'Barlow', sans-serif; font-size: 18px; font-weight: 500; line-height: 1.35; color: var(--white); margin-bottom: 0; }
     .blog-card-title a { color: inherit; text-decoration: none; transition: color 0.2s; }
     .blog-card-title a:hover { color: var(--gold); }
-    .blog-card-excerpt { font-size: 15px; line-height: 1.7; color: var(--gray-light); margin-bottom: 24px; flex: 1; }
-    .blog-card-tags { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 20px; }
-    .blog-card-tag { font-family: 'Barlow Condensed', sans-serif; font-size: 10px; font-weight: 600; letter-spacing: 0.15em; text-transform: uppercase; color: var(--gold); background: rgba(200,169,110,0.08); padding: 6px 14px; }
-    .blog-card-link { font-family: 'Barlow Condensed', sans-serif; font-size: 13px; font-weight: 600; letter-spacing: 0.15em; text-transform: uppercase; color: var(--gold); text-decoration: none; display: inline-flex; align-items: center; gap: 8px; transition: gap 0.2s; }
-    .blog-card-link:hover { gap: 14px; }
-    .blog-card-link::after { content: '→'; }
 
-    /* ── FEATURED POST ── */
-    .blog-featured { max-width: 1200px; margin: 0 auto 64px; }
-    .blog-featured-card { display: grid; grid-template-columns: 1fr 1fr; background: var(--navy-mid); border: 1px solid rgba(200,169,110,0.15); overflow: hidden; }
-    .blog-featured-image { background-color: var(--navy-light); min-height: 360px; overflow: hidden; }
+    /* ── IMAGE PLACEHOLDER ── */
+    .blog-card-image-placeholder { width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; background: var(--navy-light); font-family: 'Bebas Neue', sans-serif; font-size: 32px; color: var(--gold); opacity: 0.25; letter-spacing: 0.08em; }
 
-    .blog-featured-body { padding: 48px; display: flex; flex-direction: column; justify-content: center; }
-    .blog-featured-label { font-family: 'Barlow Condensed', sans-serif; font-size: 11px; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); margin-bottom: 8px; display: flex; align-items: center; gap: 12px; }
-    .blog-featured-label::before { content: ''; width: 24px; height: 1px; background: var(--gold); }
-    .blog-featured-date { font-family: 'Barlow Condensed', sans-serif; font-size: 11px; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); margin-bottom: 16px; }
-    .blog-featured-title { font-family: 'Bebas Neue', sans-serif; font-size: clamp(36px, 5vw, 56px); letter-spacing: 0.03em; line-height: 1; color: var(--white); margin-bottom: 18px; }
-    .blog-featured-title a { color: inherit; text-decoration: none; transition: color 0.2s; }
-    .blog-featured-title a:hover { color: var(--gold); }
-    .blog-featured-excerpt { font-size: 17px; line-height: 1.7; color: var(--gray-light); margin-bottom: 28px; }
-    .blog-featured-tags { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 24px; }
-    .blog-featured-tags .blog-card-tag { padding: 8px 18px; font-size: 11px; }
-
-    /* ── CTA BANNER ── */
-    .cta-banner { background: var(--navy-mid); text-align: center; padding: 100px 60px; border-top: 1px solid rgba(200,169,110,0.12); }
-    .cta-banner .section-eyebrow { justify-content: center; }
-    .cta-banner .section-title { margin-bottom: 24px; }
-    .cta-banner p { font-size: 17px; color: var(--gray-light); max-width: 560px; margin: 0 auto 36px; line-height: 1.7; }
-
-    @media (max-width: 1100px) {
-      section { padding: 80px 32px; }
-      .blog-grid { grid-template-columns: 1fr; gap: 32px; }
-      .blog-featured-card { grid-template-columns: 1fr; }
-      .blog-featured-image { min-height: 240px; }
-      .blog-featured-body { padding: 32px; }
+    @media (max-width: 1000px) {
+      .blog-grid { grid-template-columns: repeat(2, 1fr); }
     }
     @media (max-width: 720px) {
-      section { padding: 72px 20px; }
-      .blog-featured-body { padding: 24px; }
-      .blog-card-body { padding: 24px; }
-      .blog-card-title { font-size: 26px; }
+      .blog-section { padding: 60px 20px 80px; }
+      .blog-grid { grid-template-columns: 1fr; gap: 40px; }
+      .blog-section-header { margin-bottom: 32px; }
     }
   </style>
 </head>
@@ -117,111 +94,76 @@
     <div class="page-header-inner">
       <div class="page-header-eyebrow">Insights &amp; Advice</div>
       <h1>Our <span>Blog</span></h1>
-      <p class="page-header-sub">Real advice from real builders. We share everything we know about custom homes, knock down rebuilds, duplexes, and the Sydney building market — no fluff, no sales pitch.</p>
+      <p class="page-header-sub">Real advice from real builders. No fluff, no sales pitch — just honest information about building in Sydney.</p>
     </div>
   </header>
 
-  <section style="background:var(--navy);">
+  <div class="blog-section">
 
-    <!-- Featured Post -->
-    <div class="blog-featured">
-      <div class="blog-featured-card">
-        <div class="blog-featured-image">
-          <img src="iStock-502011582-blog.jpg" alt="Knock down rebuild project by Kadmia Constructions — modern home exterior" style="width:100%;display:block;">
-        </div>
-        <div class="blog-featured-body">
-          <div class="blog-featured-label">Latest Article</div>
-          <div class="blog-featured-date">1 August 2026</div>
-          <h2 class="blog-featured-title"><a href="blog-knock-down-rebuild-cost-sydney.html">How Much Does a Knock Down Rebuild Cost in Sydney? 2026 Guide</a></h2>
-          <p class="blog-featured-excerpt">Everything you need to know about knock down rebuild costs in Sydney — from base build prices and site works to hidden fees, council requirements, and how to budget accurately. Written by builders with 10+ years on the tools.</p>
-          <div class="blog-featured-tags">
-            <span class="blog-card-tag">Knock Down Rebuild</span>
-            <span class="blog-card-tag">Costs &amp; Budgeting</span>
-            <span class="blog-card-tag">Sydney</span>
-          </div>
-          <a href="blog-knock-down-rebuild-cost-sydney.html" class="btn-primary">Read the Guide</a>
-        </div>
-      </div>
+    <div class="blog-section-header">
+      <span class="blog-section-title">Latest Articles</span>
+      <span class="blog-section-count">5 articles</span>
     </div>
 
-    <!-- All Posts Grid -->
     <div class="blog-grid">
 
+      <!-- Article 1: KDR Cost -->
       <div class="blog-card">
         <div class="blog-card-image">
-          <div class="blog-card-image-placeholder">DUPLEX</div>
+          <a href="blog-knock-down-rebuild-cost-sydney.html"><img src="iStock-502011582-blog.jpg" alt="Knock down rebuild cost guide" loading="lazy"></a>
         </div>
-        <div class="blog-card-body">
-          <div class="blog-card-date">9 August 2026</div>
-          <h3 class="blog-card-title"><a href="blog-duplex-vs-granny-flat-sydney.html">Duplex vs Granny Flat: Which Is Right for Your Sydney Property?</a></h3>
-          <p class="blog-card-excerpt">A practical comparison of costs, rental returns, council rules, and ROI for duplexes and granny flats across Sydney suburbs.</p>
-          <div class="blog-card-tags">
-            <span class="blog-card-tag">Duplexes</span>
-            <span class="blog-card-tag">Granny Flats</span>
-            <span class="blog-card-tag">Investment</span>
-          </div>
-          <a href="blog-duplex-vs-granny-flat-sydney.html" class="blog-card-link">Read Article</a>
-        </div>
+        <div class="blog-card-category">Costs &amp; Budgeting</div>
+        <div class="blog-card-date">1 August 2026</div>
+        <h3 class="blog-card-title"><a href="blog-knock-down-rebuild-cost-sydney.html">How Much Does a Knock Down Rebuild Cost in Sydney? 2026 Guide</a></h3>
       </div>
 
+      <!-- Article 2: Duplex vs Granny Flat -->
       <div class="blog-card">
         <div class="blog-card-image">
-          <div class="blog-card-image-placeholder">CDC</div>
+          <a href="blog-duplex-vs-granny-flat-sydney.html"><img src="iStock-502011582-blog.jpg" alt="Duplex vs granny flat comparison" loading="lazy"></a>
         </div>
-        <div class="blog-card-body">
-          <div class="blog-card-date">16 August 2026</div>
-          <h3 class="blog-card-title"><a href="blog-cdc-vs-da-sydney-approvals.html">CDC vs DA: Which Approval Path Is Faster for Your Sydney Build?</a></h3>
-          <p class="blog-card-excerpt">Complying Development Certificate or full Development Application? We break down the timelines, costs, and which projects qualify for each.</p>
-          <div class="blog-card-tags">
-            <span class="blog-card-tag">Approvals</span>
-            <span class="blog-card-tag">Council</span>
-            <span class="blog-card-tag">Process</span>
-          </div>
-          <a href="blog-cdc-vs-da-sydney-approvals.html" class="blog-card-link">Read Article</a>
-        </div>
+        <div class="blog-card-category">Property Investment</div>
+        <div class="blog-card-date">9 August 2026</div>
+        <h3 class="blog-card-title"><a href="blog-duplex-vs-granny-flat-sydney.html">Duplex vs Granny Flat: Which Is Right for Your Sydney Property?</a></h3>
       </div>
 
+      <!-- Article 3: CDC vs DA -->
       <div class="blog-card">
         <div class="blog-card-image">
-          <div class="blog-card-image-placeholder">CUSTOM</div>
+          <a href="blog-cdc-vs-da-sydney-approvals.html"><img src="iStock-502011582-blog.jpg" alt="CDC vs DA approvals guide" loading="lazy"></a>
         </div>
-        <div class="blog-card-body">
-          <div class="blog-card-date">23 August 2026</div>
-          <h3 class="blog-card-title"><a href="blog-custom-home-builder-checklist.html">Custom Home Builder Checklist: 15 Questions to Ask Before You Sign</a></h3>
-          <p class="blog-card-excerpt">How to vet a custom home builder properly — licensing, insurance, past projects, contract terms, and the red flags most people miss.</p>
-          <div class="blog-card-tags">
-            <span class="blog-card-tag">Custom Homes</span>
-            <span class="blog-card-tag">Checklist</span>
-            <span class="blog-card-tag">Hiring</span>
-          </div>
-          <a href="blog-custom-home-builder-checklist.html" class="blog-card-link">Read Article</a>
-        </div>
+        <div class="blog-card-category">Approvals &amp; Council</div>
+        <div class="blog-card-date">16 August 2026</div>
+        <h3 class="blog-card-title"><a href="blog-cdc-vs-da-sydney-approvals.html">CDC vs DA: Which Approval Path Is Faster for Your Sydney Build?</a></h3>
       </div>
 
+      <!-- Article 4: Builder Checklist -->
       <div class="blog-card">
         <div class="blog-card-image">
-          <div class="blog-card-image-placeholder">$$</div>
+          <a href="blog-custom-home-builder-checklist.html"><img src="iStock-502011582-blog.jpg" alt="Builder checklist guide" loading="lazy"></a>
         </div>
-        <div class="blog-card-body">
-          <div class="blog-card-date">30 August 2026</div>
-          <h3 class="blog-card-title"><a href="blog-sydney-custom-home-costs-by-suburb.html">Sydney Custom Home Costs: Price per Square Metre by Suburb (2026)</a></h3>
-          <p class="blog-card-excerpt">What you'll actually pay per square metre for a custom home in Western Sydney, Inner West, North Shore, and beyond. Real numbers, not ranges.</p>
-          <div class="blog-card-tags">
-            <span class="blog-card-tag">Costs &amp; Budgeting</span>
-            <span class="blog-card-tag">Custom Homes</span>
-            <span class="blog-card-tag">Sydney</span>
-          </div>
-          <a href="blog-sydney-custom-home-costs-by-suburb.html" class="blog-card-link">Read Article</a>
+        <div class="blog-card-category">Hiring a Builder</div>
+        <div class="blog-card-date">23 August 2026</div>
+        <h3 class="blog-card-title"><a href="blog-custom-home-builder-checklist.html">Custom Home Builder Checklist: 15 Questions to Ask Before You Sign</a></h3>
+      </div>
+
+      <!-- Article 5: Costs by Suburb -->
+      <div class="blog-card">
+        <div class="blog-card-image">
+          <a href="blog-sydney-custom-home-costs-by-suburb.html"><img src="iStock-502011582-blog.jpg" alt="Sydney custom home costs by suburb" loading="lazy"></a>
         </div>
+        <div class="blog-card-category">Costs &amp; Budgeting</div>
+        <div class="blog-card-date">30 August 2026</div>
+        <h3 class="blog-card-title"><a href="blog-sydney-custom-home-costs-by-suburb.html">Sydney Custom Home Costs: Price per Square Metre by Suburb (2026)</a></h3>
       </div>
 
     </div>
-  </section>
+  </div>
 
-  <div class="cta-banner">
-    <div class="section-eyebrow">Have a question?</div>
-    <h2 class="section-title">Let's <span>Talk</span></h2>
-    <p>Every project is different. If you're planning a build and want honest, no-obligation advice, we're here to help.</p>
+  <div class="cta-banner" style="background:var(--navy-mid);text-align:center;padding:100px 60px;border-top:1px solid rgba(200,169,110,0.12);">
+    <div class="section-eyebrow" style="justify-content:center;">Have a question?</div>
+    <h2 class="section-title" style="margin-bottom:24px;">Let's <span>Talk</span></h2>
+    <p style="font-size:17px;color:var(--gray-light);max-width:560px;margin:0 auto 36px;line-height:1.7;">Every project is different. If you're planning a build and want honest, no-obligation advice, we're here to help.</p>
     <a href="kadmia-contact.html" class="btn-primary">Get in Touch</a>
   </div>
 
