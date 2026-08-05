@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>KADMIA. Logo — Brand Concepts</title>
+<style>
+  :root {
+    --bg: #0d0d0d;
+    --surface: #1a1a1a;
+    --gold: #c8a45c;
+    --gold-light: #e0c78a;
+    --gold-dark: #a07830;
+    --text: #f0ede8;
+    --muted: #8a857c;
+    --border: #2a2824;
+  }
+
+  * { margin:0; padding:0; box-sizing:border-box; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    line-height: 1.6;
+  }
+
+  /* ── HERO ── */
+  .hero {
+    text-align: center;
+    padding: 80px 24px 60px;
+    background: radial-gradient(ellipse at 50% 0%, rgba(200,164,92,0.08) 0%, transparent 60%);
+  }
+  .hero h1 {
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    font-weight: 300;
+    letter-spacing: 0.08em;
+    color: var(--gold);
+    text-transform: uppercase;
+  }
+  .hero p {
+    color: var(--muted);
+    margin-top: 12px;
+    font-size: 1.05rem;
+    letter-spacing: 0.04em;
+  }
+
+  /* ── SECTION ── */
+  .section {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 40px 24px;
+  }
+  .section-title {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    color: var(--muted);
+    margin-bottom: 32px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  /* ── LOGO CARDS ── */
+  .logo-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+    gap: 24px;
+  }
+  .logo-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    overflow: hidden;
+    transition: border-color 0.25s;
+  }
+  .logo-card:hover { border-color: var(--gold-dark); }
+
+  .logo-stage {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 240px;
+    padding: 40px 28px;
+    position: relative;
+  }
+  .logo-stage.dark  { background: #0d0d0d; }
+  .logo-stage.light { background: #f5f2eb; }
+  .logo-stage.gold-bg { background: linear-gradient(135deg, #c8a45c, #a07830); }
+
+  .logo-stage svg {
+    max-width: 100%;
+    height: auto;
+  }
+
+  .logo-label {
+    padding: 16px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+    border-top: 1px solid var(--border);
+  }
+  .logo-label h3 {
+    font-size: 0.85rem;
+    font-weight: 500;
+    letter-spacing: 0.03em;
+  }
+  .logo-label span {
+    font-size: 0.7rem;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+  }
+
+  /* ── DOWNLOAD BAR ── */
+  .download-bar {
+    text-align: center;
+    padding: 32px 24px 80px;
+  }
+  .btn {
+    display: inline-block;
+    background: var(--gold);
+    color: #0d0d0d;
+    padding: 14px 36px;
+    border-radius: 6px;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.9rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    transition: background 0.2s;
+  }
+  .btn:hover { background: var(--gold-light); }
+
+  .btn-ghost {
+    background: transparent;
+    color: var(--gold);
+    border: 1px solid var(--gold-dark);
+    margin-left: 12px;
+  }
+  .btn-ghost:hover { background: rgba(200,164,92,0.08); }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 500px) {
+    .logo-grid { grid-template-columns: 1fr; }
+    .logo-stage { min-height: 180px; padding: 28px 16px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ═══════════════ HERO ═══════════════ -->
+<section class="hero">
+  <h1>KADMIA.</h1>
+  <p>Brand Identity — Logo Concepts</p>
+</section>
+
+<!-- ═══════════════ 1. PRIMARY WORDMARK ═══════════════ -->
+<section class="section">
+  <div class="section-title">01 — Primary Wordmarks</div>
+  <div class="logo-grid">
+
+    <!-- 1a. Dark BG wordmark -->
+    <div class="logo-card">
+      <div class="logo-stage dark">
+        <svg width="380" height="100" viewBox="0 0 380 100" xmlns="http://www.w3.org/2000/svg">
+          <text x="190" y="68" text-anchor="middle"
+            font-family="'Segoe UI',system-ui,sans-serif"
+            font-weight="700" font-size="52" letter-spacing="14"
+            fill="#c8a45c">KADMIA<tspan font-size="52" fill="#e0c78a">.</tspan></text>
+          <line x1="90" y1="82" x2="290" y2="82" stroke="#c8a45c" stroke-width="0.75" opacity="0.35"/>
+          <text x="190" y="96" text-anchor="middle"
+            font-family="'Segoe UI',system-ui,sans-serif"
+            font-weight="400" font-size="9.5" letter-spacing="7"
+            fill="#8a857c">CONSTRUCTIONS</text>
+        </svg>
+      </div>
+      <div class="logo-label">
+        <h3>Dark — Primary</h3>
+        <span>Wordmark</span>
+      </div>
+    </div>
+
+    <!-- 1b. Light BG wordmark -->
+    <div class="logo-card">
+      <div class="logo-stage light">
+        <svg width="380" height="100" viewBox="0 0 380 100" xmlns="http://www.w3.org/2000/svg">
+          <text x="190" y="68" text-anchor="middle"
+            font-family="'Segoe UI',system-ui,sans-serif"
+            font-weight="700" font-size="52" letter-spacing="14"
+            fill="#1a1a1a">KADMIA<tspan font-size="52" fill="#c8a45c">.</tspan></text>
+          <line x1="90" y1="82" x2="290" y2="82" stroke="#1a1a1a" stroke-width="0.75" opacity="0.25"/>
+          <text x="190" y="96" text-anchor="middle"
+            font-family="'Segoe UI',system-ui,sans-serif"
+            font-weight="400" font-size="9.5" letter-spacing="7"
+            fill="#6b6760">CONSTRUCTIONS</text>
+        </svg>
+      </div>
+      <div class="logo-label">
+        <h3>Light — Stationery</h3>
+        <span>Wordmark</span>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ═══════════════ 2. ICON + WORDMARK ═══════════════ -->
+<section class="section">
+  <div class="section-title">02 — Icon + Wordmark Lockups</div>
+  <div class="logo-grid">
+
+    <!-- 2a. Geometric K mark (horizontal) -->
+    <div class="logo-card">
+      <div class="logo-stage dark">
+        <svg width="420" height="120" viewBox="0 0 420 120" xmlns="http://www.w3.org/2000/svg">
+          <!-- Abstract K icon — two intersecting angled planes like a roof truss -->
+          <g transform="translate(40,60)">
+            <!-- Left pillar -->
+            <rect x="-28" y="-36" width="6" height="72" rx="1" fill="#c8a45c"/>
+            <!-- Upper arm — roof pitch right -->
+            <polygon points="-25,-36 24,-28 24,-22 -25,-30" fill="#e0c78a"/>
+            <!-- Lower arm — roof pitch right -->
+            <polygon points="-25,36 24,10 24,16 -25,30" fill="#a07830"/>
+            <!-- Horizontal connector -->
+            <rect x="-22" y="-3" width="46" height="6" rx="1" fill="#c8a45c" opacity="0.6"/>
+            <!-- Center accent dot -->
+            <circle cx="-22" cy="0" r="3" fill="#e0c78a"/>
+          </g>
+          <!-- Wordmark -->
+          <text x="110" y="72" font-family="'Segoe UI',system-ui,sans-serif"
+            font-weight="700" font-size="44" letter-spacing="12"
+            fill="#c8a45c">KADMIA<tspan font-size="44" fill="#e0c78a">.</tspan></text>
+          <text x="110" y="90" font-family="'Segoe UI',system-ui,sans-serif"
+            font-weight="400" font-size="8.5" letter-spacing="6"
+            fill="#8a857c">CONSTRUCTIONS</text>
+        </svg>
+      </div>
+      <div class="logo-label">
+        <h3>Truss Mark — Horizontal</h3>
+        <span>Icon + Wordmark</span>
+      </div>
+    </div>
+
+    <!-- 2b. Abstract structural grid icon (stacked) -->
+    <div class="logo-card">
+      <div class="logo-stage dark">
+        <svg width="300" height="200" viewBox="0 0 300 200" xmlns="http://www.w3.org/2000/svg">
+          <!-- Structural grid icon — building blocks / framework -->
+          <g transform="translate(150,68)">
+            <!-- Outer frame -->
+            <rect x="-40" y="-36" width="80" height="72" rx="2" fill="none" stroke="#c8a45c" stroke-width="2.5"/>
+            <!-- Horizontal divisions -->
+            <line x1="-36" y1="-18" x2="36" y2="-18" stroke="#c8a45c" stroke-width="1.5"/>
+            <line x1="-36" y1="0" x2="36" y2="0" stroke="#c8a45c" stroke-width="1.5"/>
+            <line x1="-36" y1="18" x2="36" y2="18" stroke="#c8a45c" stroke-width="1.5"/>
+            <!-- Vertical divisions -->
+            <line x1="-13" y1="-32" x2="-13" y2="32" stroke="#c8a45c" stroke-width="1.5"/>
+            <line x1="13" y1="-32" x2="13" y2="32" stroke="#c8a45c" stroke-width="1.5"/>
+            <!-- Accented cells -->
+            <rect x="-40" y="-18" width="24" height="18" fill="#c8a45c" opacity="0.25"/>
+            <rect x="13" y="0" width="27" height="18" fill="#e0c78a" opacity="0.2"/>
+            <rect x="-40" y="18" width="14" height="18" fill="#a07830" opacity="0.3"/>
+          </g>
+          <!-- Wordmark below -->
+          <text x="150" y="140" text-anchor="middle"
+            font-family="'Segoe UI',system-ui,sans-serif"
+            font-weight="700" font-size="36" letter-spacing="10"
+            fill="#c8a45c">KADMIA<tspan font-size="36" fill="#e0c78a">.</tspan></text>
+          <text x="150" y="156" text-anchor="middle"
+            font-family="'Segoe UI',system-ui,sans-serif"
+            font-weight="400" font-size="8" letter-spacing="6"
+            fill="#8a857c">CONSTRUCTIONS</text>
+        </svg>
+      </div>
+      <div class="logo-label">
+        <h3>Framework Mark — Stacked</h3>
+        <span>Icon + Wordmark</span>
+      </div>
+    </div>
+
+    <!-- 2c. House/roof K monogram -->
+    <div class="logo-card">
+      <div class="logo-stage dark">
+        <svg width="400" height="130" viewBox="0 0 400 130" xmlns="http://www.w3.org/2000/svg">
+          <!-- K formed from a house shape -->
+          <g transform="translate(52,65)">
+            <!-- Roof / left arm of K -->
+            <polygon points="-34,-38 0,-44 0,-20" fill="#e0c78a"/>
+            <!-- Vertical pillar -->
+            <rect x="-22" y="-24" width="6" height="60" rx="1" fill="#c8a45c"/>
+            <!-- Floor / base line -->
+            <line x1="-34" y1="36" x2="18" y2="36" stroke="#c8a45c" stroke-width="2"/>
+            <!-- Right arm of K — ascending -->
+            <polygon points="-16,-20 24,-28 24,-20 -16,-14" fill="#c8a45c" opacity="0.8"/>
+            <!-- Right arm of K — descending -->
+            <polygon points="-16,10 24,16 24,24 -16,18" fill="#a07830"/>
+            <!-- Entry notch -->
+            <rect x="-34" y="18" width="12" height="18" rx="1" fill="#c8a45c" opacity="0.2"/>
+          </g>
+          <!-- Wordmark -->
+          <text x="120" y="78" font-family="'Segoe UI',system-ui,sans-serif"
+            font-weight="700" font-size="42" letter-spacing="12"
+            fill="#c8a45c">KADMIA<tspan font-size="42" fill="#e0c78a">.</tspan></text>
+          <text x="120" y="96" font-family="'Segoe UI',system-ui,sans-serif"
+            font-weight="400" font-size="8.5" letter-spacing="6"
+            fill="#8a857c">CONSTRUCTIONS</text>
+        </svg>
+      </div>
+      <div class="logo-label">
+        <h3>Habitat K Mark — Horizontal</h3>
+        <span>Icon + Wordmark</span>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ═══════════════ 3. ICON-ONLY MARKS ═══════════════ -->
+<section class="section">
+  <div class="section-title">03 — Icon-Only Marks (Favicon / App Icon / Social)</div>
+  <div class="logo-grid">
+
+    <!-- 3a. K Truss icon -->
+    <div class="logo-card">
+      <div class="logo-stage dark">
+        <svg width="120" height="120" viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
+          <rect x="44" y="22" width="8" height="76" rx="2" fill="#c8a45c"/>
+          <polygon points="52,22 88,30 88,38 52,30" fill="#e0c78a"/>
+          <polygon points="52,98 88,70 88,78 52,90" fill="#a07830"/>
+          <rect x="46" y="57" width="42" height="6" rx="1" fill="#c8a45c" opacity="0.5"/>
+          <circle cx="46" cy="60" r="4" fill="#e0c78a"/>
+        </svg>
+      </div>
+      <div class="logo-label">
+        <h3>Truss Icon — Dark</h3>
+        <span>App / Favicon</span>
+      </div>
+    </div>
+
+    <!-- 3b. Framework icon -->
+    <div class="logo-card">
+      <div class="logo-stage dark">
+        <svg width="120" height="120" viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
+          <rect x="30" y="30" width="60" height="60" rx="3" fill="none" stroke="#c8a45c" stroke-width="3"/>
+          <line x1="34" y1="45" x2="86" y2="45" stroke="#c8a45c" stroke-width="2"/>
+          <line x1="34" y1="60" x2="86" y2="60" stroke="#c8a45c" stroke-width="2"/>
+          <line x1="34" y1="75" x2="86" y2="75" stroke="#c8a45c" stroke-width="2"/>
+          <line x1="50" y1="34" x2="50" y2="86" stroke="#c8a45c" stroke-width="2"/>
+          <line x1="70" y1="34" x2="70" y2="86" stroke="#c8a45c" stroke-width="2"/>
+          <rect x="30" y="45" width="20" height="15" fill="#c8a45c" opacity="0.3"/>
+          <rect x="70" y="60" width="20" height="15" fill="#e0c78a" opacity="0.25"/>
+        </svg>
+      </div>
+      <div class="logo-label">
+        <h3>Framework Icon — Dark</h3>
+        <span>App / Social</span>
+      </div>
+    </div>
+
+    <!-- 3c. K monogram circle -->
+    <div class="logo-card">
+      <div class="logo-stage dark">
+        <svg width="120" height="120" viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="60" cy="60" r="50" fill="none" stroke="#c8a45c" stroke-width="3"/>
+          <circle cx="60" cy="60" r="42" fill="none" stroke="#c8a45c" stroke-width="0.75" opacity="0.3"/>
+          <text x="60" y="74" text-anchor="middle"
+            font-family="'Segoe UI',system-ui,sans-serif"
+            font-weight="700" font-size="46" letter-spacing="2"
+            fill="#c8a45c">K<tspan font-size="46" fill="#e0c78a">.</tspan></text>
+        </svg>
+      </div>
+      <div class="logo-label">
+        <h3>K. Monogram — Circle</h3>
+        <span>Favicon / Badge</span>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ═══════════════ 4. COLOR VARIATIONS ═══════════════ -->
+<section class="section">
+  <div class="section-title">04 — Reversed &amp; Single-Color</div>
+  <div class="logo-grid">
+
+    <!-- 4a. Gold on gold -->
+    <div class="logo-card">
+      <div class="logo-stage gold-bg">
+        <svg width="340" height="100" viewBox="0 0 340 100" xmlns="http://www.w3.org/2000/svg">
+          <text x="170" y="62" text-anchor="middle"
+            font-family="'Segoe UI',system-ui,sans-serif"
+            font-weight="700" font-size="48" letter-spacing="12"
+            fill="#1a1a1a">KADMIA<tspan font-size="48" fill="#0d0d0d">.</tspan></text>
+          <text x="170" y="78" text-anchor="middle"
+            font-family="'Segoe UI',system-ui,sans-serif"
+            font-weight="400" font-size="9" letter-spacing="7"
+            fill="#1a1a1a" opacity="0.7">CONSTRUCTIONS</text>
+        </svg>
+      </div>
+      <div class="logo-label">
+        <h3>Gold Field — Hero</h3>
+        <span>Reversed</span>
+      </div>
+    </div>
+
+    <!-- 4b. White on dark (single color) -->
+    <div class="logo-card">
+      <div class="logo-stage dark">
+        <svg width="340" height="100" viewBox="0 0 340 100" xmlns="http://www.w3.org/2000/svg">
+          <text x="170" y="62" text-anchor="middle"
+            font-family="'Segoe UI',system-ui,sans-serif"
+            font-weight="700" font-size="48" letter-spacing="12"
+            fill="#f0ede8">KADMIA<tspan font-size="48" fill="#c8a45c">.</tspan></text>
+          <text x="170" y="78" text-anchor="middle"
+            font-family="'Segoe UI',system-ui,sans-serif"
+            font-weight="400" font-size="9" letter-spacing="7"
+            fill="#8a857c">CONSTRUCTIONS</text>
+        </svg>
+      </div>
+      <div class="logo-label">
+        <h3>White + Gold — Monochrome Dark</h3>
+        <span>Single-Color Alt</span>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ═══════════════ 5. HORIZONTAL LOCKUP ═══════════════ -->
+<section class="section">
+  <div class="section-title">05 — Extended Horizontal Lockups (Nav / Header)</div>
+  <div class="logo-grid">
+
+    <!-- 5a. Wide nav version -->
+    <div class="logo-card" style="grid-column: 1 / -1;">
+      <div class="logo-stage dark">
+        <svg width="700" height="90" viewBox="0 0 700 90" xmlns="http://www.w3.org/2000/svg">
+          <!-- Icon -->
+          <g transform="translate(50,45)">
+            <rect x="-22" y="-28" width="6" height="56" rx="1" fill="#c8a45c"/>
+            <polygon points="-16,-28 28,-20 28,-14 -16,-22" fill="#e0c78a"/>
+            <polygon points="-16,28 28,10 28,16 -16,22" fill="#a07830"/>
+          </g>
+          <!-- Divider -->
+          <line x1="110" y1="22" x2="110" y2="68" stroke="#c8a45c" stroke-width="0.75" opacity="0.35"/>
+          <!-- Wordmark -->
+          <text x="134" y="54" font-family="'Segoe UI',system-ui,sans-serif"
+            font-weight="700" font-size="34" letter-spacing="10"
+            fill="#c8a45c">KADMIA<tspan font-size="34" fill="#e0c78a">.</tspan></text>
+          <text x="134" y="68" font-family="'Segoe UI',system-ui,sans-serif"
+            font-weight="400" font-size="7.5" letter-spacing="5.5"
+            fill="#8a857c">CONSTRUCTIONS</text>
+        </svg>
+      </div>
+      <div class="logo-label">
+        <h3>Full Horizontal Lockup — Website Header</h3>
+        <span>Nav / Primary</span>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ═══════════════ DOWNLOAD ═══════════════ -->
+<div class="download-bar">
+  <p style="color:var(--muted);margin-bottom:20px;font-size:0.85rem;">
+    All logos are pure SVG — right-click any logo and "Save Image As…" or inspect to copy the markup.
+  </p>
+  <a href="#" class="btn" onclick="downloadSVGs()">Export All as SVGs</a>
+  <a href="#" class="btn btn-ghost" onclick="window.print()">Print Proof Sheet</a>
+</div>
+
+<script>
+// Collect all SVGs into a downloadable HTML bundle
+function downloadSVGs() {
+  const svgs = document.querySelectorAll('.logo-stage svg');
+  let html = '<!DOCTYPE html><html><head><meta charset="UTF-8"><title>KADMIA. Logo Set</title></head><body>';
+  html += '<h1>KADMIA. — Logo Set</h1>';
+  svgs.forEach((svg, i) => {
+    const clone = svg.cloneNode(true);
+    clone.removeAttribute('width');
+    clone.removeAttribute('height');
+    html += `<div style="margin:40px 0;padding:20px;border:1px solid #ccc;">${clone.outerHTML}</div>`;
+  });
+  html += '</body></html>';
+  const blob = new Blob([html], {type: 'text/html'});
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = 'kadmia-logo-set.html';
+  a.click();
+}
+</script>
+
+</body>
+</html>

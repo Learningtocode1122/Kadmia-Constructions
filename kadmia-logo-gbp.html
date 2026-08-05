@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>KADMIA. — Google Business Profile Logo</title>
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; }
+
+  body {
+    background: #1a1a1a;
+    color: #f0ede8;
+    font-family: 'Segoe UI', system-ui, sans-serif;
+    text-align: center;
+    padding: 40px 20px;
+  }
+
+  h1 {
+    font-weight: 300;
+    letter-spacing: 0.1em;
+    color: #c8a45c;
+    margin-bottom: 8px;
+  }
+  .sub {
+    color: #8a857c;
+    font-size: 0.85rem;
+    margin-bottom: 40px;
+  }
+
+  .preview-row {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 40px;
+    margin-bottom: 32px;
+  }
+
+  .preview-card {
+    background: #111;
+    border: 1px solid #2a2824;
+    border-radius: 12px;
+    padding: 28px;
+    text-align: center;
+  }
+  .preview-card h3 {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    color: #8a857c;
+    margin-bottom: 16px;
+  }
+
+  /* Show how it looks with Google's circular crop */
+  .circle-crop {
+    width: 200px; height: 200px;
+    border-radius: 50%;
+    overflow: hidden;
+    margin: 0 auto 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .circle-crop.gold-bg { background: linear-gradient(135deg, #d4b46a, #a07830); }
+  .circle-crop.dark-bg { background: #0d0d0d; }
+
+  .circle-crop svg { width: 170px; height: 170px; }
+
+  .label-row {
+    display: flex;
+    justify-content: center;
+    gap: 16px;
+    margin-top: 12px;
+  }
+  .tag {
+    font-size: 0.65rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    padding: 3px 10px;
+    border-radius: 3px;
+    background: #2a2824;
+    color: #a09880;
+  }
+  .tag.good { background: #1a2a1a; color: #7ab87a; }
+
+  /* Buttons */
+  .btn-row {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 16px;
+    margin: 40px 0;
+  }
+  .btn {
+    display: inline-block;
+    background: #c8a45c;
+    color: #0d0d0d;
+    padding: 14px 36px;
+    border-radius: 6px;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.9rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    border: none;
+    cursor: pointer;
+    transition: background 0.2s;
+    font-family: inherit;
+  }
+  .btn:hover { background: #e0c78a; }
+  .btn.ghost {
+    background: transparent;
+    color: #c8a45c;
+    border: 1px solid #a07830;
+  }
+  .btn.ghost:hover { background: rgba(200,164,92,0.08); }
+
+  /* Google spec reminder */
+  .specs {
+    background: #1e2820;
+    border: 1px solid #2a3a2a;
+    border-radius: 8px;
+    padding: 16px 24px;
+    max-width: 500px;
+    margin: 0 auto 40px;
+    font-size: 0.8rem;
+    color: #9aba9a;
+    text-align: left;
+    line-height: 1.7;
+  }
+  .specs strong { color: #c8e0a0; }
+
+  /* Hidden canvas for PNG export */
+  .hidden-canvas { display: none; }
+</style>
+</head>
+<body>
+
+<h1>KADMIA.</h1>
+<p class="sub">Google Business Profile — Logo Export</p>
+
+<div class="specs">
+  <strong>Google Business Profile logo requirements:</strong><br>
+  ✓ Square (720×720 px recommended, 250×250 min)<br>
+  ✓ PNG or JPG format<br>
+  ✓ Works when cropped into a circle<br>
+  ✓ Both options below are pre-centered for the circular crop
+</div>
+
+<!-- ═══════ OPTION 1: GOLD FIELD ═══════ -->
+<div class="preview-row">
+
+  <div class="preview-card" id="card-gold">
+    <h3>Option A — Gold Field</h3>
+
+    <!-- Circular crop preview -->
+    <div class="circle-crop gold-bg">
+      <svg viewBox="0 0 720 720" xmlns="http://www.w3.org/2000/svg">
+        <text x="360" y="410" text-anchor="middle"
+          font-family="'Segoe UI','Helvetica Neue',Arial,sans-serif"
+          font-weight="700" font-size="160" letter-spacing="36"
+          fill="#1a1a1a">K<tspan font-size="160" fill="#0d0d0d">.</tspan></text>
+        <line x1="200" y1="456" x2="520" y2="456" stroke="#1a1a1a" stroke-width="2" opacity="0.3"/>
+        <text x="360" y="500" text-anchor="middle"
+          font-family="'Segoe UI','Helvetica Neue',Arial,sans-serif"
+          font-weight="400" font-size="36" letter-spacing="20"
+          fill="#1a1a1a" opacity="0.55">CONSTRUCTIONS</text>
+      </svg>
+    </div>
+
+    <div class="label-row">
+      <span class="tag">Gold BG</span>
+      <span class="tag good">Circular crop ✓</span>
+    </div>
+    <button class="btn" style="margin-top:16px;padding:10px 24px;font-size:0.8rem;"
+      onclick="downloadPNG('gold')">Download PNG (720×720)</button>
+  </div>
+
+  <!-- ═══════ OPTION 2: DARK + WHITE/GOLD ═══════ -->
+  <div class="preview-card" id="card-dark">
+    <h3>Option B — Dark + White/Gold</h3>
+
+    <!-- Circular crop preview -->
+    <div class="circle-crop dark-bg">
+      <svg viewBox="0 0 720 720" xmlns="http://www.w3.org/2000/svg">
+        <text x="360" y="410" text-anchor="middle"
+          font-family="'Segoe UI','Helvetica Neue',Arial,sans-serif"
+          font-weight="700" font-size="160" letter-spacing="36"
+          fill="#f0ede8">K<tspan font-size="160" fill="#c8a45c">.</tspan></text>
+        <line x1="200" y1="456" x2="520" y2="456" stroke="#c8a45c" stroke-width="2" opacity="0.3"/>
+        <text x="360" y="500" text-anchor="middle"
+          font-family="'Segoe UI','Helvetica Neue',Arial,sans-serif"
+          font-weight="400" font-size="36" letter-spacing="20"
+          fill="#8a857c">CONSTRUCTIONS</text>
+      </svg>
+    </div>
+
+    <div class="label-row">
+      <span class="tag">Dark BG</span>
+      <span class="tag good">Circular crop ✓</span>
+    </div>
+    <button class="btn" style="margin-top:16px;padding:10px 24px;font-size:0.8rem;"
+      onclick="downloadPNG('dark')">Download PNG (720×720)</button>
+  </div>
+
+</div>
+
+<!-- ═══════ RENDER CANVASES (hidden) ═══════ -->
+<div class="hidden-canvas">
+  <canvas id="canvas-gold" width="720" height="720"></canvas>
+  <canvas id="canvas-dark" width="720" height="720"></canvas>
+</div>
+
+<script>
+// Render Option A — Gold Field
+(function(){
+  const c = document.getElementById('canvas-gold');
+  const ctx = c.getContext('2d');
+
+  // Gold gradient bg
+  const grad = ctx.createLinearGradient(0,0,720,720);
+  grad.addColorStop(0, '#d4b46a');
+  grad.addColorStop(1, '#a07830');
+  ctx.fillStyle = grad;
+  ctx.fillRect(0,0,720,720);
+
+  // Subtle inner border
+  ctx.strokeStyle = 'rgba(26,26,26,0.12)';
+  ctx.lineWidth = 2;
+  ctx.strokeRect(20,20,680,680);
+
+  // Top rule
+  ctx.strokeStyle = 'rgba(26,26,26,0.3)';
+  ctx.lineWidth = 1.5;
+  ctx.beginPath();
+  ctx.moveTo(200, 160);
+  ctx.lineTo(520, 160);
+  ctx.stroke();
+
+  // KADMIA wordmark
+  ctx.fillStyle = '#1a1a1a';
+  ctx.font = '700 160px "Segoe UI", "Helvetica Neue", Arial, sans-serif';
+  ctx.textAlign = 'center';
+  ctx.textBaseline = 'middle';
+  ctx.fillText('KADMIA', 358, 370);
+
+  // Gold period
+  ctx.fillStyle = '#0d0d0d';
+  ctx.fillText('.', 555, 370);
+
+  // Bottom rule
+  ctx.strokeStyle = 'rgba(26,26,26,0.35)';
+  ctx.lineWidth = 1.5;
+  ctx.beginPath();
+  ctx.moveTo(100, 440);
+  ctx.lineTo(620, 440);
+  ctx.stroke();
+
+  // CONSTRUCTIONS subtitle
+  ctx.fillStyle = 'rgba(26,26,26,0.65)';
+  ctx.font = '400 36px "Segoe UI", "Helvetica Neue", Arial, sans-serif';
+  ctx.letterSpacing = '20px';
+  ctx.fillText('CONSTRUCTIONS', 360, 495);
+})();
+
+// Render Option B — Dark + White/Gold
+(function(){
+  const c = document.getElementById('canvas-dark');
+  const ctx = c.getContext('2d');
+
+  // Dark bg
+  ctx.fillStyle = '#0d0d0d';
+  ctx.fillRect(0,0,720,720);
+
+  // Subtle inner border
+  ctx.strokeStyle = 'rgba(200,164,92,0.15)';
+  ctx.lineWidth = 2;
+  ctx.strokeRect(20,20,680,680);
+
+  // Subtle radial glow
+  const glow = ctx.createRadialGradient(360,340,0,360,340,280);
+  glow.addColorStop(0, 'rgba(200,164,92,0.06)');
+  glow.addColorStop(1, 'rgba(200,164,92,0)');
+  ctx.fillStyle = glow;
+  ctx.fillRect(0,0,720,720);
+
+  // Top rule
+  ctx.strokeStyle = 'rgba(200,164,92,0.3)';
+  ctx.lineWidth = 1.5;
+  ctx.beginPath();
+  ctx.moveTo(200, 160);
+  ctx.lineTo(520, 160);
+  ctx.stroke();
+
+  // KADMIA wordmark
+  ctx.fillStyle = '#f0ede8';
+  ctx.font = '700 160px "Segoe UI", "Helvetica Neue", Arial, sans-serif';
+  ctx.textAlign = 'center';
+  ctx.textBaseline = 'middle';
+  ctx.fillText('KADMIA', 358, 370);
+
+  // Gold period
+  ctx.fillStyle = '#c8a45c';
+  ctx.fillText('.', 555, 370);
+
+  // Bottom rule
+  ctx.strokeStyle = 'rgba(200,164,92,0.35)';
+  ctx.lineWidth = 1.5;
+  ctx.beginPath();
+  ctx.moveTo(100, 440);
+  ctx.lineTo(620, 440);
+  ctx.stroke();
+
+  // CONSTRUCTIONS subtitle
+  ctx.fillStyle = '#8a857c';
+  ctx.font = '400 36px "Segoe UI", "Helvetica Neue", Arial, sans-serif';
+  ctx.fillText('CONSTRUCTIONS', 360, 495);
+})();
+
+function downloadPNG(variant) {
+  const canvas = document.getElementById('canvas-' + variant);
+  const a = document.createElement('a');
+  a.href = canvas.toDataURL('image/png');
+  a.download = 'kadmia-logo-' + (variant === 'gold' ? 'gold-field' : 'white-gold') + '-720x720.png';
+  a.click();
+}
+</script>
+
+<!-- Full square preview -->
+<h2 style="font-weight:300;letter-spacing:0.06em;color:#c8a45c;margin-top:48px;">Full 720×720 Previews</h2>
+<p class="sub">These are the exact PNGs you'll download</p>
+
+<div class="preview-row">
+  <div class="preview-card">
+    <h3>Option A — Gold Field</h3>
+    <img id="img-gold" alt="Gold field logo" style="width:280px;height:280px;border-radius:8px;">
+  </div>
+  <div class="preview-card">
+    <h3>Option B — Dark + White/Gold</h3>
+    <img id="img-dark" alt="Dark logo" style="width:280px;height:280px;border-radius:8px;">
+  </div>
+</div>
+
+<script>
+// Show canvas previews
+document.getElementById('img-gold').src = document.getElementById('canvas-gold').toDataURL('image/png');
+document.getElementById('img-dark').src = document.getElementById('canvas-dark').toDataURL('image/png');
+</script>
+
+</body>
+</html>

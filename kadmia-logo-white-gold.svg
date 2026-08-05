@@ -1,0 +1,18 @@
+<svg width="680" height="200" viewBox="0 0 340 100" xmlns="http://www.w3.org/2000/svg">
+
+  <!-- Dark background -->
+  <rect width="340" height="100" fill="#0d0d0d"/>
+
+  <!-- KADMIA wordmark -->
+  <text x="170" y="62" text-anchor="middle"
+    font-family="'Segoe UI',system-ui,sans-serif"
+    font-weight="700" font-size="48" letter-spacing="12"
+    fill="#f0ede8">KADMIA<tspan font-size="48" fill="#c8a45c">.</tspan></text>
+
+  <!-- Subtitle -->
+  <text x="170" y="78" text-anchor="middle"
+    font-family="'Segoe UI',system-ui,sans-serif"
+    font-weight="400" font-size="9" letter-spacing="7"
+    fill="#8a857c">CONSTRUCTIONS</text>
+
+</svg>
