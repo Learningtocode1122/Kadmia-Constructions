@@ -6,6 +6,20 @@
       "permanent": true
     }
   ],
+  "rewrites": [
+    { "source": "/services", "destination": "/kadmia-services.html" },
+    { "source": "/projects", "destination": "/kadmia-projects.html" },
+    { "source": "/process", "destination": "/kadmia-process.html" },
+    { "source": "/calculator", "destination": "/estimator.html" },
+    { "source": "/contact", "destination": "/kadmia-contact.html" },
+    { "source": "/blog", "destination": "/blog.html" },
+    { "source": "/blog/knock-down-rebuild-cost-sydney", "destination": "/blog-knock-down-rebuild-cost-sydney.html" },
+    { "source": "/blog/granny-flat-cost-sydney", "destination": "/blog-granny-flat-cost-sydney.html" },
+    { "source": "/blog/duplex-vs-granny-flat-sydney", "destination": "/blog-duplex-vs-granny-flat-sydney.html" },
+    { "source": "/blog/cdc-vs-da-sydney-approvals", "destination": "/blog-cdc-vs-da-sydney-approvals.html" },
+    { "source": "/blog/custom-home-builder-checklist", "destination": "/blog-custom-home-builder-checklist.html" },
+    { "source": "/blog/custom-home-costs-sydney-suburbs", "destination": "/blog-sydney-custom-home-costs-by-suburb.html" }
+  ],
   "headers": [
     {
       "source": "/assets/(.*)",
