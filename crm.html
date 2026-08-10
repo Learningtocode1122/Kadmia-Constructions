@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="noindex, nofollow">
+  <title>CRM — Kadmia Constructions</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@300;400;500;600&family=Barlow+Condensed:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+  <style>
+    body { background: var(--navy); font-family: 'Barlow', sans-serif; }
+    .crm-container { max-width: 1400px; margin: 0 auto; padding: 40px; }
+
+    .crm-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 40px; padding-bottom: 24px; border-bottom: 1px solid rgba(200,169,110,0.15); }
+    .crm-title { font-family: 'Bebas Neue', sans-serif; font-size: 48px; color: var(--white); letter-spacing: 0.04em; }
+    .crm-title span { color: var(--gold); }
+    .crm-actions { display: flex; gap: 16px; align-items: center; }
+
+    .crm-stats { display: grid; grid-template-columns: repeat(5, 1fr); gap: 16px; margin-bottom: 32px; }
+    .crm-stat { background: var(--navy-mid); padding: 24px; border: 1px solid rgba(200,169,110,0.1); }
+    .crm-stat-num { font-family: 'Bebas Neue', sans-serif; font-size: 42px; color: var(--gold); line-height: 1; }
+    .crm-stat-label { font-family: 'Barlow Condensed', sans-serif; font-size: 11px; font-weight: 600; letter-spacing: 0.15em; text-transform: uppercase; color: var(--gray); margin-top: 6px; }
+
+    .crm-toolbar { display: flex; gap: 12px; margin-bottom: 24px; flex-wrap: wrap; align-items: center; }
+    .crm-search { background: var(--navy-mid); border: 1px solid rgba(200,169,110,0.15); color: var(--white); padding: 10px 16px; font-family: 'Barlow', sans-serif; font-size: 14px; width: 280px; }
+    .crm-search::placeholder { color: var(--gray); }
+    .crm-filter { background: var(--navy-mid); border: 1px solid rgba(200,169,110,0.15); color: var(--white); padding: 10px 16px; font-family: 'Barlow Condensed', sans-serif; font-size: 13px; letter-spacing: 0.1em; text-transform: uppercase; cursor: pointer; }
+    .crm-filter.active { border-color: var(--gold); color: var(--gold); }
+
+    .crm-table { width: 100%; border-collapse: collapse; }
+    .crm-table th { font-family: 'Barlow Condensed', sans-serif; font-size: 11px; font-weight: 600; letter-spacing: 0.15em; text-transform: uppercase; color: var(--gold); text-align: left; padding: 14px 16px; background: var(--navy-mid); border-bottom: 2px solid var(--gold); }
+    .crm-table td { padding: 14px 16px; border-bottom: 1px solid rgba(200,169,110,0.06); font-size: 14px; color: var(--gray-light); }
+    .crm-table tr:hover td { background: rgba(200,169,110,0.03); }
+    .crm-table td a { color: var(--gold); text-decoration: none; }
+
+    .status-badge { display: inline-block; padding: 4px 12px; font-family: 'Barlow Condensed', sans-serif; font-size: 10px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; border-radius: 2px; }
+    .status-new { background: rgba(200,169,110,0.15); color: var(--gold); }
+    .status-contacted { background: rgba(100,180,255,0.15); color: #64b4ff; }
+    .status-quoted { background: rgba(180,140,255,0.15); color: #b48cff; }
+    .status-won { background: rgba(100,220,140,0.15); color: #64dc8c; }
+    .status-lost { background: rgba(200,100,100,0.15); color: #c86464; }
+
+    .status-select { background: transparent; border: 1px solid rgba(200,169,110,0.2); color: var(--gray-light); padding: 4px 8px; font-family: 'Barlow Condensed', sans-serif; font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; cursor: pointer; }
+
+    .note-input { background: transparent; border: 1px solid rgba(200,169,110,0.15); color: var(--white); padding: 6px 10px; font-family: 'Barlow', sans-serif; font-size: 12px; width: 160px; }
+
+    .crm-empty { text-align: center; padding: 80px 20px; }
+    .crm-empty h2 { font-family: 'Bebas Neue', sans-serif; font-size: 36px; color: var(--gray); }
+    .crm-empty p { color: var(--gray); margin-top: 12px; }
+
+    .crm-loading { text-align: center; padding: 80px; color: var(--gold); font-family: 'Barlow Condensed', sans-serif; letter-spacing: 0.2em; }
+
+    .toast { position: fixed; bottom: 24px; right: 24px; background: var(--gold); color: var(--navy); padding: 14px 24px; font-family: 'Barlow Condensed', sans-serif; font-size: 13px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; z-index: 9999; opacity: 0; transition: opacity 0.3s; }
+    .toast.show { opacity: 1; }
+
+    @media (max-width: 1100px) { .crm-stats { grid-template-columns: repeat(3, 1fr); } }
+    @media (max-width: 720px) { .crm-container { padding: 20px; } .crm-stats { grid-template-columns: 1fr 1fr; } .crm-table { font-size: 12px; } }
+  </style>
+</head>
+<body>
+
+  <div class="crm-container">
+    <div class="crm-header">
+      <h1 class="crm-title">KADMIA<span> CRM</span></h1>
+      <div class="crm-actions">
+        <span style="color:var(--gray);font-size:12px;" id="lastSync"></span>
+        <button class="btn-primary" onclick="loadLeads()" style="font-size:11px;padding:8px 18px;">Refresh</button>
+      </div>
+    </div>
+
+    <div class="crm-stats">
+      <div class="crm-stat"><div class="crm-stat-num" id="statTotal">-</div><div class="crm-stat-label">Total Leads</div></div>
+      <div class="crm-stat"><div class="crm-stat-num" id="statNew">-</div><div class="crm-stat-label">New</div></div>
+      <div class="crm-stat"><div class="crm-stat-num" id="statContacted">-</div><div class="crm-stat-label">Contacted</div></div>
+      <div class="crm-stat"><div class="crm-stat-num" id="statQuoted">-</div><div class="crm-stat-label">Quoted</div></div>
+      <div class="crm-stat"><div class="crm-stat-num" id="statWon">-</div><div class="crm-stat-label">Won</div></div>
+    </div>
+
+    <div class="crm-toolbar">
+      <input class="crm-search" id="searchInput" placeholder="Search name, email, phone..." oninput="renderTable()">
+      <button class="crm-filter active" data-filter="all" onclick="setFilter('all', this)">All</button>
+      <button class="crm-filter" data-filter="New" onclick="setFilter('New', this)">New</button>
+      <button class="crm-filter" data-filter="Contacted" onclick="setFilter('Contacted', this)">Contacted</button>
+      <button class="crm-filter" data-filter="Quoted" onclick="setFilter('Quoted', this)">Quoted</button>
+      <button class="crm-filter" data-filter="Won" onclick="setFilter('Won', this)">Won</button>
+      <button class="crm-filter" data-filter="Lost" onclick="setFilter('Lost', this)">Lost</button>
+    </div>
+
+    <div id="tableContainer">
+      <div class="crm-loading">Loading leads...</div>
+    </div>
+  </div>
+
+  <div class="toast" id="toast"></div>
+
+  <script>
+    const SHEET_API_URL = ''; // Set this after creating Google Sheet
+
+    let leads = [];
+    let currentFilter = 'all';
+
+    function setFilter(f, btn) {
+      currentFilter = f;
+      document.querySelectorAll('.crm-filter').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      renderTable();
+    }
+
+    async function loadLeads() {
+      document.getElementById('tableContainer').innerHTML = '<div class="crm-loading">Loading leads...</div>';
+      try {
+        if (!SHEET_API_URL) {
+          // Demo mode — show sample data
+          leads = [
+            { date: '2026-08-10', name: 'John Smith', email: 'john@example.com', phone: '0412 345 678', message: 'Looking at KDR in Fairfield', status: 'New', notes: '' },
+            { date: '2026-08-09', name: 'Sarah Lee', email: 'sarah@example.com', phone: '0423 456 789', message: 'Duplex enquiry for Parramatta block', status: 'Contacted', notes: 'Called — wants site visit next week' },
+            { date: '2026-08-08', name: 'Mike Chen', email: 'mike@example.com', phone: '0400 111 222', message: 'Granny flat quote needed', status: 'Quoted', notes: 'Sent quote \$185K — awaiting response' },
+          ];
+        } else {
+          const resp = await fetch(SHEET_API_URL);
+          const data = await resp.json();
+          leads = data.leads || [];
+        }
+        updateStats();
+        renderTable();
+        document.getElementById('lastSync').textContent = 'Updated ' + new Date().toLocaleTimeString();
+      } catch (e) {
+        document.getElementById('tableContainer').innerHTML = '<div class="crm-empty"><h2>Unable to load</h2><p>Check your Sheet API URL or try again.</p></div>';
+      }
+    }
+
+    function updateStats() {
+      document.getElementById('statTotal').textContent = leads.length;
+      document.getElementById('statNew').textContent = leads.filter(l => l.status === 'New').length;
+      document.getElementById('statContacted').textContent = leads.filter(l => l.status === 'Contacted').length;
+      document.getElementById('statQuoted').textContent = leads.filter(l => l.status === 'Quoted').length;
+      document.getElementById('statWon').textContent = leads.filter(l => l.status === 'Won').length;
+    }
+
+    function renderTable() {
+      const search = document.getElementById('searchInput').value.toLowerCase();
+      let filtered = leads;
+      if (currentFilter !== 'all') filtered = filtered.filter(l => l.status === currentFilter);
+      if (search) filtered = filtered.filter(l => (l.name + l.email + l.phone + l.message).toLowerCase().includes(search));
+
+      if (!filtered.length) {
+        document.getElementById('tableContainer').innerHTML = '<div class="crm-empty"><h2>No leads found</h2><p>Try a different filter or wait for new enquiries.</p></div>';
+        return;
+      }
+
+      let html = '<table class="crm-table"><thead><tr><th>Date</th><th>Name</th><th>Email</th><th>Phone</th><th>Message</th><th>Status</th><th>Notes</th></tr></thead><tbody>';
+      filtered.forEach((l, i) => {
+        const statusClass = 'status-' + l.status.toLowerCase();
+        html += '<tr>';
+        html += '<td>' + l.date + '</td>';
+        html += '<td><strong>' + l.name + '</strong></td>';
+        html += '<td><a href="mailto:' + l.email + '">' + l.email + '</a></td>';
+        html += '<td><a href="tel:' + l.phone + '">' + l.phone + '</a></td>';
+        html += '<td style="max-width:200px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;" title="' + (l.message || '') + '">' + (l.message || '-') + '</td>';
+        html += '<td><select class="status-select" onchange="updateStatus(' + i + ', this.value)"><option value="New" ' + (l.status === 'New' ? 'selected' : '') + '>New</option><option value="Contacted" ' + (l.status === 'Contacted' ? 'selected' : '') + '>Contacted</option><option value="Quoted" ' + (l.status === 'Quoted' ? 'selected' : '') + '>Quoted</option><option value="Won" ' + (l.status === 'Won' ? 'selected' : '') + '>Won</option><option value="Lost" ' + (l.status === 'Lost' ? 'selected' : '') + '>Lost</option></select></td>';
+        html += '<td><input class="note-input" value="' + (l.notes || '') + '" onchange="updateNote(' + i + ', this.value)" placeholder="Add note..."></td>';
+        html += '</tr>';
+      });
+      html += '</tbody></table>';
+      document.getElementById('tableContainer').innerHTML = html;
+    }
+
+    function updateStatus(i, val) {
+      leads[i].status = val;
+      updateStats();
+      toast('Status updated');
+    }
+
+    function updateNote(i, val) {
+      leads[i].notes = val;
+      toast('Note saved');
+    }
+
+    function toast(msg) {
+      const t = document.getElementById('toast');
+      t.textContent = msg;
+      t.classList.add('show');
+      setTimeout(() => t.classList.remove('show'), 2000);
+    }
+
+    loadLeads();
+  </script>
+</body>
+</html>

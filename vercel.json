@@ -11,6 +11,7 @@
     { "source": "/projects", "destination": "/kadmia-projects.html" },
     { "source": "/process", "destination": "/kadmia-process.html" },
     { "source": "/calculator", "destination": "/estimator.html" },
+    { "source": "/crm", "destination": "/crm.html" },
     { "source": "/contact", "destination": "/kadmia-contact.html" },
     { "source": "/blog", "destination": "/blog.html" },
     { "source": "/blog/knock-down-rebuild-cost-sydney", "destination": "/blog-knock-down-rebuild-cost-sydney.html" },
