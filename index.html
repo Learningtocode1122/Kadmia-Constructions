@@ -123,7 +123,7 @@
     .pc-cta { display: inline-flex; align-items: center; gap: 10px; font-family: 'Barlow Condensed', sans-serif; font-size: 12px; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase; color: var(--navy); background: var(--gold); padding: 10px 20px; transition: background 0.2s, transform 0.2s; }
     .pc-slide.real:hover .pc-cta, .pc-slide.real:focus-visible .pc-cta { background: var(--gold-light); transform: translateX(4px); }
     .pc-cta::after { content: '→'; }
-    .pc-controls { display: flex; align-items: center; justify-content: space-between; margin-top: 28px; }
+    .pc-controls { display: flex; align-items: center; justify-content: space-between; margin-top: 28px; padding: 0 100px; }
     .pc-dots { display: flex; gap: 8px; align-items: center; }
     .pc-dot { width: 8px; height: 8px; border-radius: 50%; background: rgba(200,169,110,0.25); border: none; cursor: pointer; transition: background 0.25s, transform 0.25s; padding: 0; }
     .pc-dot.active { background: var(--gold); transform: scale(1.3); }
@@ -276,10 +276,7 @@
         <div class="section-eyebrow">Our portfolio</div>
         <h2 class="section-title">Featured <span>Projects</span></h2>
       </div>
-      <div style="display:flex;align-items:center;gap:20px;">
-        <div class="pc-dots" id="pcDots" role="tablist" aria-label="Carousel navigation" style="display:flex;gap:8px;align-items:center;"></div>
-        <a href="kadmia-projects.html" class="btn-ghost" style="color:var(--gold-light)">View all projects</a>
-      </div>
+      <a href="kadmia-projects.html" class="btn-ghost" style="color:var(--gold-light)">View all projects</a>
     </div>
 
     <div class="pc-carousel-outer" aria-label="Featured projects carousel" role="region">
@@ -321,6 +318,7 @@
     </div>
 
     <div class="pc-controls">
+      <div class="pc-dots" id="pcDots" role="tablist" aria-label="Carousel navigation"></div>
       <div class="pc-counter-text" id="pcCounter"><span>1</span> / <span id="pcTotal">3</span></div>
       <div class="pc-arrows">
         <button class="pc-arrow" id="pcPrev" aria-label="Previous project">&#8592;</button>
