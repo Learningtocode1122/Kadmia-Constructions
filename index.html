@@ -49,9 +49,9 @@
     section, .about-section { scroll-margin-top: 110px; }
 
     /* ── HERO ── */
-    .hero { min-height: 100vh; position: relative; display: flex; align-items: flex-end; padding: 100px 60px 100px; overflow: hidden; }
+    .hero { min-height: 100vh; position: relative; display: flex; align-items: flex-end; padding: 100px 48px 100px; overflow: hidden; }
     .hero-bg { position: absolute; inset: 0; background: linear-gradient(to bottom, rgba(10,22,40,0.3) 0%, rgba(10,22,40,0.1) 40%, rgba(10,22,40,0.8) 100%), url('https://images.squarespace-cdn.com/content/v1/65c68b0da0fd06022768fe71/16e8a494-006e-4de7-968a-64488ce30cd7/Radian-hero.jpg') center/cover no-repeat; }
-    .hero-line { position: absolute; top: 0; left: 60px; width: 1px; height: 100%; background: linear-gradient(to bottom, transparent, var(--gold) 30%, var(--gold) 70%, transparent); opacity: 0.4; }
+    .hero-line { position: absolute; top: 0; left: 48px; width: 1px; height: 100%; background: linear-gradient(to bottom, transparent, var(--gold) 30%, var(--gold) 70%, transparent); opacity: 0.4; }
     .hero-content { position: relative; z-index: 2; max-width: 900px; }
     .hero-eyebrow { font-family: 'Barlow Condensed', sans-serif; font-size: 13px; font-weight: 600; letter-spacing: 0.25em; text-transform: uppercase; color: var(--gold); margin-bottom: 20px; display: flex; align-items: center; gap: 16px; }
     .hero-eyebrow::before { content: ''; display: block; width: 40px; height: 1px; background: var(--gold); }
@@ -59,7 +59,7 @@
     .hero h1 em { font-style: normal; color: var(--gold); display: block; }
     .hero-sub { font-size: 18px; font-weight: 300; color: var(--gray-light); max-width: 500px; line-height: 1.6; margin-bottom: 48px; }
     .hero-actions { display: flex; align-items: center; gap: 32px; }
-    .hero-scroll { position: absolute; bottom: 48px; right: 60px; display: flex; flex-direction: column; align-items: center; gap: 12px; font-family: 'Barlow Condensed', sans-serif; font-size: 11px; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gray); z-index: 2; }
+    .hero-scroll { position: absolute; bottom: 48px; right: 48px; display: flex; flex-direction: column; align-items: center; gap: 12px; font-family: 'Barlow Condensed', sans-serif; font-size: 11px; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gray); z-index: 2; }
     .scroll-line { width: 1px; height: 60px; background: linear-gradient(to bottom, var(--gold), transparent); animation: scrollPulse 2s ease-in-out infinite; }
     @keyframes scrollPulse { 0%,100% { opacity: 0.4; transform: scaleY(1); } 50% { opacity: 1; transform: scaleY(1.1); } }
 
