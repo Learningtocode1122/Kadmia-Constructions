@@ -225,7 +225,8 @@
       today.setHours(0, 0, 0, 0);
       var cards = document.querySelectorAll('.blog-card[data-publish-date]');
       cards.forEach(function(card) {
-        var publishDate = new Date(card.getAttribute('data-publish-date') + 'T00:00:00');
+        var parts = card.getAttribute('data-publish-date').split('-');
+        var publishDate = new Date(parts[0], parts[1] - 1, parts[2]);
         if (publishDate > today) {
           card.classList.add('locked');
         }
