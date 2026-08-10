@@ -74,7 +74,8 @@
     /* ── SERVICES GRID ── */
     .services-section { background: var(--navy); padding-top: 60px; }
     .services-header { padding: 0 100px; }
-    .services-header .section-eyebrow { margin-bottom: 12px; }
+    .services-header .section-eyebrow,
+    .projects-header .section-eyebrow { margin-bottom: 12px; }
     .services-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 32px; gap: 40px; }
     .services-intro { font-size: 17px; line-height: 1.7; color: var(--gray-light); max-width: 440px; }
     .services-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 2px; }
@@ -101,8 +102,8 @@
     .pillar-text { font-size: 15px; color: var(--gray-light); line-height: 1.6; }
 
     /* ── PROJECTS CAROUSEL ── */
-    .projects-section { background: var(--navy); overflow: hidden; }
-    .projects-header { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 52px; gap: 20px; }
+    .projects-section { background: var(--navy); overflow: hidden; padding-top: 60px; }
+    .projects-header { padding: 0 100px; display: flex; justify-content: space-between; align-items: center; margin-bottom: 32px; gap: 20px; }
     .pc-carousel-outer { position: relative; overflow: hidden; }
     .pc-track { display: flex; gap: 3px; transition: transform 0.55s cubic-bezier(0.4, 0, 0.2, 1); will-change: transform; }
     .pc-slide { flex: 0 0 calc(50% - 2px); min-width: 0; position: relative; height: 580px; overflow: hidden; text-decoration: none; display: block; }
