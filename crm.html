@@ -56,24 +56,25 @@
     .toast { position: fixed; bottom: 24px; right: 24px; background: var(--gold); color: var(--navy); padding: 14px 24px; font-family: 'Barlow Condensed', sans-serif; font-size: 13px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; z-index: 9999; opacity: 0; transition: opacity 0.3s; }
     .toast.show { opacity: 1; }
 
-    .workflow-timeline { position: relative; padding-left: 40px; }
-    .workflow-timeline::before { content: ''; position: absolute; left: 18px; top: 0; bottom: 0; width: 2px; background: linear-gradient(to bottom, var(--gold), rgba(200,169,110,0.1)); }
-    .wf-stage { position: relative; margin-bottom: 8px; padding: 18px 24px; background: var(--navy-mid); border: 1px solid rgba(200,169,110,0.08); cursor: pointer; transition: border-color 0.2s; }
-    .wf-stage:hover { border-color: rgba(200,169,110,0.25); }
-    .wf-stage::before { content: ''; position: absolute; left: -30px; top: 26px; width: 10px; height: 10px; border-radius: 50%; background: var(--navy-mid); border: 2px solid rgba(200,169,110,0.3); }
-    .wf-stage.done::before { background: var(--gold); border-color: var(--gold); }
-    .wf-stage.active { border-color: var(--gold); }
-    .wf-stage.active::before { background: var(--gold); border-color: var(--gold); box-shadow: 0 0 0 4px rgba(200,169,110,0.2); }
-    .wf-stage-header { display: flex; justify-content: space-between; align-items: center; }
-    .wf-stage-num { font-family: 'Bebas Neue', sans-serif; font-size: 22px; color: var(--gold); line-height: 1; }
-    .wf-stage-title { font-family: 'Barlow', sans-serif; font-size: 16px; font-weight: 500; color: var(--white); flex: 1; margin-left: 14px; }
-    .wf-stage-status { font-family: 'Barlow Condensed', sans-serif; font-size: 10px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; }
-    .wf-stage-note { font-size: 13px; color: var(--gray); margin-top: 6px; margin-left: 46px; }
-    .wf-add-stage { margin-top: 12px; padding: 14px 24px; background: transparent; border: 1px dashed rgba(200,169,110,0.2); color: var(--gray); font-family: 'Barlow Condensed', sans-serif; font-size: 12px; letter-spacing: 0.15em; text-transform: uppercase; cursor: pointer; width: 100%; text-align: center; transition: border-color 0.2s; }
-    .wf-add-stage:hover { border-color: var(--gold); color: var(--gold); }
+    .workflow-scroll { overflow-x: auto; padding-bottom: 20px; -webkit-overflow-scrolling: touch; scrollbar-width: thin; scrollbar-color: rgba(200,169,110,0.2) transparent; }
+    .workflow-scroll::-webkit-scrollbar { height: 4px; }
+    .workflow-scroll::-webkit-scrollbar-thumb { background: rgba(200,169,110,0.2); }
+    .workflow-track { display: flex; gap: 3px; min-width: max-content; padding: 0 0 8px; }
+    .wf-card { flex: 0 0 260px; background: var(--navy-mid); border: 1px solid rgba(200,169,110,0.08); padding: 24px 20px; cursor: pointer; transition: border-color 0.2s; position: relative; display: flex; flex-direction: column; }
+    .wf-card:hover { border-color: rgba(200,169,110,0.3); }
+    .wf-card.done { border-left: 3px solid #64dc8c; }
+    .wf-card.active { border-color: var(--gold); }
+    .wf-card.active::after { content: ''; position: absolute; bottom: -1px; left: 0; right: 0; height: 3px; background: var(--gold); }
+    .wf-card-num { font-family: 'Bebas Neue', sans-serif; font-size: 42px; color: var(--gold); line-height: 1; opacity: 0.4; }
+    .wf-card.done .wf-card-num { opacity: 1; }
+    .wf-card.active .wf-card-num { opacity: 1; }
+    .wf-card-title { font-family: 'Barlow', sans-serif; font-size: 15px; font-weight: 500; color: var(--white); margin-top: 8px; line-height: 1.3; }
+    .wf-card-desc { font-size: 12px; color: var(--gray); line-height: 1.6; margin-top: 8px; flex: 1; }
+    .wf-card-badge { font-family: 'Barlow Condensed', sans-serif; font-size: 9px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; margin-top: 12px; }
+    .wf-card-note { font-size: 11px; color: var(--gold); margin-top: 6px; font-style: italic; }
 
     @media (max-width: 1100px) { .crm-stats { grid-template-columns: repeat(3, 1fr); } }
-    @media (max-width: 720px) { .crm-container { padding: 20px; } .crm-stats { grid-template-columns: 1fr 1fr; } .crm-table { font-size: 12px; } .workflow-timeline { padding-left: 32px; } }
+    @media (max-width: 720px) { .crm-container { padding: 20px; } .crm-stats { grid-template-columns: 1fr 1fr; } .crm-table { font-size: 12px; } .wf-card { flex: 0 0 220px; } }
   </style>
 </head>
 <body>
@@ -173,64 +174,62 @@
     var workflowStages = JSON.parse(localStorage.getItem('kadmiaWorkflow') || '[]');
     if (!workflowStages.length) {
       workflowStages = [
-        { num: 1, title: 'Initial Enquiry', status: 'done', note: '' },
-        { num: 2, title: 'Discovery Meeting', status: 'done', note: '' },
-        { num: 3, title: 'Present Build Quote', status: 'active', note: '' },
-        { num: 4, title: 'Fee Accepted', status: '', note: '' },
-        { num: 5, title: 'Concept Design', status: '', note: '' },
-        { num: 6, title: 'Order Soils & Survey', status: '', note: '' },
-        { num: 7, title: 'Preliminary Pricing', status: '', note: '' },
-        { num: 8, title: 'Tender Preparation', status: '', note: '' },
-        { num: 9, title: 'Tender Review & Award', status: '', note: '' },
-        { num: 10, title: 'Contract Signing', status: '', note: '' },
-        { num: 11, title: 'DA / CDC Submission', status: '', note: '' },
-        { num: 12, title: 'Construction Certificate', status: '', note: '' },
-        { num: 13, title: 'Site Mobilisation', status: '', note: '' },
-        { num: 14, title: 'Construction Phase', status: '', note: '' },
-        { num: 15, title: 'Practical Completion', status: '', note: '' },
-        { num: 16, title: 'Handover', status: '', note: '' },
-        { num: 17, title: '90-Day Defect Review', status: '', note: '' }
+        { num: 1, title: 'Initial Enquiry', desc: 'Lead contacts Kadmia via website, phone or referral. Capture name, contact details, project type and budget range. Respond within 24 hours.', status: 'done', note: '' },
+        { num: 2, title: 'Discovery Meeting', desc: 'Meet client on site. Walk the block, discuss vision, lifestyle needs, must-haves and deal-breakers. Assess site constraints — slope, access, trees, easements.', status: 'done', note: '' },
+        { num: 3, title: 'Present Build Quote', desc: 'Prepare detailed scope and fixed-price quote. Include exclusions, PC sums, timeline estimate. Present in person — walk through each line item.', status: 'active', note: '' },
+        { num: 4, title: 'Fee Accepted', desc: 'Client accepts quote and pays design fee. Issue fee proposal, HBCF insurance certificate, and preliminary agreement. Confirm project timeline.', status: '', note: '' },
+        { num: 5, title: 'Concept Design', desc: 'Engage architect/draftsperson. Develop floor plans, elevations, and site layout. Present concept to client for feedback. Revise until signed off.', status: '', note: '' },
+        { num: 6, title: 'Order Soils & Survey', desc: 'Commission geotechnical soil report and contour survey. Identify soil classification, reactivity, and any ground conditions affecting slab design or cost.', status: '', note: '' },
+        { num: 7, title: 'Preliminary Pricing', desc: 'Send concept plans + soil report to key subcontractors for budget estimates. Review against initial quote. Flag any cost risks to client before proceeding.', status: '', note: '' },
+        { num: 8, title: 'Tender Preparation', desc: 'Finalise construction drawings, engineering, and specifications. Package tender documents for subcontractors. Issue to minimum 3 quotes per trade.', status: '', note: '' },
+        { num: 9, title: 'Tender Review & Award', desc: 'Compare subcontractor quotes — not just price, but availability, past performance, and quality. Award contracts. Lock in fixed pricing where possible.', status: '', note: '' },
+        { num: 10, title: 'Contract Signing', desc: 'Present final building contract to client with fixed price and detailed scope. Client signs, deposit paid. Issue HBCF insurance certificate. Cooling-off period applies.', status: '', note: '' },
+        { num: 11, title: 'DA / CDC Submission', desc: 'Lodge Development Application or Complying Development Certificate. For CDC: private certifier reviews against SEPP. For DA: council notification and assessment period.', status: '', note: '' },
+        { num: 12, title: 'Construction Certificate', desc: 'Once DA/CDC approved, obtain CC from private certifier. Submit structural engineering, BASIX, and services documentation. Appoint Principal Certifier.', status: '', note: '' },
+        { num: 13, title: 'Site Mobilisation', desc: 'Erect temp fencing, site amenities, and safety signage. Establish site access and storage. Arrange service disconnections. Notify neighbours.', status: '', note: '' },
+        { num: 14, title: 'Construction Phase', desc: 'Demolition → slab → frame → lock-up → rough-in → fit-out. Weekly client updates with photos. Critical stage inspections by certifier. Manage trades and variations.', status: '', note: '' },
+        { num: 15, title: 'Practical Completion', desc: 'Internal defect inspection completed. Engage private certifier for PCI inspection. Rectify any items raised. Prepare home for client walk-through.', status: '', note: '' },
+        { num: 16, title: 'Handover', desc: 'Walk client through completed home — room by room. Demonstrate all systems, appliances, and warranties. Hand over keys, documentation pack, and maintenance schedule.', status: '', note: '' },
+        { num: 17, title: '90-Day Defect Review', desc: 'Contact client at 3 months post-handover. Inspect any settlement or minor defects. Rectify promptly. Request Google review and referral.', status: '', note: '' }
       ];
     }
 
     function renderWorkflow() {
-      var html = '';
+      var html = '<div class="workflow-scroll"><div class="workflow-track">';
       workflowStages.forEach(function(s, i) {
         var cls = s.status === 'done' ? 'done' : s.status === 'active' ? 'active' : '';
-        var statusText = s.status === 'done' ? 'COMPLETE' : s.status === 'active' ? 'CURRENT' : '';
-        var statusColor = s.status === 'done' ? '#64dc8c' : s.status === 'active' ? 'var(--gold)' : 'var(--gray)';
-        html += '<div class="wf-stage ' + cls + '" onclick="cycleStage(' + i + ')">';
-        html += '<div class="wf-stage-header">';
-        html += '<div style="display:flex;align-items:center;"><span class="wf-stage-num">' + (s.num < 10 ? '0' + s.num : s.num) + '</span><span class="wf-stage-title">' + s.title + '</span></div>';
-        if (statusText) html += '<span class="wf-stage-status" style="color:' + statusColor + '">' + statusText + '</span>';
-        html += '</div>';
-        if (s.note) html += '<div class="wf-stage-note">' + s.note + '</div>';
+        var badge = s.status === 'done' ? '<span class="wf-card-badge" style="color:#64dc8c;">&#10003; Complete</span>' : s.status === 'active' ? '<span class="wf-card-badge" style="color:var(--gold);">&#9679; Current</span>' : '';
+        html += '<div class="wf-card ' + cls + '" onclick="cycleStage(' + i + ')">';
+        html += '<div class="wf-card-num">' + (s.num < 10 ? '0' + s.num : s.num) + '</div>';
+        html += '<div class="wf-card-title">' + s.title + '</div>';
+        html += '<div class="wf-card-desc">' + s.desc + '</div>';
+        html += badge;
+        if (s.note) html += '<div class="wf-card-note">' + s.note + '</div>';
         html += '</div>';
       });
+      html += '</div></div>';
+      html += '<div style="text-align:center;margin-top:16px;color:var(--gray);font-size:11px;font-family:\'Barlow Condensed\',sans-serif;letter-spacing:0.1em;">Click any card to advance — scroll right for more stages</div>';
       document.getElementById('workflowTimeline').innerHTML = html;
     }
 
     function cycleStage(i) {
       var s = workflowStages[i];
-      var note = prompt((s.status === 'active' ? 'Add a note for' : 'Mark as active:') + ' "' + s.title + '"' + (s.note ? '\nCurrent note: ' + s.note : '') + '\n\nClick to move this stage forward. Current: ' + (s.status || 'pending') + '\n\nType note (optional):', s.note || '');
-      if (note === null) return; // cancelled
-
-      // Cycle status: '' -> 'active' -> 'done' -> ''
+      var note = prompt('Stage: ' + s.title + '\nCurrent: ' + (s.status || 'pending') + '  →  ' + (!s.status ? 'active' : s.status === 'active' ? 'complete' : 'reset to pending') + '\n\nType a note (optional):', s.note || '');
+      if (note === null) return;
       if (!s.status) { s.status = 'active'; }
       else if (s.status === 'active') { s.status = 'done'; }
       else { s.status = ''; }
-
       if (note) s.note = note;
       localStorage.setItem('kadmiaWorkflow', JSON.stringify(workflowStages));
       renderWorkflow();
     }
 
-    // Initialize workflow if needed
     if (!localStorage.getItem('kadmiaWorkflow')) {
       localStorage.setItem('kadmiaWorkflow', JSON.stringify(workflowStages));
     }
 
     const SHEET_API_URL = 'https://script.google.com/macros/s/AKfycbwmVf9PSfE4Ljt01ZQAeMVmLswmQ7E3p97Aj8_gpJgZFsEgAs2gsddOMmO9vcpaWaDv/exec';
+ = 'https://script.google.com/macros/s/AKfycbwmVf9PSfE4Ljt01ZQAeMVmLswmQ7E3p97Aj8_gpJgZFsEgAs2gsddOMmO9vcpaWaDv/exec';
 
     let leads = [];
     let currentFilter = 'all';
