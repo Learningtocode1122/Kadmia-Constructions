@@ -62,12 +62,25 @@
 </head>
 <body>
 
-  <div class="crm-container">
+  <div id="loginScreen" style="display:flex;align-items:center;justify-content:center;min-height:100vh;flex-direction:column;">
+    <div style="text-align:center;">
+      <div style="font-family:'Bebas Neue',sans-serif;font-size:64px;color:var(--white);letter-spacing:0.06em;">KADMIA<span style="color:var(--gold);"> CRM</span></div>
+      <div style="font-family:'Barlow Condensed',sans-serif;font-size:13px;font-weight:600;letter-spacing:0.2em;text-transform:uppercase;color:var(--gray);margin-bottom:28px;">Enter password to continue</div>
+      <input type="password" id="passwordInput" placeholder="Password" onkeydown="if(event.key==='Enter')checkPassword()" style="background:var(--navy-mid);border:1px solid rgba(200,169,110,0.3);color:var(--white);padding:14px 24px;font-family:'Barlow',sans-serif;font-size:16px;text-align:center;width:260px;outline:none;" autofocus>
+      <div style="margin-top:16px;">
+        <button onclick="checkPassword()" class="btn-primary">Unlock</button>
+      </div>
+      <div id="loginError" style="color:#c86464;font-family:'Barlow Condensed',sans-serif;font-size:12px;letter-spacing:0.1em;margin-top:12px;display:none;">Incorrect password</div>
+    </div>
+  </div>
+
+  <div class="crm-container" id="crmContent" style="display:none;">
     <div class="crm-header">
       <h1 class="crm-title">KADMIA<span> CRM</span></h1>
       <div class="crm-actions">
         <span style="color:var(--gray);font-size:12px;" id="lastSync"></span>
         <button class="btn-primary" onclick="loadLeads()" style="font-size:11px;padding:8px 18px;">Refresh</button>
+        <button onclick="logout()" style="background:none;border:1px solid rgba(200,169,110,0.3);color:var(--gray);padding:8px 18px;font-family:'Barlow Condensed',sans-serif;font-size:11px;letter-spacing:0.1em;text-transform:uppercase;cursor:pointer;">Lock</button>
       </div>
     </div>
 
@@ -97,6 +110,31 @@
   <div class="toast" id="toast"></div>
 
   <script>
+    // Password protection
+    var PASSWORD = 'kadmia2026';
+    function checkPassword() {
+      var input = document.getElementById('passwordInput').value;
+      if (input === PASSWORD) {
+        document.getElementById('loginScreen').style.display = 'none';
+        document.getElementById('crmContent').style.display = 'block';
+        sessionStorage.setItem('crmAuth', 'true');
+        loadLeads();
+      } else {
+        document.getElementById('loginError').style.display = 'block';
+        document.getElementById('passwordInput').value = '';
+      }
+    }
+    function logout() {
+      sessionStorage.removeItem('crmAuth');
+      document.getElementById('loginScreen').style.display = 'flex';
+      document.getElementById('crmContent').style.display = 'none';
+      document.getElementById('passwordInput').value = '';
+    }
+    if (sessionStorage.getItem('crmAuth') === 'true') {
+      document.getElementById('loginScreen').style.display = 'none';
+      document.getElementById('crmContent').style.display = 'block';
+    }
+
     const SHEET_API_URL = 'https://script.google.com/macros/s/AKfycbwmVf9PSfE4Ljt01ZQAeMVmLswmQ7E3p97Aj8_gpJgZFsEgAs2gsddOMmO9vcpaWaDv/exec';
 
     let leads = [];
