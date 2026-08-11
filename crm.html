@@ -135,12 +135,12 @@ if (sessionStorage.getItem('ca') === '1') {
 }
 
 // ===== WORKFLOW =====
-var wf = JSON.parse(localStorage.getItem('kwf2') || 'null');
+var wf = JSON.parse(localStorage.getItem('kwf3') || 'null');
 if (!wf) {
   wf = [
-    { n:1, t:'Initial Enquiry', d:'Lead contacts via website, phone or referral.', s:'done', note:'', tk:[{l:'Enquiry received',x:1},{l:'Contact details captured',x:1},{l:'Project type noted',x:1},{l:'Budget range discussed',x:1},{l:'Responded within 24hrs',x:1}] },
-    { n:2, t:'Discovery Meeting', d:'Meet client on site. Walk block, discuss vision.', s:'done', note:'', tk:[{l:'Site walk completed',x:1},{l:'Vision & lifestyle discussed',x:1},{l:'Must-haves documented',x:1},{l:'Site constraints assessed',x:1},{l:'Brief prepared',x:1}] },
-    { n:3, t:'Present Build Quote', d:'Prepare detailed scope and fixed-price quote.', s:'active', note:'', tk:[{l:'Scope of works finalised',x:1},{l:'Exclusions listed',x:0},{l:'PC sums itemised',x:0},{l:'Timeline estimate included',x:0},{l:'Quote presented in person',x:0}] },
+    { n:1, t:'Initial Enquiry', d:'Lead contacts via website, phone or referral.', s:'', note:'', tk:[{l:'Enquiry received',x:0},{l:'Contact details captured',x:0},{l:'Project type noted',x:0},{l:'Budget range discussed',x:0},{l:'Responded within 24hrs',x:0}] },
+    { n:2, t:'Discovery Meeting', d:'Meet client on site. Walk block, discuss vision.', s:'', note:'', tk:[{l:'Site walk completed',x:0},{l:'Vision & lifestyle discussed',x:0},{l:'Must-haves documented',x:0},{l:'Site constraints assessed',x:0},{l:'Brief prepared',x:0}] },
+    { n:3, t:'Present Build Quote', d:'Prepare detailed scope and fixed-price quote.', s:'', note:'', tk:[{l:'Scope of works finalised',x:0},{l:'Exclusions listed',x:0},{l:'PC sums itemised',x:0},{l:'Timeline estimate included',x:0},{l:'Quote presented in person',x:0}] },
     { n:4, t:'Fee Accepted', d:'Client accepts quote and pays design fee.', s:'', note:'', tk:[{l:'Fee proposal issued',x:0},{l:'HBCF insurance certificate provided',x:0},{l:'Preliminary agreement signed',x:0},{l:'Deposit received',x:0},{l:'Project timeline confirmed',x:0}] },
     { n:5, t:'Concept Design', d:'Engage architect. Floor plans, elevations.', s:'', note:'', tk:[{l:'Architect engaged',x:0},{l:'Floor plans drafted',x:0},{l:'Elevations completed',x:0},{l:'Site layout finalised',x:0},{l:'Client sign-off obtained',x:0}] },
     { n:6, t:'Order Soils & Survey', d:'Commission geotech report and contour survey.', s:'', note:'', tk:[{l:'Contour survey ordered',x:0},{l:'Geotech report ordered',x:0},{l:'Soil classification received',x:0},{l:'Slab design implications reviewed',x:0},{l:'Cost impact assessed',x:0}] },
@@ -156,7 +156,7 @@ if (!wf) {
     { n:16, t:'Handover', d:'Walk client through home. Hand over keys.', s:'', note:'', tk:[{l:'Client walk-through done',x:0},{l:'All systems demonstrated',x:0},{l:'Documentation pack ready',x:0},{l:'Keys handed over',x:0},{l:'Client signed off',x:0}] },
     { n:17, t:'90-Day Defect Review', d:'Check in at 3 months. Inspect and rectify.', s:'', note:'', tk:[{l:'Client contacted',x:0},{l:'Inspection completed',x:0},{l:'Defects rectified',x:0},{l:'Google review requested',x:0},{l:'Case closed',x:0}] }
   ];
-  localStorage.setItem('kwf2', JSON.stringify(wf));
+  localStorage.setItem('kwf3', JSON.stringify(wf));
 }
 
 function renderWorkflow() {
@@ -208,17 +208,19 @@ function openTasks(i) {
 function toggleTask(si, ti, val) {
   if (val === 2) { wf[si].tk[ti].x = wf[si].tk[ti].x === 2 ? 0 : 2; }
   else { wf[si].tk[ti].x = wf[si].tk[ti].x === 1 ? 0 : 1; }
+  var anyDone = wf[si].tk.some(function(t){return t.x===1||t.x===2});
   var allDone = wf[si].tk.every(function(t){return t.x===1||t.x===2});
   if (allDone) wf[si].s = 'done';
-  else if (wf[si].s === 'done') wf[si].s = 'active';
-  localStorage.setItem('kwf2', JSON.stringify(wf));
+  else if (anyDone) wf[si].s = 'active';
+  else wf[si].s = '';
+  localStorage.setItem('kwf3', JSON.stringify(wf));
   openTasks(si); // refresh popup
   renderWorkflow();
 }
 
 function closeTasks() {
   wf[taskStageIdx].note = document.getElementById('taskNote').value || '';
-  localStorage.setItem('kwf2', JSON.stringify(wf));
+  localStorage.setItem('kwf3', JSON.stringify(wf));
   document.getElementById('taskPopup').style.display = 'none';
   renderWorkflow();
 }
