@@ -252,7 +252,13 @@
       if (!contactForm.checkValidity()) { formStatus.textContent = 'Please complete all required fields.'; formStatus.style.color = '#c5cdd8'; contactForm.reportValidity(); e.preventDefault(); return; }
       formStatus.textContent = 'Sending your enquiry...';
       formStatus.style.color = '#c8a96e';
-      // Form submits natively to FormSubmit — no preventDefault
+      // Also send to CRM while form submits to FormSubmit
+      var crmData = new FormData();
+      crmData.append('name', form.querySelector('[name="name"]').value);
+      crmData.append('email', form.querySelector('[name="email"]').value);
+      crmData.append('phone', form.querySelector('[name="phone"]').value);
+      crmData.append('message', form.querySelector('[name="message"]').value);
+      navigator.sendBeacon('https://script.google.com/macros/s/AKfycbwmVf9PSfE4Ljt01ZQAeMVmLswmQ7E3p97Aj8_gpJgZFsEgAs2gsddOMmO9vcpaWaDv/exec', crmData);
     });
   </script>
   <script src="kadmia-chatbot.js"></script>
