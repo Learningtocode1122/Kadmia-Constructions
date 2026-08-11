@@ -5,110 +5,79 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="robots" content="noindex, nofollow">
   <title>CRM — Kadmia Constructions</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@300;400;500;600&family=Barlow+Condensed:wght@400;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
   <link rel="icon" type="image/svg+xml" href="favicon.svg">
   <style>
     body { background: var(--navy); font-family: 'Barlow', sans-serif; }
     .crm-container { max-width: 1400px; margin: 0 auto; padding: 40px; }
-
     .crm-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 40px; padding-bottom: 24px; border-bottom: 1px solid rgba(200,169,110,0.15); }
     .crm-title { font-family: 'Bebas Neue', sans-serif; font-size: 48px; color: var(--white); letter-spacing: 0.04em; }
     .crm-title span { color: var(--gold); }
-    .crm-actions { display: flex; gap: 16px; align-items: center; }
-
     .crm-stats { display: grid; grid-template-columns: repeat(5, 1fr); gap: 16px; margin-bottom: 32px; }
     .crm-stat { background: var(--navy-mid); padding: 24px; border: 1px solid rgba(200,169,110,0.1); }
     .crm-stat-num { font-family: 'Bebas Neue', sans-serif; font-size: 42px; color: var(--gold); line-height: 1; }
     .crm-stat-label { font-family: 'Barlow Condensed', sans-serif; font-size: 11px; font-weight: 600; letter-spacing: 0.15em; text-transform: uppercase; color: var(--gray); margin-top: 6px; }
-
     .crm-toolbar { display: flex; gap: 12px; margin-bottom: 24px; flex-wrap: wrap; align-items: center; }
     .crm-search { background: var(--navy-mid); border: 1px solid rgba(200,169,110,0.15); color: var(--white); padding: 10px 16px; font-family: 'Barlow', sans-serif; font-size: 14px; width: 280px; }
-    .crm-search::placeholder { color: var(--gray); }
     .crm-filter { background: var(--navy-mid); border: 1px solid rgba(200,169,110,0.15); color: var(--white); padding: 10px 16px; font-family: 'Barlow Condensed', sans-serif; font-size: 13px; letter-spacing: 0.1em; text-transform: uppercase; cursor: pointer; }
-    .crm-filter.active { border-color: var(--gold); color: var(--gold); }
-
+    .crm-filter.on { border-color: var(--gold); color: var(--gold); }
     .crm-table { width: 100%; border-collapse: collapse; }
     .crm-table th { font-family: 'Barlow Condensed', sans-serif; font-size: 11px; font-weight: 600; letter-spacing: 0.15em; text-transform: uppercase; color: var(--gold); text-align: left; padding: 14px 16px; background: var(--navy-mid); border-bottom: 2px solid var(--gold); }
     .crm-table td { padding: 14px 16px; border-bottom: 1px solid rgba(200,169,110,0.06); font-size: 14px; color: var(--gray-light); }
-    .crm-table tr:hover td { background: rgba(200,169,110,0.03); }
     .crm-table td a { color: var(--gold); text-decoration: none; }
-
-    .status-badge { display: inline-block; padding: 4px 12px; font-family: 'Barlow Condensed', sans-serif; font-size: 10px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; border-radius: 2px; }
-    .status-new { background: rgba(200,169,110,0.15); color: var(--gold); }
-    .status-contacted { background: rgba(100,180,255,0.15); color: #64b4ff; }
-    .status-quoted { background: rgba(180,140,255,0.15); color: #b48cff; }
-    .status-won { background: rgba(100,220,140,0.15); color: #64dc8c; }
-    .status-lost { background: rgba(200,100,100,0.15); color: #c86464; }
-
     .status-select { background: transparent; border: 1px solid rgba(200,169,110,0.2); color: var(--gray-light); padding: 4px 8px; font-family: 'Barlow Condensed', sans-serif; font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; cursor: pointer; }
-
     .note-input { background: transparent; border: 1px solid rgba(200,169,110,0.15); color: var(--white); padding: 6px 10px; font-family: 'Barlow', sans-serif; font-size: 12px; width: 160px; }
-
     .crm-empty { text-align: center; padding: 80px 20px; }
     .crm-empty h2 { font-family: 'Bebas Neue', sans-serif; font-size: 36px; color: var(--gray); }
-    .crm-empty p { color: var(--gray); margin-top: 12px; }
-
-    .crm-loading { text-align: center; padding: 80px; color: var(--gold); font-family: 'Barlow Condensed', sans-serif; letter-spacing: 0.2em; }
-
-    .toast { position: fixed; bottom: 24px; right: 24px; background: var(--gold); color: var(--navy); padding: 14px 24px; font-family: 'Barlow Condensed', sans-serif; font-size: 13px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; z-index: 9999; opacity: 0; transition: opacity 0.3s; }
-    .toast.show { opacity: 1; }
-
-    .workflow-scroll { overflow-x: auto; padding-bottom: 20px; -webkit-overflow-scrolling: touch; scrollbar-width: thin; scrollbar-color: rgba(200,169,110,0.2) transparent; }
-    .workflow-scroll::-webkit-scrollbar { height: 4px; }
-    .workflow-scroll::-webkit-scrollbar-thumb { background: rgba(200,169,110,0.2); }
+    .workflow-scroll { overflow-x: auto; padding-bottom: 20px; scrollbar-width: thin; scrollbar-color: rgba(200,169,110,0.2) transparent; }
     .workflow-track { display: flex; gap: 3px; min-width: max-content; padding: 0 0 8px; }
-    .wf-card { flex: 0 0 260px; background: var(--navy-mid); border: 1px solid rgba(200,169,110,0.08); padding: 24px 20px; cursor: pointer; transition: border-color 0.2s; position: relative; display: flex; flex-direction: column; }
+    .wf-card { flex: 0 0 260px; background: var(--navy-mid); border: 1px solid rgba(200,169,110,0.08); padding: 24px 20px; cursor: pointer; transition: border-color 0.2s; }
     .wf-card:hover { border-color: rgba(200,169,110,0.3); }
     .wf-card.done { border-left: 3px solid #64dc8c; }
-    .wf-card.active { border-color: var(--gold); }
-    .wf-card.active::after { content: ''; position: absolute; bottom: -1px; left: 0; right: 0; height: 3px; background: var(--gold); }
+    .wf-card.active { border-color: var(--gold); border-bottom: 3px solid var(--gold); }
     .wf-card-num { font-family: 'Bebas Neue', sans-serif; font-size: 42px; color: var(--gold); line-height: 1; opacity: 0.4; }
-    .wf-card.done .wf-card-num { opacity: 1; }
-    .wf-card.active .wf-card-num { opacity: 1; }
+    .wf-card.done .wf-card-num, .wf-card.active .wf-card-num { opacity: 1; }
     .wf-card-title { font-family: 'Barlow', sans-serif; font-size: 15px; font-weight: 500; color: var(--white); margin-top: 8px; line-height: 1.3; }
-    .wf-card-desc { font-size: 12px; color: var(--gray); line-height: 1.6; margin-top: 8px; flex: 1; }
+    .wf-card-desc { font-size: 12px; color: var(--gray); line-height: 1.6; margin-top: 8px; }
     .wf-card-badge { font-family: 'Barlow Condensed', sans-serif; font-size: 9px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; margin-top: 12px; }
     .wf-card-note { font-size: 11px; color: var(--gold); margin-top: 6px; font-style: italic; }
-
+    .toast { position: fixed; bottom: 24px; right: 24px; background: var(--gold); color: var(--navy); padding: 14px 24px; font-family: 'Barlow Condensed', sans-serif; font-size: 13px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; z-index: 9999; opacity: 0; transition: opacity 0.3s; pointer-events: none; }
+    .toast.show { opacity: 1; }
     @media (max-width: 1100px) { .crm-stats { grid-template-columns: repeat(3, 1fr); } }
-    @media (max-width: 720px) { .crm-container { padding: 20px; } .crm-stats { grid-template-columns: 1fr 1fr; } .crm-table { font-size: 12px; } .wf-card { flex: 0 0 220px; } }
+    @media (max-width: 720px) { .crm-container { padding: 20px; } .crm-stats { grid-template-columns: 1fr 1fr; } .wf-card { flex: 0 0 220px; } }
   </style>
 </head>
 <body>
 
-  <div id="loginScreen" style="display:flex;align-items:center;justify-content:center;min-height:100vh;flex-direction:column;">
-    <div style="text-align:center;">
-      <div style="font-family:'Bebas Neue',sans-serif;font-size:64px;color:var(--white);letter-spacing:0.06em;">KADMIA<span style="color:var(--gold);"> CRM</span></div>
-      <div style="font-family:'Barlow Condensed',sans-serif;font-size:13px;font-weight:600;letter-spacing:0.2em;text-transform:uppercase;color:var(--gray);margin-bottom:28px;">Sign in to continue</div>
-      <input type="text" id="usernameInput" placeholder="Username" style="background:var(--navy-mid);border:1px solid rgba(200,169,110,0.3);color:var(--white);padding:14px 24px;font-family:'Barlow',sans-serif;font-size:16px;text-align:center;width:260px;outline:none;display:block;margin:0 auto 10px;" autofocus>
-      <input type="password" id="passwordInput" placeholder="Password" onkeydown="if(event.key==='Enter')document.getElementById('loginBtn').click()" style="background:var(--navy-mid);border:1px solid rgba(200,169,110,0.3);color:var(--white);padding:14px 24px;font-family:'Barlow',sans-serif;font-size:16px;text-align:center;width:260px;outline:none;display:block;margin:0 auto;">
-      <div style="margin-top:16px;">
-        <button id="loginBtn" onclick="var u=document.getElementById('usernameInput');var p=document.getElementById('passwordInput');if(u&&p&&u.value==='KadmiaAdmin'&&p.value==='kadmia2026'){document.getElementById('loginScreen').style.display='none';document.getElementById('crmContent').style.display='block';sessionStorage.setItem('crmAuth','true');if(typeof loadLeads==='function')loadLeads();}else{document.getElementById('loginError').style.display='block';if(p)p.value='';}" class="btn-primary">Log In</button>
-      </div>
-      <div id="loginError" style="color:#c86464;font-family:'Barlow Condensed',sans-serif;font-size:12px;letter-spacing:0.1em;margin-top:12px;display:none;">Incorrect password</div>
+<div id="loginScreen" style="display:flex;align-items:center;justify-content:center;min-height:100vh;flex-direction:column;">
+  <div style="text-align:center;">
+    <div style="font-family:'Bebas Neue',sans-serif;font-size:64px;color:var(--white);letter-spacing:0.06em;">KADMIA<span style="color:var(--gold);"> CRM</span></div>
+    <div style="font-family:'Barlow Condensed',sans-serif;font-size:13px;font-weight:600;letter-spacing:0.2em;text-transform:uppercase;color:var(--gray);margin-bottom:28px;">Sign in to continue</div>
+    <input type="text" id="u" placeholder="Username" style="background:var(--navy-mid);border:1px solid rgba(200,169,110,0.3);color:var(--white);padding:14px 24px;font-family:'Barlow',sans-serif;font-size:16px;text-align:center;width:260px;outline:none;display:block;margin:0 auto 10px;" autofocus>
+    <input type="password" id="p" placeholder="Password" onkeydown="if(event.key==='Enter')login()" style="background:var(--navy-mid);border:1px solid rgba(200,169,110,0.3);color:var(--white);padding:14px 24px;font-family:'Barlow',sans-serif;font-size:16px;text-align:center;width:260px;outline:none;display:block;margin:0 auto;">
+    <div style="margin-top:16px;"><button onclick="login()" class="btn-primary">Log In</button></div>
+    <div id="loginError" style="color:#c86464;font-family:'Barlow Condensed',sans-serif;font-size:12px;letter-spacing:0.1em;margin-top:12px;display:none;">Incorrect username or password</div>
+  </div>
+</div>
+
+<div class="crm-container" id="crm" style="display:none;">
+  <div class="crm-header">
+    <h1 class="crm-title">KADMIA<span> CRM</span></h1>
+    <div style="display:flex;gap:12px;align-items:center;">
+      <span style="color:var(--gray);font-size:12px;" id="lastSync"></span>
+      <button onclick="addLead()" style="background:var(--gold);border:none;color:var(--navy);padding:8px 18px;font-family:'Barlow Condensed',sans-serif;font-size:11px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;cursor:pointer;">+ Add Lead</button>
+      <button class="btn-primary" onclick="loadLeads()" style="font-size:11px;padding:8px 18px;">Refresh</button>
+      <button onclick="logout()" style="background:none;border:1px solid rgba(200,169,110,0.3);color:var(--gray);padding:8px 18px;font-family:'Barlow Condensed',sans-serif;font-size:11px;letter-spacing:0.1em;text-transform:uppercase;cursor:pointer;">Log Out</button>
     </div>
   </div>
 
-  <div class="crm-container" id="crmContent" style="display:none;">
-    <div class="crm-header">
-      <h1 class="crm-title">KADMIA<span> CRM</span></h1>
-      <div class="crm-actions">
-        <span style="color:var(--gray);font-size:12px;" id="lastSync"></span>
-        <button onclick="addLead()" style="background:var(--gold);border:none;color:var(--navy);padding:8px 18px;font-family:'Barlow Condensed',sans-serif;font-size:11px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;cursor:pointer;">+ Add Lead</button>
-        <button class="btn-primary" onclick="loadLeads()" style="font-size:11px;padding:8px 18px;">Refresh</button>
-        <button onclick="logout()" style="background:none;border:1px solid rgba(200,169,110,0.3);color:var(--gray);padding:8px 18px;font-family:'Barlow Condensed',sans-serif;font-size:11px;letter-spacing:0.1em;text-transform:uppercase;cursor:pointer;">Log Out</button>
-      </div>
-    </div>
+  <div style="display:flex;gap:0;margin-bottom:32px;border-bottom:1px solid rgba(200,169,110,0.15);">
+    <button class="crm-tab" style="background:none;border:none;border-bottom:2px solid var(--gold);color:var(--gold);padding:12px 28px;font-family:'Barlow Condensed',sans-serif;font-size:13px;font-weight:600;letter-spacing:0.15em;text-transform:uppercase;cursor:pointer;" id="tabLeads" onclick="switchTab('leads')">Leads</button>
+    <button class="crm-tab" style="background:none;border:none;border-bottom:2px solid transparent;color:var(--gray);padding:12px 28px;font-family:'Barlow Condensed',sans-serif;font-size:13px;font-weight:600;letter-spacing:0.15em;text-transform:uppercase;cursor:pointer;" id="tabWorkflow" onclick="switchTab('workflow')">Workflow</button>
+  </div>
 
-    <div class="crm-tabs" style="display:flex;gap:0;margin-bottom:32px;border-bottom:1px solid rgba(200,169,110,0.15);">
-      <button class="crm-tab active" onclick="switchTab('leads', this)" style="background:none;border:none;border-bottom:2px solid var(--gold);color:var(--gold);padding:12px 28px;font-family:'Barlow Condensed',sans-serif;font-size:13px;font-weight:600;letter-spacing:0.15em;text-transform:uppercase;cursor:pointer;">Leads</button>
-      <button class="crm-tab" onclick="switchTab('workflow', this)" style="background:none;border:none;border-bottom:2px solid transparent;color:var(--gray);padding:12px 28px;font-family:'Barlow Condensed',sans-serif;font-size:13px;font-weight:600;letter-spacing:0.15em;text-transform:uppercase;cursor:pointer;">Workflow</button>
-    </div>
-
-    <div id="leadsView">
+  <div id="leadsView">
     <div class="crm-stats">
       <div class="crm-stat"><div class="crm-stat-num" id="statTotal">-</div><div class="crm-stat-label">Total Leads</div></div>
       <div class="crm-stat"><div class="crm-stat-num" id="statNew">-</div><div class="crm-stat-label">New</div></div>
@@ -116,234 +85,180 @@
       <div class="crm-stat"><div class="crm-stat-num" id="statQuoted">-</div><div class="crm-stat-label">Quoted</div></div>
       <div class="crm-stat"><div class="crm-stat-num" id="statWon">-</div><div class="crm-stat-label">Won</div></div>
     </div>
-
     <div class="crm-toolbar">
-      <input class="crm-search" id="searchInput" placeholder="Search name, email, phone..." oninput="renderTable()">
-      <button class="crm-filter active" data-filter="all" onclick="setFilter('all', this)">All</button>
-      <button class="crm-filter" data-filter="New" onclick="setFilter('New', this)">New</button>
-      <button class="crm-filter" data-filter="Contacted" onclick="setFilter('Contacted', this)">Contacted</button>
-      <button class="crm-filter" data-filter="Quoted" onclick="setFilter('Quoted', this)">Quoted</button>
-      <button class="crm-filter" data-filter="Won" onclick="setFilter('Won', this)">Won</button>
-      <button class="crm-filter" data-filter="Lost" onclick="setFilter('Lost', this)">Lost</button>
+      <input class="crm-search" id="searchInput" placeholder="Search..." oninput="renderTable()">
+      <button class="crm-filter on" data-filter="all" onclick="setFilter('all',this)">All</button>
+      <button class="crm-filter" data-filter="New" onclick="setFilter('New',this)">New</button>
+      <button class="crm-filter" data-filter="Contacted" onclick="setFilter('Contacted',this)">Contacted</button>
+      <button class="crm-filter" data-filter="Quoted" onclick="setFilter('Quoted',this)">Quoted</button>
+      <button class="crm-filter" data-filter="Won" onclick="setFilter('Won',this)">Won</button>
+      <button class="crm-filter" data-filter="Lost" onclick="setFilter('Lost',this)">Lost</button>
     </div>
-
-    <div id="tableContainer">
-      <div class="crm-loading">Loading leads...</div>
-    </div>
-    </div>
-
-    <div id="workflowView" style="display:none;">
-      <div class="workflow-timeline" id="workflowTimeline"></div>
-    </div>
+    <div id="tableContainer"></div>
   </div>
 
-  <div class="toast" id="toast"></div>
+  <div id="workflowView" style="display:none;">
+    <div id="workflowTimeline"></div>
+  </div>
+</div>
 
-  <script>
-    // Password protection
-    var PASSWORD = 'kadmia2026';
-    function checkPassword() {
-      var input = document.getElementById('passwordInput');
-      if (!input) return;
-      if (input.value === PASSWORD) {
-        var ls = document.getElementById('loginScreen');
-        var cc = document.getElementById('crmContent');
-        if (ls) ls.style.display = 'none';
-        if (cc) cc.style.display = 'block';
-        sessionStorage.setItem('crmAuth', 'true');
-        if (typeof loadLeads === 'function') loadLeads();
-      } else {
-        var err = document.getElementById('loginError');
-        if (err) err.style.display = 'block';
-        input.value = '';
-      }
-    }
-    function logout() {
-      sessionStorage.removeItem('crmAuth');
-      document.getElementById('loginScreen').style.display = 'flex';
-      document.getElementById('crmContent').style.display = 'none';
-      document.getElementById('passwordInput').value = '';
-    }
-    document.addEventListener('DOMContentLoaded', function() {
-      if (sessionStorage.getItem('crmAuth') === 'true') {
-        var ls = document.getElementById('loginScreen');
-        var cc = document.getElementById('crmContent');
-        if (ls && cc) { ls.style.display = 'none'; cc.style.display = 'block'; loadLeads(); }
-      }
-    });
+<div class="toast" id="toast"></div>
 
-    function switchTab(tab, btn) {
-      document.querySelectorAll('.crm-tab').forEach(b => { b.style.borderBottomColor = 'transparent'; b.style.color = 'var(--gray)'; });
-      btn.style.borderBottomColor = 'var(--gold)'; btn.style.color = 'var(--gold)';
-      document.getElementById('leadsView').style.display = tab === 'leads' ? 'block' : 'none';
-      document.getElementById('workflowView').style.display = tab === 'workflow' ? 'block' : 'none';
-      if (tab === 'workflow') renderWorkflow();
-    }
+<script>
+// ===== AUTH =====
+function login() {
+  var u = document.getElementById('u');
+  var p = document.getElementById('p');
+  if (u && p && u.value === 'KadmiaAdmin' && p.value === 'kadmia2026') {
+    document.getElementById('loginScreen').style.display = 'none';
+    document.getElementById('crm').style.display = 'block';
+    sessionStorage.setItem('ca', '1');
+    init();
+  } else {
+    document.getElementById('loginError').style.display = 'block';
+    if (p) p.value = '';
+  }
+}
+function logout() {
+  sessionStorage.removeItem('ca');
+  location.reload();
+}
+if (sessionStorage.getItem('ca') === '1') {
+  document.getElementById('loginScreen').style.display = 'none';
+  document.getElementById('crm').style.display = 'block';
+}
 
-    var workflowStages = JSON.parse(localStorage.getItem('kadmiaWorkflow') || '[]');
-    if (!workflowStages.length) {
-      workflowStages = [
-        { num: 1, title: 'Initial Enquiry', desc: 'Lead contacts Kadmia via website, phone or referral. Capture name, contact details, project type and budget range. Respond within 24 hours.', status: 'done', note: '' },
-        { num: 2, title: 'Discovery Meeting', desc: 'Meet client on site. Walk the block, discuss vision, lifestyle needs, must-haves and deal-breakers. Assess site constraints — slope, access, trees, easements.', status: 'done', note: '' },
-        { num: 3, title: 'Present Build Quote', desc: 'Prepare detailed scope and fixed-price quote. Include exclusions, PC sums, timeline estimate. Present in person — walk through each line item.', status: 'active', note: '' },
-        { num: 4, title: 'Fee Accepted', desc: 'Client accepts quote and pays design fee. Issue fee proposal, HBCF insurance certificate, and preliminary agreement. Confirm project timeline.', status: '', note: '' },
-        { num: 5, title: 'Concept Design', desc: 'Engage architect/draftsperson. Develop floor plans, elevations, and site layout. Present concept to client for feedback. Revise until signed off.', status: '', note: '' },
-        { num: 6, title: 'Order Soils & Survey', desc: 'Commission geotechnical soil report and contour survey. Identify soil classification, reactivity, and any ground conditions affecting slab design or cost.', status: '', note: '' },
-        { num: 7, title: 'Preliminary Pricing', desc: 'Send concept plans + soil report to key subcontractors for budget estimates. Review against initial quote. Flag any cost risks to client before proceeding.', status: '', note: '' },
-        { num: 8, title: 'Tender Preparation', desc: 'Finalise construction drawings, engineering, and specifications. Package tender documents for subcontractors. Issue to minimum 3 quotes per trade.', status: '', note: '' },
-        { num: 9, title: 'Tender Review & Award', desc: 'Compare subcontractor quotes — not just price, but availability, past performance, and quality. Award contracts. Lock in fixed pricing where possible.', status: '', note: '' },
-        { num: 10, title: 'Contract Signing', desc: 'Present final building contract to client with fixed price and detailed scope. Client signs, deposit paid. Issue HBCF insurance certificate. Cooling-off period applies.', status: '', note: '' },
-        { num: 11, title: 'DA / CDC Submission', desc: 'Lodge Development Application or Complying Development Certificate. For CDC: private certifier reviews against SEPP. For DA: council notification and assessment period.', status: '', note: '' },
-        { num: 12, title: 'Construction Certificate', desc: 'Once DA/CDC approved, obtain CC from private certifier. Submit structural engineering, BASIX, and services documentation. Appoint Principal Certifier.', status: '', note: '' },
-        { num: 13, title: 'Site Mobilisation', desc: 'Erect temp fencing, site amenities, and safety signage. Establish site access and storage. Arrange service disconnections. Notify neighbours.', status: '', note: '' },
-        { num: 14, title: 'Construction Phase', desc: 'Demolition → slab → frame → lock-up → rough-in → fit-out. Weekly client updates with photos. Critical stage inspections by certifier. Manage trades and variations.', status: '', note: '' },
-        { num: 15, title: 'Practical Completion', desc: 'Internal defect inspection completed. Engage private certifier for PCI inspection. Rectify any items raised. Prepare home for client walk-through.', status: '', note: '' },
-        { num: 16, title: 'Handover', desc: 'Walk client through completed home — room by room. Demonstrate all systems, appliances, and warranties. Hand over keys, documentation pack, and maintenance schedule.', status: '', note: '' },
-        { num: 17, title: '90-Day Defect Review', desc: 'Contact client at 3 months post-handover. Inspect any settlement or minor defects. Rectify promptly. Request Google review and referral.', status: '', note: '' }
-      ];
-    }
+// ===== WORKFLOW =====
+var wf = JSON.parse(localStorage.getItem('kwf') || 'null');
+if (!wf) {
+  wf = [
+    { n:1, t:'Initial Enquiry', d:'Lead contacts via website, phone or referral. Capture name, contact, project type and budget. Respond within 24 hours.', s:'done', note:'' },
+    { n:2, t:'Discovery Meeting', d:'Meet client on site. Walk the block, discuss vision, lifestyle, must-haves. Assess site constraints.', s:'done', note:'' },
+    { n:3, t:'Present Build Quote', d:'Prepare detailed scope and fixed-price quote with exclusions, PC sums, timeline. Present in person.', s:'active', note:'' },
+    { n:4, t:'Fee Accepted', d:'Client accepts quote and pays design fee. Issue fee proposal, HBCF insurance, preliminary agreement.', s:'', note:'' },
+    { n:5, t:'Concept Design', d:'Engage architect. Floor plans, elevations, site layout. Client feedback and sign-off.', s:'', note:'' },
+    { n:6, t:'Order Soils & Survey', d:'Commission geotech report and contour survey. Identify soil class and ground conditions.', s:'', note:'' },
+    { n:7, t:'Preliminary Pricing', d:'Send plans + soil report to subcontractors for budget estimates. Flag cost risks.', s:'', note:'' },
+    { n:8, t:'Tender Preparation', d:'Finalise drawings, engineering, specs. Package tender docs for subcontractors.', s:'', note:'' },
+    { n:9, t:'Tender Review & Award', d:'Compare quotes on price, availability, past performance. Award contracts.', s:'', note:'' },
+    { n:10, t:'Contract Signing', d:'Present final contract. Client signs, deposit paid. Issue HBCF certificate.', s:'', note:'' },
+    { n:11, t:'DA / CDC Submission', d:'Lodge DA or CDC. Private certifier or council assessment.', s:'', note:'' },
+    { n:12, t:'Construction Certificate', d:'Obtain CC. Submit engineering, BASIX, services docs.', s:'', note:'' },
+    { n:13, t:'Site Mobilisation', d:'Temp fencing, amenities, safety signage. Service disconnections. Notify neighbours.', s:'', note:'' },
+    { n:14, t:'Construction Phase', d:'Demo → slab → frame → lock-up → fit-out. Weekly updates. Stage inspections.', s:'', note:'' },
+    { n:15, t:'Practical Completion', d:'Internal defect inspection. PCI by certifier. Rectify items. Client walk-through prep.', s:'', note:'' },
+    { n:16, t:'Handover', d:'Walk client through home. Demonstrate systems. Hand over keys and documentation pack.', s:'', note:'' },
+    { n:17, t:'90-Day Defect Review', d:'Contact at 3 months. Inspect settlement/defects. Rectify. Request Google review.', s:'', note:'' }
+  ];
+  localStorage.setItem('kwf', JSON.stringify(wf));
+}
 
-    function renderWorkflow() {
-      var html = '<div class="workflow-scroll"><div class="workflow-track">';
-      workflowStages.forEach(function(s, i) {
-        var cls = s.status === 'done' ? 'done' : s.status === 'active' ? 'active' : '';
-        var badge = s.status === 'done' ? '<span class="wf-card-badge" style="color:#64dc8c;">&#10003; Complete</span>' : s.status === 'active' ? '<span class="wf-card-badge" style="color:var(--gold);">&#9679; Current</span>' : '';
-        html += '<div class="wf-card ' + cls + '" onclick="cycleStage(' + i + ')">';
-        html += '<div class="wf-card-num">' + (s.num < 10 ? '0' + s.num : s.num) + '</div>';
-        html += '<div class="wf-card-title">' + s.title + '</div>';
-        html += '<div class="wf-card-desc">' + s.desc + '</div>';
-        html += badge;
-        if (s.note) html += '<div class="wf-card-note">' + s.note + '</div>';
-        html += '</div>';
-      });
-      html += '</div></div>';
-      html += '<div style="text-align:center;margin-top:16px;color:var(--gray);font-size:11px;font-family:\'Barlow Condensed\',sans-serif;letter-spacing:0.1em;">Click any card to advance — scroll right for more stages</div>';
-      document.getElementById('workflowTimeline').innerHTML = html;
-    }
+function renderWorkflow() {
+  var h = '<div class="workflow-scroll"><div class="workflow-track">';
+  wf.forEach(function(s, i) {
+    var cls = s.s === 'done' ? 'done' : s.s === 'active' ? 'active' : '';
+    var badge = s.s === 'done' ? '<div class="wf-card-badge" style="color:#64dc8c;">Done</div>' : s.s === 'active' ? '<div class="wf-card-badge" style="color:var(--gold);">Current</div>' : '';
+    h += '<div class="wf-card '+cls+'" onclick="cycleStage('+i+')">';
+    h += '<div class="wf-card-num">'+(s.n<10?'0'+s.n:s.n)+'</div>';
+    h += '<div class="wf-card-title">'+s.t+'</div>';
+    h += '<div class="wf-card-desc">'+s.d+'</div>';
+    h += badge;
+    if (s.note) h += '<div class="wf-card-note">'+s.note+'</div>';
+    h += '</div>';
+  });
+  h += '</div></div><div style="text-align:center;margin-top:16px;color:var(--gray);font-size:11px;">Click a card to advance — scroll right for more</div>';
+  document.getElementById('workflowTimeline').innerHTML = h;
+}
 
-    function cycleStage(i) {
-      var s = workflowStages[i];
-      var note = prompt('Stage: ' + s.title + '\nCurrent: ' + (s.status || 'pending') + '  →  ' + (!s.status ? 'active' : s.status === 'active' ? 'complete' : 'reset to pending') + '\n\nType a note (optional):', s.note || '');
-      if (note === null) return;
-      if (!s.status) { s.status = 'active'; }
-      else if (s.status === 'active') { s.status = 'done'; }
-      else { s.status = ''; }
-      if (note) s.note = note;
-      localStorage.setItem('kadmiaWorkflow', JSON.stringify(workflowStages));
-      renderWorkflow();
-    }
+function cycleStage(i) {
+  var s = wf[i];
+  var next = !s.s ? 'active' : s.s === 'active' ? 'done' : '';
+  var n = prompt(s.t+' — '+(s.s||'pending')+' → '+(next||'pending')+'\nNote:', s.note||'');
+  if (n === null) return;
+  s.s = next;
+  if (n) s.note = n;
+  localStorage.setItem('kwf', JSON.stringify(wf));
+  renderWorkflow();
+}
 
-    if (!localStorage.getItem('kadmiaWorkflow')) {
-      localStorage.setItem('kadmiaWorkflow', JSON.stringify(workflowStages));
-    }
+// ===== LEADS =====
+var leads = JSON.parse(localStorage.getItem('kleads') || 'null');
+if (!leads) {
+  leads = [
+    { date:'2026-08-10', name:'John Smith', email:'john@example.com', phone:'0412 345 678', msg:'Looking at KDR in Fairfield', status:'New', note:'' },
+    { date:'2026-08-09', name:'Sarah Lee', email:'sarah@example.com', phone:'0423 456 789', msg:'Duplex enquiry for Parramatta', status:'Contacted', note:'Called Mon' },
+    { date:'2026-08-08', name:'Mike Chen', email:'mike@example.com', phone:'0400 111 222', msg:'Granny flat quote', status:'Quoted', note:'$185K sent' }
+  ];
+  localStorage.setItem('kleads', JSON.stringify(leads));
+}
+var currentFilter = 'all';
 
-    const SHEET_API_URL = 'https://script.google.com/macros/s/AKfycbwmVf9PSfE4Ljt01ZQAeMVmLswmQ7E3p97Aj8_gpJgZFsEgAs2gsddOMmO9vcpaWaDv/exec';
- = 'https://script.google.com/macros/s/AKfycbwmVf9PSfE4Ljt01ZQAeMVmLswmQ7E3p97Aj8_gpJgZFsEgAs2gsddOMmO9vcpaWaDv/exec';
+function save() { localStorage.setItem('kleads', JSON.stringify(leads)); }
 
-    let leads = [];
-    let currentFilter = 'all';
+function updateStats() {
+  document.getElementById('statTotal').textContent = leads.length;
+  document.getElementById('statNew').textContent = leads.filter(function(l){return l.status==='New'}).length;
+  document.getElementById('statContacted').textContent = leads.filter(function(l){return l.status==='Contacted'}).length;
+  document.getElementById('statQuoted').textContent = leads.filter(function(l){return l.status==='Quoted'}).length;
+  document.getElementById('statWon').textContent = leads.filter(function(l){return l.status==='Won'}).length;
+}
 
-    function setFilter(f, btn) {
-      currentFilter = f;
-      document.querySelectorAll('.crm-filter').forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
-      renderTable();
-    }
+function renderTable() {
+  var s = (document.getElementById('searchInput').value||'').toLowerCase();
+  var f = leads;
+  if (currentFilter !== 'all') f = f.filter(function(l){return l.status===currentFilter});
+  if (s) f = f.filter(function(l){return (l.name+l.email+l.phone+l.msg).toLowerCase().indexOf(s)!==-1});
+  if (!f.length) {
+    document.getElementById('tableContainer').innerHTML = '<div class="crm-empty"><h2>No leads</h2><p>Click + Add Lead to add one.</p></div>';
+    return;
+  }
+  var h = '<table class="crm-table"><thead><tr><th>Date</th><th>Name</th><th>Email</th><th>Phone</th><th>Message</th><th>Status</th><th>Notes</th></tr></thead><tbody>';
+  f.forEach(function(l) {
+    var ri = leads.indexOf(l);
+    h += '<tr><td>'+l.date+'</td><td><strong>'+l.name+'</strong></td><td><a href="mailto:'+l.email+'">'+l.email+'</a></td><td><a href="tel:'+l.phone+'">'+l.phone+'</a></td><td style="max-width:200px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;" title="'+(l.msg||'')+'">'+(l.msg||'-')+'</td>';
+    h += '<td><select class="status-select" onchange="leads['+ri+'].status=this.value;save();updateStats();"><option value="New" '+(l.status==='New'?'selected':'')+'>New</option><option value="Contacted" '+(l.status==='Contacted'?'selected':'')+'>Contacted</option><option value="Quoted" '+(l.status==='Quoted'?'selected':'')+'>Quoted</option><option value="Won" '+(l.status==='Won'?'selected':'')+'>Won</option><option value="Lost" '+(l.status==='Lost'?'selected':'')+'>Lost</option></select></td>';
+    h += '<td><input class="note-input" value="'+(l.note||'')+'" onchange="leads['+ri+'].note=this.value;save();" placeholder="Note..."></td></tr>';
+  });
+  h += '</tbody></table>';
+  document.getElementById('tableContainer').innerHTML = h;
+}
 
-    function loadLeads() {
-      var stored = localStorage.getItem('kadmiaLeads');
-      if (stored) {
-        try { leads = JSON.parse(stored); } catch(e) { leads = []; }
-      }
-      if (!leads.length) {
-        leads = [
-          { date: '2026-08-10', name: 'John Smith', email: 'john@example.com', phone: '0412 345 678', message: 'Looking at KDR in Fairfield', status: 'New', notes: '' },
-          { date: '2026-08-09', name: 'Sarah Lee', email: 'sarah@example.com', phone: '0423 456 789', message: 'Duplex enquiry for Parramatta block', status: 'Contacted', notes: 'Called' },
-          { date: '2026-08-08', name: 'Mike Chen', email: 'mike@example.com', phone: '0400 111 222', message: 'Granny flat quote needed', status: 'Quoted', notes: 'Sent quote $185K' },
-        ];
-        saveLeads();
-      }
-      updateStats();
-      renderTable();
-      var sync = document.getElementById('lastSync');
-      if (sync) sync.textContent = 'Updated ' + new Date().toLocaleTimeString();
-    }
+function setFilter(f, btn) {
+  currentFilter = f;
+  document.querySelectorAll('.crm-filter').forEach(function(b){b.classList.remove('on')});
+  btn.classList.add('on');
+  renderTable();
+}
 
-    function saveLeads() {
-      localStorage.setItem('kadmiaLeads', JSON.stringify(leads));
-    }
+function addLead() {
+  var n = prompt('Client name:'); if (!n) return;
+  var e = prompt('Email:') || '';
+  var p = prompt('Phone:') || '';
+  var m = prompt('Brief description:') || '';
+  leads.unshift({ date: new Date().toISOString().split('T')[0], name: n, email: e, phone: p, msg: m, status: 'New', note: '' });
+  save(); updateStats(); renderTable();
+}
 
-    function updateStats() {
-      document.getElementById('statTotal').textContent = leads.length;
-      document.getElementById('statNew').textContent = leads.filter(l => l.status === 'New').length;
-      document.getElementById('statContacted').textContent = leads.filter(l => l.status === 'Contacted').length;
-      document.getElementById('statQuoted').textContent = leads.filter(l => l.status === 'Quoted').length;
-      document.getElementById('statWon').textContent = leads.filter(l => l.status === 'Won').length;
-    }
+function switchTab(tab) {
+  document.getElementById('leadsView').style.display = tab === 'leads' ? 'block' : 'none';
+  document.getElementById('workflowView').style.display = tab === 'workflow' ? 'block' : 'none';
+  document.getElementById('tabLeads').style.borderBottomColor = tab === 'leads' ? 'var(--gold)' : 'transparent';
+  document.getElementById('tabLeads').style.color = tab === 'leads' ? 'var(--gold)' : 'var(--gray)';
+  document.getElementById('tabWorkflow').style.borderBottomColor = tab === 'workflow' ? 'var(--gold)' : 'transparent';
+  document.getElementById('tabWorkflow').style.color = tab === 'workflow' ? 'var(--gold)' : 'var(--gray)';
+  if (tab === 'workflow') renderWorkflow();
+}
 
-    function renderTable() {
-      const search = document.getElementById('searchInput').value.toLowerCase();
-      let filtered = leads;
-      if (currentFilter !== 'all') filtered = filtered.filter(l => l.status === currentFilter);
-      if (search) filtered = filtered.filter(l => (l.name + l.email + l.phone + l.message).toLowerCase().includes(search));
+function loadLeads() { updateStats(); renderTable(); }
 
-      if (!filtered.length) {
-        document.getElementById('tableContainer').innerHTML = '<div class="crm-empty"><h2>No leads found</h2><p>Try a different filter or wait for new enquiries.</p></div>';
-        return;
-      }
+function toast(m) {
+  var t = document.getElementById('toast');
+  t.textContent = m; t.classList.add('show');
+  setTimeout(function(){ t.classList.remove('show'); }, 2000);
+}
 
-      let html = '<table class="crm-table"><thead><tr><th>Date</th><th>Name</th><th>Email</th><th>Phone</th><th>Message</th><th>Status</th><th>Notes</th></tr></thead><tbody>';
-      filtered.forEach((l, i) => {
-        const statusClass = 'status-' + l.status.toLowerCase();
-        html += '<tr>';
-        html += '<td>' + l.date + '</td>';
-        html += '<td><strong>' + l.name + '</strong></td>';
-        html += '<td><a href="mailto:' + l.email + '">' + l.email + '</a></td>';
-        html += '<td><a href="tel:' + l.phone + '">' + l.phone + '</a></td>';
-        html += '<td style="max-width:200px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;" title="' + (l.message || '') + '">' + (l.message || '-') + '</td>';
-        html += '<td><select class="status-select" onchange="updateStatus(' + i + ', this.value)"><option value="New" ' + (l.status === 'New' ? 'selected' : '') + '>New</option><option value="Contacted" ' + (l.status === 'Contacted' ? 'selected' : '') + '>Contacted</option><option value="Quoted" ' + (l.status === 'Quoted' ? 'selected' : '') + '>Quoted</option><option value="Won" ' + (l.status === 'Won' ? 'selected' : '') + '>Won</option><option value="Lost" ' + (l.status === 'Lost' ? 'selected' : '') + '>Lost</option></select></td>';
-        html += '<td><input class="note-input" value="' + (l.notes || '') + '" onchange="updateNote(' + i + ', this.value)" placeholder="Add note..."></td>';
-        html += '</tr>';
-      });
-      html += '</tbody></table>';
-      document.getElementById('tableContainer').innerHTML = html;
-    }
-
-    function updateStatus(i, val) {
-      leads[i].status = val;
-      saveLeads();
-      updateStats();
-      toast('Status updated');
-    }
-
-    function updateNote(i, val) {
-      leads[i].notes = val;
-      saveLeads();
-      toast('Note saved');
-    }
-
-    function addLead() {
-      var name = prompt('Client name:');
-      if (!name) return;
-      var email = prompt('Email:') || '';
-      var phone = prompt('Phone:') || '';
-      var message = prompt('Brief description:') || '';
-      var today = new Date().toISOString().split('T')[0];
-      leads.unshift({ date: today, name: name, email: email, phone: phone, message: message, status: 'New', notes: '' });
-      saveLeads();
-      updateStats();
-      renderTable();
-      toast('Lead added');
-    }
-
-    function toast(msg) {
-      const t = document.getElementById('toast');
-      t.textContent = msg;
-      t.classList.add('show');
-      setTimeout(() => t.classList.remove('show'), 2000);
-    }
-
-    loadLeads();
-  </script>
+function init() { loadLeads(); document.getElementById('lastSync').textContent='Ready'; }
+if (sessionStorage.getItem('ca') === '1') init();
+</script>
 </body>
 </html>
