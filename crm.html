@@ -56,8 +56,24 @@
     .toast { position: fixed; bottom: 24px; right: 24px; background: var(--gold); color: var(--navy); padding: 14px 24px; font-family: 'Barlow Condensed', sans-serif; font-size: 13px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; z-index: 9999; opacity: 0; transition: opacity 0.3s; }
     .toast.show { opacity: 1; }
 
+    .workflow-timeline { position: relative; padding-left: 40px; }
+    .workflow-timeline::before { content: ''; position: absolute; left: 18px; top: 0; bottom: 0; width: 2px; background: linear-gradient(to bottom, var(--gold), rgba(200,169,110,0.1)); }
+    .wf-stage { position: relative; margin-bottom: 8px; padding: 18px 24px; background: var(--navy-mid); border: 1px solid rgba(200,169,110,0.08); cursor: pointer; transition: border-color 0.2s; }
+    .wf-stage:hover { border-color: rgba(200,169,110,0.25); }
+    .wf-stage::before { content: ''; position: absolute; left: -30px; top: 26px; width: 10px; height: 10px; border-radius: 50%; background: var(--navy-mid); border: 2px solid rgba(200,169,110,0.3); }
+    .wf-stage.done::before { background: var(--gold); border-color: var(--gold); }
+    .wf-stage.active { border-color: var(--gold); }
+    .wf-stage.active::before { background: var(--gold); border-color: var(--gold); box-shadow: 0 0 0 4px rgba(200,169,110,0.2); }
+    .wf-stage-header { display: flex; justify-content: space-between; align-items: center; }
+    .wf-stage-num { font-family: 'Bebas Neue', sans-serif; font-size: 22px; color: var(--gold); line-height: 1; }
+    .wf-stage-title { font-family: 'Barlow', sans-serif; font-size: 16px; font-weight: 500; color: var(--white); flex: 1; margin-left: 14px; }
+    .wf-stage-status { font-family: 'Barlow Condensed', sans-serif; font-size: 10px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; }
+    .wf-stage-note { font-size: 13px; color: var(--gray); margin-top: 6px; margin-left: 46px; }
+    .wf-add-stage { margin-top: 12px; padding: 14px 24px; background: transparent; border: 1px dashed rgba(200,169,110,0.2); color: var(--gray); font-family: 'Barlow Condensed', sans-serif; font-size: 12px; letter-spacing: 0.15em; text-transform: uppercase; cursor: pointer; width: 100%; text-align: center; transition: border-color 0.2s; }
+    .wf-add-stage:hover { border-color: var(--gold); color: var(--gold); }
+
     @media (max-width: 1100px) { .crm-stats { grid-template-columns: repeat(3, 1fr); } }
-    @media (max-width: 720px) { .crm-container { padding: 20px; } .crm-stats { grid-template-columns: 1fr 1fr; } .crm-table { font-size: 12px; } }
+    @media (max-width: 720px) { .crm-container { padding: 20px; } .crm-stats { grid-template-columns: 1fr 1fr; } .crm-table { font-size: 12px; } .workflow-timeline { padding-left: 32px; } }
   </style>
 </head>
 <body>
@@ -84,6 +100,12 @@
       </div>
     </div>
 
+    <div class="crm-tabs" style="display:flex;gap:0;margin-bottom:32px;border-bottom:1px solid rgba(200,169,110,0.15);">
+      <button class="crm-tab active" onclick="switchTab('leads', this)" style="background:none;border:none;border-bottom:2px solid var(--gold);color:var(--gold);padding:12px 28px;font-family:'Barlow Condensed',sans-serif;font-size:13px;font-weight:600;letter-spacing:0.15em;text-transform:uppercase;cursor:pointer;">Leads</button>
+      <button class="crm-tab" onclick="switchTab('workflow', this)" style="background:none;border:none;border-bottom:2px solid transparent;color:var(--gray);padding:12px 28px;font-family:'Barlow Condensed',sans-serif;font-size:13px;font-weight:600;letter-spacing:0.15em;text-transform:uppercase;cursor:pointer;">Workflow</button>
+    </div>
+
+    <div id="leadsView">
     <div class="crm-stats">
       <div class="crm-stat"><div class="crm-stat-num" id="statTotal">-</div><div class="crm-stat-label">Total Leads</div></div>
       <div class="crm-stat"><div class="crm-stat-num" id="statNew">-</div><div class="crm-stat-label">New</div></div>
@@ -104,6 +126,11 @@
 
     <div id="tableContainer">
       <div class="crm-loading">Loading leads...</div>
+    </div>
+    </div>
+
+    <div id="workflowView" style="display:none;">
+      <div class="workflow-timeline" id="workflowTimeline"></div>
     </div>
   </div>
 
@@ -133,6 +160,74 @@
     if (sessionStorage.getItem('crmAuth') === 'true') {
       document.getElementById('loginScreen').style.display = 'none';
       document.getElementById('crmContent').style.display = 'block';
+    }
+
+    function switchTab(tab, btn) {
+      document.querySelectorAll('.crm-tab').forEach(b => { b.style.borderBottomColor = 'transparent'; b.style.color = 'var(--gray)'; });
+      btn.style.borderBottomColor = 'var(--gold)'; btn.style.color = 'var(--gold)';
+      document.getElementById('leadsView').style.display = tab === 'leads' ? 'block' : 'none';
+      document.getElementById('workflowView').style.display = tab === 'workflow' ? 'block' : 'none';
+      if (tab === 'workflow') renderWorkflow();
+    }
+
+    var workflowStages = JSON.parse(localStorage.getItem('kadmiaWorkflow') || '[]');
+    if (!workflowStages.length) {
+      workflowStages = [
+        { num: 1, title: 'Initial Enquiry', status: 'done', note: '' },
+        { num: 2, title: 'Discovery Meeting', status: 'done', note: '' },
+        { num: 3, title: 'Present Build Quote', status: 'active', note: '' },
+        { num: 4, title: 'Fee Accepted', status: '', note: '' },
+        { num: 5, title: 'Concept Design', status: '', note: '' },
+        { num: 6, title: 'Order Soils & Survey', status: '', note: '' },
+        { num: 7, title: 'Preliminary Pricing', status: '', note: '' },
+        { num: 8, title: 'Tender Preparation', status: '', note: '' },
+        { num: 9, title: 'Tender Review & Award', status: '', note: '' },
+        { num: 10, title: 'Contract Signing', status: '', note: '' },
+        { num: 11, title: 'DA / CDC Submission', status: '', note: '' },
+        { num: 12, title: 'Construction Certificate', status: '', note: '' },
+        { num: 13, title: 'Site Mobilisation', status: '', note: '' },
+        { num: 14, title: 'Construction Phase', status: '', note: '' },
+        { num: 15, title: 'Practical Completion', status: '', note: '' },
+        { num: 16, title: 'Handover', status: '', note: '' },
+        { num: 17, title: '90-Day Defect Review', status: '', note: '' }
+      ];
+    }
+
+    function renderWorkflow() {
+      var html = '';
+      workflowStages.forEach(function(s, i) {
+        var cls = s.status === 'done' ? 'done' : s.status === 'active' ? 'active' : '';
+        var statusText = s.status === 'done' ? 'COMPLETE' : s.status === 'active' ? 'CURRENT' : '';
+        var statusColor = s.status === 'done' ? '#64dc8c' : s.status === 'active' ? 'var(--gold)' : 'var(--gray)';
+        html += '<div class="wf-stage ' + cls + '" onclick="cycleStage(' + i + ')">';
+        html += '<div class="wf-stage-header">';
+        html += '<div style="display:flex;align-items:center;"><span class="wf-stage-num">' + (s.num < 10 ? '0' + s.num : s.num) + '</span><span class="wf-stage-title">' + s.title + '</span></div>';
+        if (statusText) html += '<span class="wf-stage-status" style="color:' + statusColor + '">' + statusText + '</span>';
+        html += '</div>';
+        if (s.note) html += '<div class="wf-stage-note">' + s.note + '</div>';
+        html += '</div>';
+      });
+      document.getElementById('workflowTimeline').innerHTML = html;
+    }
+
+    function cycleStage(i) {
+      var s = workflowStages[i];
+      var note = prompt((s.status === 'active' ? 'Add a note for' : 'Mark as active:') + ' "' + s.title + '"' + (s.note ? '\nCurrent note: ' + s.note : '') + '\n\nClick to move this stage forward. Current: ' + (s.status || 'pending') + '\n\nType note (optional):', s.note || '');
+      if (note === null) return; // cancelled
+
+      // Cycle status: '' -> 'active' -> 'done' -> ''
+      if (!s.status) { s.status = 'active'; }
+      else if (s.status === 'active') { s.status = 'done'; }
+      else { s.status = ''; }
+
+      if (note) s.note = note;
+      localStorage.setItem('kadmiaWorkflow', JSON.stringify(workflowStages));
+      renderWorkflow();
+    }
+
+    // Initialize workflow if needed
+    if (!localStorage.getItem('kadmiaWorkflow')) {
+      localStorage.setItem('kadmiaWorkflow', JSON.stringify(workflowStages));
     }
 
     const SHEET_API_URL = 'https://script.google.com/macros/s/AKfycbwmVf9PSfE4Ljt01ZQAeMVmLswmQ7E3p97Aj8_gpJgZFsEgAs2gsddOMmO9vcpaWaDv/exec';
