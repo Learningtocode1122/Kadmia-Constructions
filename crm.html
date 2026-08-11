@@ -135,7 +135,7 @@ if (sessionStorage.getItem('ca') === '1') {
 }
 
 // ===== WORKFLOW =====
-var wf = JSON.parse(localStorage.getItem('kwf') || 'null');
+var wf = JSON.parse(localStorage.getItem('kwf2') || 'null');
 if (!wf) {
   wf = [
     { n:1, t:'Initial Enquiry', d:'Lead contacts via website, phone or referral.', s:'done', note:'', tk:[{l:'Enquiry received',x:1},{l:'Contact details captured',x:1},{l:'Project type noted',x:1},{l:'Budget range discussed',x:1},{l:'Responded within 24hrs',x:1}] },
@@ -156,7 +156,7 @@ if (!wf) {
     { n:16, t:'Handover', d:'Walk client through home. Hand over keys.', s:'', note:'', tk:[{l:'Client walk-through done',x:0},{l:'All systems demonstrated',x:0},{l:'Documentation pack ready',x:0},{l:'Keys handed over',x:0},{l:'Client signed off',x:0}] },
     { n:17, t:'90-Day Defect Review', d:'Check in at 3 months. Inspect and rectify.', s:'', note:'', tk:[{l:'Client contacted',x:0},{l:'Inspection completed',x:0},{l:'Defects rectified',x:0},{l:'Google review requested',x:0},{l:'Case closed',x:0}] }
   ];
-  localStorage.setItem('kwf', JSON.stringify(wf));
+  localStorage.setItem('kwf2', JSON.stringify(wf));
 }
 
 function renderWorkflow() {
@@ -211,14 +211,14 @@ function toggleTask(si, ti, val) {
   var allDone = wf[si].tk.every(function(t){return t.x===1||t.x===2});
   if (allDone) wf[si].s = 'done';
   else if (wf[si].s === 'done') wf[si].s = 'active';
-  localStorage.setItem('kwf', JSON.stringify(wf));
+  localStorage.setItem('kwf2', JSON.stringify(wf));
   openTasks(si); // refresh popup
   renderWorkflow();
 }
 
 function closeTasks() {
   wf[taskStageIdx].note = document.getElementById('taskNote').value || '';
-  localStorage.setItem('kwf', JSON.stringify(wf));
+  localStorage.setItem('kwf2', JSON.stringify(wf));
   document.getElementById('taskPopup').style.display = 'none';
   renderWorkflow();
 }
