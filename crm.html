@@ -259,7 +259,11 @@ function renderTable() {
   var h = '<table class="crm-table"><thead><tr><th>Date</th><th>Name</th><th>Email</th><th>Phone</th><th>Message</th><th>Status</th><th>Notes</th></tr></thead><tbody>';
   f.forEach(function(l) {
     var ri = leads.indexOf(l);
-    h += '<tr><td>'+l.date+'</td><td><strong>'+l.name+'</strong></td><td><a href="mailto:'+l.email+'">'+l.email+'</a></td><td><a href="tel:'+l.phone+'">'+l.phone+'</a></td><td style="max-width:200px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;" title="'+(l.msg||'')+'">'+(l.msg||'-')+'</td>';
+    var nameHtml = l.name ? '<strong>'+l.name+'</strong>' : '<input class="inline-input" value="" onchange="leads['+ri+'].name=this.value;save();renderTable();" onblur="if(!this.value)renderTable();" placeholder="Enter name..." style="background:transparent;border:1px dashed rgba(200,169,110,0.3);color:var(--white);padding:4px 8px;font-family:\'Barlow\',sans-serif;font-size:14px;width:140px;">';
+    var emailHtml = l.email ? '<a href="mailto:'+l.email+'">'+l.email+'</a>' : '<input class="inline-input" value="" onchange="leads['+ri+'].email=this.value;save();renderTable();" onblur="if(!this.value)renderTable();" placeholder="Email" style="background:transparent;border:1px dashed rgba(200,169,110,0.3);color:var(--white);padding:4px 8px;font-family:\'Barlow\',sans-serif;font-size:14px;width:160px;">';
+    var phoneHtml = l.phone ? '<a href="tel:'+l.phone+'">'+l.phone+'</a>' : '<input class="inline-input" value="" onchange="leads['+ri+'].phone=this.value;save();renderTable();" onblur="if(!this.value)renderTable();" placeholder="Phone" style="background:transparent;border:1px dashed rgba(200,169,110,0.3);color:var(--white);padding:4px 8px;font-family:\'Barlow\',sans-serif;font-size:14px;width:140px;">';
+    var msgHtml = l.msg ? '<span title="'+l.msg+'">'+l.msg+'</span>' : '<input class="inline-input" value="" onchange="leads['+ri+'].msg=this.value;save();renderTable();" onblur="if(!this.value)renderTable();" placeholder="Brief description..." style="background:transparent;border:1px dashed rgba(200,169,110,0.3);color:var(--white);padding:4px 8px;font-family:\'Barlow\',sans-serif;font-size:14px;width:180px;">';
+    h += '<tr><td>'+l.date+'</td><td>'+nameHtml+'</td><td>'+emailHtml+'</td><td>'+phoneHtml+'</td><td style="max-width:200px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">'+msgHtml+'</td>';
     h += '<td><select class="status-select" onchange="leads['+ri+'].status=this.value;save();updateStats();"><option value="New" '+(l.status==='New'?'selected':'')+'>New</option><option value="Contacted" '+(l.status==='Contacted'?'selected':'')+'>Contacted</option><option value="Quoted" '+(l.status==='Quoted'?'selected':'')+'>Quoted</option><option value="Won" '+(l.status==='Won'?'selected':'')+'>Won</option><option value="Lost" '+(l.status==='Lost'?'selected':'')+'>Lost</option></select></td>';
     h += '<td><input class="note-input" value="'+(l.note||'')+'" onchange="leads['+ri+'].note=this.value;save();" placeholder="Note..."></td></tr>';
   });
@@ -275,12 +279,14 @@ function setFilter(f, btn) {
 }
 
 function addLead() {
-  var n = prompt('Client name:'); if (!n) return;
-  var e = prompt('Email:') || '';
-  var p = prompt('Phone:') || '';
-  var m = prompt('Brief description:') || '';
-  leads.unshift({ date: new Date().toISOString().split('T')[0], name: n, email: e, phone: p, msg: m, status: 'New', note: '' });
+  leads.unshift({ date: new Date().toISOString().split('T')[0], name: '', email: '', phone: '', msg: '', status: 'New', note: '' });
   save(); updateStats(); renderTable();
+  // Focus the new name field
+  setTimeout(function() {
+    var inputs = document.querySelectorAll('.crm-table tbody tr:first-child .inline-input');
+    if (inputs.length) inputs[0].focus();
+  }, 100);
+  toast('New lead added — fill in the row');
 }
 
 function switchTab(tab) {
