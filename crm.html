@@ -102,6 +102,12 @@
   </div>
 </div>
 
+<div id="taskPopup" style="display:none;position:fixed;inset:0;z-index:9999;background:rgba(6,14,28,0.95);align-items:center;justify-content:center;" onclick="if(event.target===this)closeTasks()">
+  <div style="background:var(--navy);border:1px solid rgba(200,169,110,0.2);padding:32px;max-width:520px;width:90%;max-height:80vh;overflow-y:auto;" onclick="event.stopPropagation()">
+    <div id="taskPopupBody"></div>
+  </div>
+</div>
+
 <div class="toast" id="toast"></div>
 
 <script>
@@ -132,23 +138,23 @@ if (sessionStorage.getItem('ca') === '1') {
 var wf = JSON.parse(localStorage.getItem('kwf') || 'null');
 if (!wf) {
   wf = [
-    { n:1, t:'Initial Enquiry', d:'Lead contacts via website, phone or referral. Capture name, contact, project type and budget. Respond within 24 hours.', s:'done', note:'' },
-    { n:2, t:'Discovery Meeting', d:'Meet client on site. Walk the block, discuss vision, lifestyle, must-haves. Assess site constraints.', s:'done', note:'' },
-    { n:3, t:'Present Build Quote', d:'Prepare detailed scope and fixed-price quote with exclusions, PC sums, timeline. Present in person.', s:'active', note:'' },
-    { n:4, t:'Fee Accepted', d:'Client accepts quote and pays design fee. Issue fee proposal, HBCF insurance, preliminary agreement.', s:'', note:'' },
-    { n:5, t:'Concept Design', d:'Engage architect. Floor plans, elevations, site layout. Client feedback and sign-off.', s:'', note:'' },
-    { n:6, t:'Order Soils & Survey', d:'Commission geotech report and contour survey. Identify soil class and ground conditions.', s:'', note:'' },
-    { n:7, t:'Preliminary Pricing', d:'Send plans + soil report to subcontractors for budget estimates. Flag cost risks.', s:'', note:'' },
-    { n:8, t:'Tender Preparation', d:'Finalise drawings, engineering, specs. Package tender docs for subcontractors.', s:'', note:'' },
-    { n:9, t:'Tender Review & Award', d:'Compare quotes on price, availability, past performance. Award contracts.', s:'', note:'' },
-    { n:10, t:'Contract Signing', d:'Present final contract. Client signs, deposit paid. Issue HBCF certificate.', s:'', note:'' },
-    { n:11, t:'DA / CDC Submission', d:'Lodge DA or CDC. Private certifier or council assessment.', s:'', note:'' },
-    { n:12, t:'Construction Certificate', d:'Obtain CC. Submit engineering, BASIX, services docs.', s:'', note:'' },
-    { n:13, t:'Site Mobilisation', d:'Temp fencing, amenities, safety signage. Service disconnections. Notify neighbours.', s:'', note:'' },
-    { n:14, t:'Construction Phase', d:'Demo → slab → frame → lock-up → fit-out. Weekly updates. Stage inspections.', s:'', note:'' },
-    { n:15, t:'Practical Completion', d:'Internal defect inspection. PCI by certifier. Rectify items. Client walk-through prep.', s:'', note:'' },
-    { n:16, t:'Handover', d:'Walk client through home. Demonstrate systems. Hand over keys and documentation pack.', s:'', note:'' },
-    { n:17, t:'90-Day Defect Review', d:'Contact at 3 months. Inspect settlement/defects. Rectify. Request Google review.', s:'', note:'' }
+    { n:1, t:'Initial Enquiry', d:'Lead contacts via website, phone or referral.', s:'done', note:'', tk:[{l:'Enquiry received',x:1},{l:'Contact details captured',x:1},{l:'Project type noted',x:1},{l:'Budget range discussed',x:1},{l:'Responded within 24hrs',x:1}] },
+    { n:2, t:'Discovery Meeting', d:'Meet client on site. Walk block, discuss vision.', s:'done', note:'', tk:[{l:'Site walk completed',x:1},{l:'Vision & lifestyle discussed',x:1},{l:'Must-haves documented',x:1},{l:'Site constraints assessed',x:1},{l:'Brief prepared',x:1}] },
+    { n:3, t:'Present Build Quote', d:'Prepare detailed scope and fixed-price quote.', s:'active', note:'', tk:[{l:'Scope of works finalised',x:1},{l:'Exclusions listed',x:0},{l:'PC sums itemised',x:0},{l:'Timeline estimate included',x:0},{l:'Quote presented in person',x:0}] },
+    { n:4, t:'Fee Accepted', d:'Client accepts quote and pays design fee.', s:'', note:'', tk:[{l:'Fee proposal issued',x:0},{l:'HBCF insurance certificate provided',x:0},{l:'Preliminary agreement signed',x:0},{l:'Deposit received',x:0},{l:'Project timeline confirmed',x:0}] },
+    { n:5, t:'Concept Design', d:'Engage architect. Floor plans, elevations.', s:'', note:'', tk:[{l:'Architect engaged',x:0},{l:'Floor plans drafted',x:0},{l:'Elevations completed',x:0},{l:'Site layout finalised',x:0},{l:'Client sign-off obtained',x:0}] },
+    { n:6, t:'Order Soils & Survey', d:'Commission geotech report and contour survey.', s:'', note:'', tk:[{l:'Contour survey ordered',x:0},{l:'Geotech report ordered',x:0},{l:'Soil classification received',x:0},{l:'Slab design implications reviewed',x:0},{l:'Cost impact assessed',x:0}] },
+    { n:7, t:'Preliminary Pricing', d:'Send plans + soil report for budget estimates.', s:'', note:'', tk:[{l:'Plans sent to subcontractors',x:0},{l:'Budget estimates received',x:0},{l:'Compared against initial quote',x:0},{l:'Cost risks identified',x:0},{l:'Client briefed on any changes',x:0}] },
+    { n:8, t:'Tender Preparation', d:'Finalise drawings and package tender docs.', s:'', note:'', tk:[{l:'Construction drawings finalised',x:0},{l:'Engineering completed',x:0},{l:'Specifications written',x:0},{l:'Tender docs packaged',x:0},{l:'Min 3 quotes per trade ready',x:0}] },
+    { n:9, t:'Tender Review & Award', d:'Compare quotes and award contracts.', s:'', note:'', tk:[{l:'All quotes received',x:0},{l:'Price comparison done',x:0},{l:'Availability checked',x:0},{l:'Past performance reviewed',x:0},{l:'Contracts awarded',x:0}] },
+    { n:10, t:'Contract Signing', d:'Present final contract. Client signs.', s:'', note:'', tk:[{l:'Final contract prepared',x:0},{l:'Scope and price confirmed',x:0},{l:'Client signed',x:0},{l:'Deposit paid',x:0},{l:'HBCF certificate issued',x:0}] },
+    { n:11, t:'DA / CDC Submission', d:'Lodge development application.', s:'', note:'', tk:[{l:'Pathway confirmed (DA or CDC)',x:0},{l:'All reports compiled',x:0},{l:'Application lodged',x:0},{l:'Fees paid',x:0},{l:'Confirmation received',x:0}] },
+    { n:12, t:'Construction Certificate', d:'Obtain CC. Submit engineering docs.', s:'', note:'', tk:[{l:'DA/CDC approved',x:0},{l:'Structural engineering submitted',x:0},{l:'BASIX certificate ready',x:0},{l:'Services docs lodged',x:0},{l:'CC issued',x:0}] },
+    { n:13, t:'Site Mobilisation', d:'Temp fencing, amenities, safety signage.', s:'', note:'', tk:[{l:'Temp fencing erected',x:0},{l:'Site amenities installed',x:0},{l:'Safety signage up',x:0},{l:'Service disconnections arranged',x:0},{l:'Neighbours notified',x:0}] },
+    { n:14, t:'Construction Phase', d:'Demo to slab to frame to lock-up to fit-out.', s:'', note:'', tk:[{l:'Demolition complete',x:0},{l:'Slab poured',x:0},{l:'Frame & roof complete',x:0},{l:'Lock-up achieved',x:0},{l:'Fit-out & finishes complete',x:0}] },
+    { n:15, t:'Practical Completion', d:'Defect inspection. PCI. Client walk-through.', s:'', note:'', tk:[{l:'Internal defect inspection done',x:0},{l:'PCI by certifier booked',x:0},{l:'Items rectified',x:0},{l:'Home cleaned',x:0},{l:'Ready for handover',x:0}] },
+    { n:16, t:'Handover', d:'Walk client through home. Hand over keys.', s:'', note:'', tk:[{l:'Client walk-through done',x:0},{l:'All systems demonstrated',x:0},{l:'Documentation pack ready',x:0},{l:'Keys handed over',x:0},{l:'Client signed off',x:0}] },
+    { n:17, t:'90-Day Defect Review', d:'Check in at 3 months. Inspect and rectify.', s:'', note:'', tk:[{l:'Client contacted',x:0},{l:'Inspection completed',x:0},{l:'Defects rectified',x:0},{l:'Google review requested',x:0},{l:'Case closed',x:0}] }
   ];
   localStorage.setItem('kwf', JSON.stringify(wf));
 }
@@ -156,28 +162,64 @@ if (!wf) {
 function renderWorkflow() {
   var h = '<div class="workflow-scroll"><div class="workflow-track">';
   wf.forEach(function(s, i) {
+    var done = s.tk.filter(function(t){return t.x===1}).length;
+    var na = s.tk.filter(function(t){return t.x===2}).length;
+    var total = s.tk.length;
+    var pct = Math.round((done+na)/total*100);
     var cls = s.s === 'done' ? 'done' : s.s === 'active' ? 'active' : '';
-    var badge = s.s === 'done' ? '<div class="wf-card-badge" style="color:#64dc8c;">Done</div>' : s.s === 'active' ? '<div class="wf-card-badge" style="color:var(--gold);">Current</div>' : '';
-    h += '<div class="wf-card '+cls+'" onclick="cycleStage('+i+')">';
+    var badge = s.s === 'done' ? '<div class="wf-card-badge" style="color:#64dc8c;">Complete</div>' : s.s === 'active' ? '<div class="wf-card-badge" style="color:var(--gold);">Active</div>' : '';
+    h += '<div class="wf-card '+cls+'" onclick="openTasks('+i+')">';
     h += '<div class="wf-card-num">'+(s.n<10?'0'+s.n:s.n)+'</div>';
     h += '<div class="wf-card-title">'+s.t+'</div>';
     h += '<div class="wf-card-desc">'+s.d+'</div>';
+    h += '<div style="margin-top:10px;background:rgba(255,255,255,0.05);height:3px;border-radius:2px;"><div style="height:100%;width:'+pct+'%;background:'+(s.s==='done'?'#64dc8c':'var(--gold)')+';border-radius:2px;"></div></div>';
+    h += '<div style="font-size:10px;color:var(--gray);margin-top:4px;">'+done+'/'+total+' done'+(na?', '+na+' N/A':'')+'</div>';
     h += badge;
     if (s.note) h += '<div class="wf-card-note">'+s.note+'</div>';
     h += '</div>';
   });
-  h += '</div></div><div style="text-align:center;margin-top:16px;color:var(--gray);font-size:11px;">Click a card to advance — scroll right for more</div>';
+  h += '</div></div><div style="text-align:center;margin-top:16px;color:var(--gray);font-size:11px;">Click a card to open task checklist</div>';
   document.getElementById('workflowTimeline').innerHTML = h;
 }
 
-function cycleStage(i) {
+var taskStageIdx = -1;
+function openTasks(i) {
+  taskStageIdx = i;
   var s = wf[i];
-  var next = !s.s ? 'active' : s.s === 'active' ? 'done' : '';
-  var n = prompt(s.t+' — '+(s.s||'pending')+' → '+(next||'pending')+'\nNote:', s.note||'');
-  if (n === null) return;
-  s.s = next;
-  if (n) s.note = n;
+  var h = '<div style="font-family:\'Bebas Neue\',sans-serif;font-size:28px;color:var(--white);margin-bottom:4px;">'+s.t+'</div>';
+  h += '<div style="font-size:13px;color:var(--gray);margin-bottom:20px;">'+s.d+'</div>';
+  s.tk.forEach(function(t, j) {
+    var ch = t.x===1 ? 'checked' : '';
+    var na = t.x===2 ? 'style="text-decoration:line-through;color:var(--gray);"' : '';
+    h += '<label style="display:flex;align-items:center;gap:10px;padding:8px 0;cursor:pointer;font-size:14px;color:var(--gray-light);'+ (t.x===2?'text-decoration:line-through;opacity:0.5;':'') +'">';
+    h += '<input type="checkbox" '+ch+' onchange="toggleTask('+i+','+j+',1)" style="accent-color:var(--gold);">';
+    h += '<span style="flex:1;">'+t.l+'</span>';
+    h += '<span onclick="event.stopPropagation();toggleTask('+i+','+j+',2)" style="font-size:10px;color:'+(t.x===2?'var(--gold)':'var(--gray)')+';cursor:pointer;padding:2px 8px;border:1px solid rgba(200,169,110,0.2);">N/A</span>';
+    h += '</label>';
+  });
+  h += '<div style="margin-top:16px;"><input id="taskNote" value="'+(s.note||'')+'" placeholder="Add a note..." style="width:100%;background:var(--navy-mid);border:1px solid rgba(200,169,110,0.15);color:var(--white);padding:8px 12px;font-family:\'Barlow\',sans-serif;font-size:13px;"></div>';
+  h += '<div style="display:flex;gap:8px;margin-top:16px;justify-content:flex-end;">';
+  h += '<button onclick="closeTasks()" class="btn-primary" style="font-size:12px;padding:10px 28px;">Save & Close</button>';
+  h += '</div>';
+  document.getElementById('taskPopupBody').innerHTML = h;
+  document.getElementById('taskPopup').style.display = 'flex';
+}
+
+function toggleTask(si, ti, val) {
+  if (val === 2) { wf[si].tk[ti].x = wf[si].tk[ti].x === 2 ? 0 : 2; }
+  else { wf[si].tk[ti].x = wf[si].tk[ti].x === 1 ? 0 : 1; }
+  var allDone = wf[si].tk.every(function(t){return t.x===1||t.x===2});
+  if (allDone) wf[si].s = 'done';
+  else if (wf[si].s === 'done') wf[si].s = 'active';
   localStorage.setItem('kwf', JSON.stringify(wf));
+  openTasks(si); // refresh popup
+  renderWorkflow();
+}
+
+function closeTasks() {
+  wf[taskStageIdx].note = document.getElementById('taskNote').value || '';
+  localStorage.setItem('kwf', JSON.stringify(wf));
+  document.getElementById('taskPopup').style.display = 'none';
   renderWorkflow();
 }
 
