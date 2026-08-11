@@ -68,7 +68,7 @@
       <div style="font-family:'Barlow Condensed',sans-serif;font-size:13px;font-weight:600;letter-spacing:0.2em;text-transform:uppercase;color:var(--gray);margin-bottom:28px;">Enter password to continue</div>
       <input type="password" id="passwordInput" placeholder="Password" onkeydown="if(event.key==='Enter')checkPassword()" style="background:var(--navy-mid);border:1px solid rgba(200,169,110,0.3);color:var(--white);padding:14px 24px;font-family:'Barlow',sans-serif;font-size:16px;text-align:center;width:260px;outline:none;" autofocus>
       <div style="margin-top:16px;">
-        <button onclick="checkPassword()" class="btn-primary">Unlock</button>
+        <button onclick="checkPassword()" class="btn-primary">Log In</button>
       </div>
       <div id="loginError" style="color:#c86464;font-family:'Barlow Condensed',sans-serif;font-size:12px;letter-spacing:0.1em;margin-top:12px;display:none;">Incorrect password</div>
     </div>
@@ -80,7 +80,7 @@
       <div class="crm-actions">
         <span style="color:var(--gray);font-size:12px;" id="lastSync"></span>
         <button class="btn-primary" onclick="loadLeads()" style="font-size:11px;padding:8px 18px;">Refresh</button>
-        <button onclick="logout()" style="background:none;border:1px solid rgba(200,169,110,0.3);color:var(--gray);padding:8px 18px;font-family:'Barlow Condensed',sans-serif;font-size:11px;letter-spacing:0.1em;text-transform:uppercase;cursor:pointer;">Lock</button>
+        <button onclick="logout()" style="background:none;border:1px solid rgba(200,169,110,0.3);color:var(--gray);padding:8px 18px;font-family:'Barlow Condensed',sans-serif;font-size:11px;letter-spacing:0.1em;text-transform:uppercase;cursor:pointer;">Log Out</button>
       </div>
     </div>
 
