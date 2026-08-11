@@ -141,15 +141,19 @@
     // Password protection
     var PASSWORD = 'kadmia2026';
     function checkPassword() {
-      var input = document.getElementById('passwordInput').value;
-      if (input === PASSWORD) {
-        document.getElementById('loginScreen').style.display = 'none';
-        document.getElementById('crmContent').style.display = 'block';
+      var input = document.getElementById('passwordInput');
+      if (!input) return;
+      if (input.value === PASSWORD) {
+        var ls = document.getElementById('loginScreen');
+        var cc = document.getElementById('crmContent');
+        if (ls) ls.style.display = 'none';
+        if (cc) cc.style.display = 'block';
         sessionStorage.setItem('crmAuth', 'true');
-        loadLeads();
+        if (typeof loadLeads === 'function') loadLeads();
       } else {
-        document.getElementById('loginError').style.display = 'block';
-        document.getElementById('passwordInput').value = '';
+        var err = document.getElementById('loginError');
+        if (err) err.style.display = 'block';
+        input.value = '';
       }
     }
     function logout() {
@@ -158,10 +162,13 @@
       document.getElementById('crmContent').style.display = 'none';
       document.getElementById('passwordInput').value = '';
     }
-    if (sessionStorage.getItem('crmAuth') === 'true') {
-      document.getElementById('loginScreen').style.display = 'none';
-      document.getElementById('crmContent').style.display = 'block';
-    }
+    document.addEventListener('DOMContentLoaded', function() {
+      if (sessionStorage.getItem('crmAuth') === 'true') {
+        var ls = document.getElementById('loginScreen');
+        var cc = document.getElementById('crmContent');
+        if (ls && cc) { ls.style.display = 'none'; cc.style.display = 'block'; loadLeads(); }
+      }
+    });
 
     function switchTab(tab, btn) {
       document.querySelectorAll('.crm-tab').forEach(b => { b.style.borderBottomColor = 'transparent'; b.style.color = 'var(--gray)'; });
