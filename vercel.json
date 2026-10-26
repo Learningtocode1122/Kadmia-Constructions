@@ -1,17 +1,26 @@
 {
   "redirects": [
-    {
-      "source": "/kadmia.html",
-      "destination": "/",
-      "permanent": true
-    }
+    { "source": "/index.html", "destination": "/", "permanent": true },
+    { "source": "/kadmia.html", "destination": "/", "permanent": true },
+    { "source": "/kadmia-services.html", "destination": "/services", "permanent": true },
+    { "source": "/kadmia-projects.html", "destination": "/projects", "permanent": true },
+    { "source": "/kadmia-process.html", "destination": "/process", "permanent": true },
+    { "source": "/estimator.html", "destination": "/calculator", "permanent": true },
+    { "source": "/kadmia-contact.html", "destination": "/contact", "permanent": true },
+    { "source": "/blog.html", "destination": "/blog", "permanent": true },
+    { "source": "/blog-knock-down-rebuild-cost-sydney.html", "destination": "/blog/knock-down-rebuild-cost-sydney", "permanent": true },
+    { "source": "/blog-granny-flat-cost-sydney.html", "destination": "/blog/granny-flat-cost-sydney", "permanent": true },
+    { "source": "/blog-duplex-vs-granny-flat-sydney.html", "destination": "/blog/duplex-vs-granny-flat-sydney", "permanent": true },
+    { "source": "/blog-cdc-vs-da-sydney-approvals.html", "destination": "/blog/cdc-vs-da-sydney-approvals", "permanent": true },
+    { "source": "/blog-custom-home-builder-checklist.html", "destination": "/blog/custom-home-builder-checklist", "permanent": true },
+    { "source": "/blog-sydney-custom-home-costs-by-suburb.html", "destination": "/blog/custom-home-costs-sydney-suburbs", "permanent": true },
+    { "source": "/blog-custom-home-costs-sydney-suburbs.html", "destination": "/blog/custom-home-costs-sydney-suburbs", "permanent": true }
   ],
   "rewrites": [
     { "source": "/services", "destination": "/kadmia-services.html" },
     { "source": "/projects", "destination": "/kadmia-projects.html" },
     { "source": "/process", "destination": "/kadmia-process.html" },
     { "source": "/calculator", "destination": "/estimator.html" },
-    { "source": "/crm", "destination": "/crm.html" },
     { "source": "/contact", "destination": "/kadmia-contact.html" },
     { "source": "/blog", "destination": "/blog.html" },
     { "source": "/blog/knock-down-rebuild-cost-sydney", "destination": "/blog-knock-down-rebuild-cost-sydney.html" },
@@ -19,50 +28,59 @@
     { "source": "/blog/duplex-vs-granny-flat-sydney", "destination": "/blog-duplex-vs-granny-flat-sydney.html" },
     { "source": "/blog/cdc-vs-da-sydney-approvals", "destination": "/blog-cdc-vs-da-sydney-approvals.html" },
     { "source": "/blog/custom-home-builder-checklist", "destination": "/blog-custom-home-builder-checklist.html" },
-    { "source": "/blog/custom-home-costs-sydney-suburbs", "destination": "/blog-sydney-custom-home-costs-by-suburb.html" }
+    { "source": "/blog/custom-home-costs-sydney-suburbs", "destination": "/blog-custom-home-costs-sydney-suburbs.html" }
   ],
   "headers": [
     {
+      "source": "/(.*)",
+      "headers": [
+        { "key": "X-Content-Type-Options", "value": "nosniff" },
+        { "key": "Referrer-Policy", "value": "strict-origin-when-cross-origin" },
+        { "key": "X-Frame-Options", "value": "SAMEORIGIN" },
+        { "key": "Permissions-Policy", "value": "geolocation=(), microphone=(), camera=()" }
+      ]
+    },
+    {
       "source": "/assets/(.*)",
       "headers": [
-        {"key": "Cache-Control", "value": "public, max-age=31536000, immutable"}
+        { "key": "Cache-Control", "value": "public, max-age=31536000, immutable" }
       ]
     },
     {
       "source": "/(.*\\.jpg)",
       "headers": [
-        {"key": "Cache-Control", "value": "public, max-age=2592000"}
+        { "key": "Cache-Control", "value": "public, max-age=2592000" }
       ]
     },
     {
       "source": "/(.*\\.svg)",
       "headers": [
-        {"key": "Cache-Control", "value": "public, max-age=2592000"}
+        { "key": "Cache-Control", "value": "public, max-age=2592000" }
       ]
     },
     {
       "source": "/(.*\\.css)",
       "headers": [
-        {"key": "Cache-Control", "value": "public, max-age=604800"}
+        { "key": "Cache-Control", "value": "public, max-age=604800" }
       ]
     },
     {
       "source": "/(.*\\.js)",
       "headers": [
-        {"key": "Cache-Control", "value": "public, max-age=604800"}
+        { "key": "Cache-Control", "value": "public, max-age=604800" }
       ]
     },
     {
       "source": "/(.*\\.xml)",
       "headers": [
-        {"key": "Content-Type", "value": "application/xml; charset=utf-8"},
-        {"key": "Cache-Control", "value": "public, max-age=3600"}
+        { "key": "Content-Type", "value": "application/xml; charset=utf-8" },
+        { "key": "Cache-Control", "value": "public, max-age=3600" }
       ]
     },
     {
       "source": "/(.*\\.woff2?)",
       "headers": [
-        {"key": "Cache-Control", "value": "public, max-age=31536000, immutable"}
+        { "key": "Cache-Control", "value": "public, max-age=31536000, immutable" }
       ]
     }
   ]

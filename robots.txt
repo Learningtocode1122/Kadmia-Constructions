@@ -1,3 +1,8 @@
 User-agent: *
 Allow: /
+
+# private
+Disallow: /crm
+Disallow: /crm.html
+
 Sitemap: https://www.kadmia.com.au/sitemap.xml

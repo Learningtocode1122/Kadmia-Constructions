@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en-AU">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, follow">
+<meta name="theme-color" content="#0a1628">
+<title>Page not found | Kadmia Constructions</title>
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@300;400&family=Barlow+Condensed:wght@600&display=swap" rel="stylesheet">
+<style>
+  :root{ --navy:#0a1628; --gold:#c8a96e; --white:#f5f2ed; --gray:#8a9ab0; --gray-light:#c5cdd8; }
+  *,*::before,*::after{ box-sizing:border-box; margin:0; padding:0; }
+  body{
+    min-height:100vh; display:flex; flex-direction:column; justify-content:center;
+    background:var(--navy); color:var(--white); font-family:'Barlow',sans-serif; font-weight:300;
+    padding:48px 24px;
+  }
+  .wrap{ width:100%; max-width:720px; margin:0 auto; }
+  .logo{ font-family:'Bebas Neue',sans-serif; font-size:30px; letter-spacing:.12em;
+         color:var(--white); text-decoration:none; display:inline-block; margin-bottom:56px; }
+  .logo span{ color:var(--gold); }
+  .eyebrow{ font-family:'Barlow Condensed',sans-serif; font-size:12px; font-weight:600;
+            letter-spacing:.25em; text-transform:uppercase; color:var(--gold);
+            display:flex; align-items:center; gap:16px; margin-bottom:20px; }
+  .eyebrow::before{ content:''; width:30px; height:1px; background:var(--gold); }
+  h1{ font-family:'Bebas Neue',sans-serif; font-size:clamp(48px,9vw,88px); line-height:.95;
+      letter-spacing:.02em; margin-bottom:20px; }
+  h1 span{ color:var(--gold); }
+  p{ font-size:17px; line-height:1.65; color:var(--gray-light); max-width:52ch; margin-bottom:36px; }
+  .links{ display:flex; flex-wrap:wrap; gap:12px; margin-bottom:36px; }
+  .links a{
+    font-family:'Barlow Condensed',sans-serif; font-size:13px; font-weight:600;
+    letter-spacing:.15em; text-transform:uppercase; text-decoration:none;
+    color:var(--white); border:1px solid rgba(200,169,110,.35); padding:14px 24px;
+    transition:border-color .2s, color .2s, background .2s;
+  }
+  .links a:hover, .links a:focus-visible{ color:var(--gold); border-color:var(--gold); background:rgba(200,169,110,.08); }
+  .links a.primary{ background:var(--gold); border-color:var(--gold); color:var(--navy); }
+  .links a.primary:hover{ background:#e0c48a; color:var(--navy); }
+  .phone{ font-family:'Barlow Condensed',sans-serif; font-size:26px; letter-spacing:.04em;
+          color:var(--white); text-decoration:none; }
+  .phone:hover{ color:var(--gold); }
+  .phone-label{ font-size:12px; letter-spacing:.2em; text-transform:uppercase; color:var(--gray);
+                display:block; margin-bottom:6px; font-family:'Barlow Condensed',sans-serif; }
+  :focus-visible{ outline:2px solid var(--gold); outline-offset:3px; }
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <a href="/" class="logo">KADMIA<span>.</span></a>
+
+    <div class="eyebrow">Error 404</div>
+    <h1>This page has <span>moved on</span></h1>
+    <p>The link you followed no longer exists — the page may have been renamed when we rebuilt the site. Everything is still here, just somewhere else.</p>
+
+    <div class="links">
+      <a href="/" class="primary">Home</a>
+      <a href="/services">Services</a>
+      <a href="/projects">Projects</a>
+      <a href="/blog">Guides</a>
+      <a href="/contact">Contact</a>
+    </div>
+
+    <span class="phone-label">Or call us directly</span>
+    <a class="phone" href="tel:+61478575251">0478 575 251</a>
+  </div>
+</body>
+</html>
