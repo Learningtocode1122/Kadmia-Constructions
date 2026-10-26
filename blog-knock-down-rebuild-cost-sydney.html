@@ -299,6 +299,29 @@
     .footer-links-group{gap:32px;margin-top:32px}
     .footer-phone{font-size:22px}
   }
+
+  /* related reading between posts */
+  .related{padding:80px;background:var(--navy);border-top:1px solid rgba(200,169,110,.12)}
+  .related-inner{max-width:1180px;margin:0 auto}
+  .related-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(32px,4vw,48px);
+    letter-spacing:.03em;color:var(--white);margin-bottom:8px}
+  .related-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:2px;margin:32px 0 26px}
+  .related-card{display:block;padding:26px 24px;text-decoration:none;
+    background:rgba(255,255,255,.02);border:1px solid rgba(200,169,110,.12);
+    transition:background .2s,border-color .2s,transform .2s}
+  .related-card:hover,.related-card:focus-visible{
+    background:rgba(200,169,110,.06);border-color:rgba(200,169,110,.42);transform:translateY(-2px)}
+  .related-cat{display:block;font-family:'Barlow Condensed',sans-serif;font-size:11px;font-weight:600;
+    letter-spacing:.2em;text-transform:uppercase;color:var(--gold);margin-bottom:12px}
+  .related-head{display:block;font-family:'Bebas Neue',sans-serif;font-size:26px;line-height:1.02;
+    color:var(--white);margin-bottom:10px}
+  .related-desc{display:block;font-size:13.5px;line-height:1.55;color:var(--gray-light)}
+  .related-service{font-size:15px;color:var(--gray-light)}
+  .related-service a{color:var(--gold);text-decoration:none;border-bottom:1px solid rgba(200,169,110,.4)}
+  .related-service a:hover{color:var(--gold-light)}
+  @media (max-width:1100px){ .related{padding:64px 32px} }
+  @media (max-width:900px){ .related-grid{grid-template-columns:1fr} }
+  @media (max-width:720px){ .related{padding:48px 20px} }
 </style>
 <script>
 /* ------------------------------------------------------------------
@@ -548,7 +571,32 @@ window.KADMIA_GA_ID = "G-8MS9XJ03GP";
     </div>
   </article>
 
-  <div class="cta-banner">
+  <section class="related" aria-labelledby="related-title">
+  <div class="related-inner">
+    <div class="section-eyebrow">Read next</div>
+    <h2 id="related-title" class="related-title">More Sydney building guides</h2>
+    <div class="related-grid">
+      <a class="related-card" href="/blog/granny-flat-cost-sydney">
+        <span class="related-cat">Granny flats</span>
+        <span class="related-head">How Much Does a Granny Flat Cost in Sydney?</span>
+        <span class="related-desc">A line-by-line breakdown of a 60 m² granny flat, plus the rental maths.</span>
+      </a>
+      <a class="related-card" href="/blog/cdc-vs-da-sydney-approvals">
+        <span class="related-cat">Approvals & council</span>
+        <span class="related-head">CDC vs DA: Which Approval Path Is Faster?</span>
+        <span class="related-desc">Timelines, costs and when each pathway applies in Sydney.</span>
+      </a>
+      <a class="related-card" href="/blog/custom-home-costs-sydney-suburbs">
+        <span class="related-cat">Costs & budgeting</span>
+        <span class="related-head">Custom Home Costs per Square Metre by Suburb</span>
+        <span class="related-desc">What you pay per m² in each Sydney region, by specification level.</span>
+      </a>
+    </div>
+    <p class="related-service">Planning a build? See our <a href="/services">home building services</a> or <a href="/calculator">estimate your project cost</a>.</p>
+  </div>
+</section>
+
+<div class="cta-banner">
     <div class="section-eyebrow">Ready to explore a KDR?</div>
     <h2 class="section-title">Let's <span>Talk Numbers</span></h2>
     <p>Every block is different. Book a free site consultation and we will give you honest, detailed numbers for your specific property — no pressure, no obligation.</p>
